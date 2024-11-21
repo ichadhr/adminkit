@@ -28,30 +28,22 @@
 			<Collapsible.Root open={mainItem.isActive}>
 				{#snippet child({ props })}
 					<Sidebar.MenuItem {...props}>
-						<Sidebar.MenuButton>
-							{#snippet tooltipContent()}
-								{mainItem.title}
-							{/snippet}
+						<Collapsible.Trigger>
 							{#snippet child({ props })}
-								<a href={mainItem.url} {...props}>
+								<Sidebar.MenuButton {...props}>
 									<mainItem.icon />
 									<span>{mainItem.title}</span>
-								</a>
-							{/snippet}
-						</Sidebar.MenuButton>
-						{#if mainItem.items?.length}
-							<Collapsible.Trigger>
-								{#snippet child({ props })}
-									<Sidebar.MenuAction
-										{...props}
-										class="data-[state=open]:rotate-90"
-									>
-										<ChevronRight />
+									{#if mainItem.items?.length}
+									<span class="collapsible-trigger-indicator">
+										<ChevronRight class="h-4 w-4"/>
 										<span class="sr-only">Toggle</span>
-									</Sidebar.MenuAction>
-								{/snippet}
-							</Collapsible.Trigger>
-							<Collapsible.Content>
+									</span>
+									{/if}
+								</Sidebar.MenuButton>
+							{/snippet}
+						</Collapsible.Trigger>
+						{#if mainItem.items?.length}
+							<Collapsible.Content class="collapsible-content">
 								<Sidebar.MenuSub>
 									{#each mainItem.items as subItem (subItem.title)}
 										<Sidebar.MenuSubItem>

@@ -73,3 +73,48 @@
 		@apply bg-background text-foreground;
 	}
 }
+
+/* Collapsible Menu Styles */
+@layer components {
+	.collapsible-trigger-indicator {
+		@apply ml-auto transition-transform duration-200;
+	}
+
+	[data-state='open'] .collapsible-trigger-indicator {
+		@apply rotate-90;
+	}
+
+	[data-state='closed'] .collapsible-trigger-indicator {
+		@apply rotate-0;
+	}
+
+	.collapsible-content {
+		overflow: hidden;
+	}
+
+	.collapsible-content[data-state='open'] {
+		animation: collapsible-down 0.2s ease-out;
+	}
+
+	.collapsible-content[data-state='closed'] {
+		animation: collapsible-up 0.2s ease-out;
+	}
+
+	@keyframes collapsible-down {
+		from {
+			height: 0;
+		}
+		to {
+			height: var(--sh-collapsible-content-height);
+		}
+	}
+
+	@keyframes collapsible-up {
+		from {
+			height: var(--sh-collapsible-content-height);
+		}
+		to {
+			height: 0;
+		}
+	}
+}
