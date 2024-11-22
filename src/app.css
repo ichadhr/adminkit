@@ -74,7 +74,7 @@
 	}
 }
 
-/* Collapsible Menu Styles */
+/* collapsible Menu Styles */
 @layer components {
 	.collapsible-trigger-indicator {
 		@apply ml-auto transition-transform duration-200;

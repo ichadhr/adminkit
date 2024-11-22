@@ -17,90 +17,72 @@
 		},
 		navMain: [
 			{
-				title: "Playground",
-				url: "#",
-				icon: SquareTerminal,
-				isActive: true,
+				title: "Forms",
 				items: [
 					{
-						title: "History",
+						title: "Form components",
 						url: "#",
+						icon: SquareTerminal,
+						// isActive: true,
+						items: [
+							{
+								title: "History",
+								url: "#",
+							},
+							{
+								title: "Starred",
+								url: "#",
+							},
+							{
+								title: "Settings",
+								url: "#",
+							},
+						],
 					},
 					{
-						title: "Starred",
+						title: "Pickers",
 						url: "#",
+						icon: Bot,
+						items: [
+							{
+								title: "Genesis",
+								url: "#",
+							},
+							{
+								title: "Explorer",
+								url: "#",
+							},
+							{
+								title: "Quantum",
+								url: "#",
+							},
+						],
 					},
 					{
-						title: "Settings",
+						title: "Form layouts",
 						url: "#",
-					},
-				],
-			},
-			{
-				title: "Models",
-				url: "#",
-				icon: Bot,
-				items: [
-					{
-						title: "Genesis",
-						url: "#",
-					},
-					{
-						title: "Explorer",
-						url: "#",
-					},
-					{
-						title: "Quantum",
-						url: "#",
-					},
-				],
-			},
-			{
-				title: "Documentation",
-				url: "#",
-				icon: BookOpen,
-				items: [
-					{
-						title: "Introduction",
-						url: "#",
-					},
-					{
-						title: "Get Started",
-						url: "#",
-					},
-					{
-						title: "Tutorials",
-						url: "#",
-					},
-					{
-						title: "Changelog",
-						url: "#",
-					},
-				],
-			},
-			{
-				title: "Settings",
-				url: "#",
-				icon: Settings2,
-				items: [
-					{
-						title: "General",
-						url: "#",
-					},
-					{
-						title: "Team",
-						url: "#",
-					},
-					{
-						title: "Billing",
-						url: "#",
-					},
-					{
-						title: "Limits",
-						url: "#",
-					},
-				],
-			},
+						icon: BookOpen,
+						items: [
+							{
+								title: "Introduction",
+								url: "#",
+							},
+							{
+								title: "Get Started",
+								url: "#",
+							},
+							{
+								title: "Tutorials",
+								url: "#",
+							},
+							{
+								title: "Changelog",
+								url: "#",
+							},
+						],
+					}
+				]
+			}
 		],
 		navSecondary: [
 			{
@@ -140,7 +122,7 @@
 	import NavSecondary from "$lib/components/nav-secondary.svelte";
 	import NavUser from "$lib/components/nav-user.svelte";
 	import * as Sidebar from "$lib/components/ui/sidebar/index.js";
-	import Command from "lucide-svelte/icons/command";
+	import Radiation from "lucide-svelte/icons/Radiation";
 	import type { ComponentProps } from "svelte";
 
 	let { ref = $bindable(null), ...restProps }: ComponentProps<typeof Sidebar.Root> = $props();
@@ -156,11 +138,11 @@
 							<div
 								class="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg"
 							>
-								<Command class="size-4" />
+								<Radiation class="size-5" />
 							</div>
 							<div class="grid flex-1 text-left text-sm leading-tight">
-								<span class="truncate font-semibold">Acme Inc</span>
-								<span class="truncate text-xs">Enterprise</span>
+								<span class="truncate font-semibold">Svelte Kit</span>
+								<span class="truncate text-xs">Application</span>
 							</div>
 						</a>
 					{/snippet}
@@ -169,7 +151,7 @@
 		</Sidebar.Menu>
 	</Sidebar.Header>
 	<Sidebar.Content>
-		<NavMain items={data.navMain} />
+		<NavMain groupItems={data.navMain} />
 		<NavProjects projects={data.projects} />
 		<NavSecondary items={data.navSecondary} class="mt-auto" />
 	</Sidebar.Content>
