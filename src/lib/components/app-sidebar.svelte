@@ -6,8 +6,8 @@
 	import LifeBuoy from "lucide-svelte/icons/life-buoy";
 	import Map from "lucide-svelte/icons/map";
 	import Send from "lucide-svelte/icons/send";
-	import Settings2 from "lucide-svelte/icons/settings-2";
 	import SquareTerminal from "lucide-svelte/icons/square-terminal";
+	import House from "lucide-svelte/icons/house";
 
 	const data = {
 		user: {
@@ -20,21 +20,26 @@
 				title: "Forms",
 				items: [
 					{
+						title: "Dashboard",
+						url: "/dashboard",
+						icon: House
+					},
+					{
 						title: "Form components",
-						url: "#",
+						url: "##",
 						icon: SquareTerminal,
 						// isActive: true,
 						items: [
 							{
-								title: "History",
+								title: "Checkboxes & radios",
+								url: "/dashboard/form_components/checkboxes_&_radios",
+							},
+							{
+								title: "Form actions",
 								url: "#",
 							},
 							{
-								title: "Starred",
-								url: "#",
-							},
-							{
-								title: "Settings",
+								title: "Input fields",
 								url: "#",
 							},
 						],
