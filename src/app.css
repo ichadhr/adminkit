@@ -181,7 +181,6 @@
 	}
 }
 
-/* Add this to your app.css */
 code {
 	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
 		'Courier New', monospace;
@@ -197,4 +196,63 @@ code {
 		'Courier New', monospace;
 	font-size: 0.9em;
 	line-height: 1.7;
+}
+
+/* Progress Bar Styles */
+:root {
+	--progress-color: #000000;
+	--progress-color-end: #818181;
+	--progress-shadow-opacity: 0.5;
+	--progress-height: 2px; /* New variable */
+	--spinner-size: 14px; /* New variable */
+	--spinner-border-width: 2px; /* New variable */
+	--progress-transition: 0.1s; /* New variable */
+	--fade-transition: 0.3s; /* New variable */
+}
+
+.progress-wrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: var(--progress-height); /* Use variable */
+	z-index: 9999;
+	transition: opacity var(--fade-transition) ease;
+	pointer-events: none;
+}
+
+.progress-bar {
+	width: 0;
+	height: 100%;
+	background: linear-gradient(to right, var(--progress-color), var(--progress-color-end));
+	box-shadow: 0 0 10px rgba(41, 152, 255, var(--progress-shadow-opacity));
+	transition: width var(--progress-transition) ease; /* Use variable */
+	position: relative; /* Added for better shine effect positioning */
+}
+
+/* Loading Spinner Styles */
+.loading-spinner {
+	position: fixed;
+	top: 15px;
+	right: 15px;
+	width: var(--spinner-size); /* Use variable */
+	height: var(--spinner-size); /* Use variable */
+	border: solid var(--spinner-border-width) transparent; /* Use variable */
+	border-top-color: var(--progress-color);
+	border-left-color: var(--progress-color);
+	border-radius: 50%;
+	opacity: 1;
+	transition: opacity var(--fade-transition) ease; /* Use variable */
+	animation: loading-spinner 400ms linear infinite;
+	z-index: 9999;
+	pointer-events: none;
+}
+
+@keyframes loading-spinner {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
