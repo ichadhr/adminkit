@@ -3,14 +3,33 @@
 	import { navigating } from '$app/stores';
 	import { browser } from '$app/environment';
 
-	let progressBar: HTMLDivElement;
-	let progressElement: HTMLDivElement;
+	// Constants for better maintainability
+	const INITIAL_PROGRESS = 20;
+	const MAX_PROGRESS = 90;
+	const COMPLETE_PROGRESS = 100;
+	const PROGRESS_INTERVAL = 100;
+	const FADE_DELAY = 300;
+	const INITIAL_LOAD_DELAY = 500;
+	const MIN_INCREMENT = 0.2;
+	const INCREMENT_MULTIPLIER = 3;
+
+	// Type definitions for better type safety
+	interface ProgressElements {
+		bar: HTMLDivElement | null;
+		wrapper: HTMLDivElement | null;
+	}
+
+	// Properly typed variables
+	let elements: ProgressElements = {
+		bar: null,
+		wrapper: null
+	};
 	let currentProgress = 0;
 	let progressTimer: ReturnType<typeof setInterval>;
 	let fadeTimer: ReturnType<typeof setTimeout>;
 	let isInitialLoad = true;
 
-	// Track navigation and initial load
+	// Reactive statement for progress control
 	$: if (browser && ($navigating || isInitialLoad)) {
 		startProgress();
 	} else if (browser) {
@@ -19,46 +38,45 @@
 
 	function startProgress(): void {
 		if (!browser) return;
+		clearTimeout(fadeTimer);
 
-		if (fadeTimer) clearTimeout(fadeTimer);
-
-		if (progressElement) {
-			progressElement.style.opacity = '1';
+		if (elements.wrapper) {
+			elements.wrapper.style.opacity = '1';
 		}
 
-		currentProgress = 20;
+		currentProgress = INITIAL_PROGRESS;
 		updateProgress();
 
 		progressTimer = setInterval(() => {
-			if (currentProgress < 90) {
-				const remaining = 90 - currentProgress;
-				const increment = Math.max(0.2, (remaining / 100) * Math.random() * 3);
-				currentProgress = Math.min(90, currentProgress + increment);
+			if (currentProgress < MAX_PROGRESS) {
+				const remaining = MAX_PROGRESS - currentProgress;
+				const increment = Math.max(
+					MIN_INCREMENT,
+					(remaining / COMPLETE_PROGRESS) * Math.random() * INCREMENT_MULTIPLIER
+				);
+				currentProgress = Math.min(MAX_PROGRESS, currentProgress + increment);
 				updateProgress();
 			}
-		}, 100);
+		}, PROGRESS_INTERVAL);
 	}
 
 	function completeProgress(): void {
 		if (!browser) return;
+		clearInterval(progressTimer);
 
-		if (progressTimer) clearInterval(progressTimer);
-		currentProgress = 100;
+		currentProgress = COMPLETE_PROGRESS;
 		updateProgress();
 
 		fadeTimer = setTimeout(() => {
-			if (progressElement) {
-				progressElement.style.opacity = '0';
+			if (elements.wrapper) {
+				elements.wrapper.style.opacity = '0';
 			}
-		}, 300);
+		}, FADE_DELAY);
 	}
 
 	function updateProgress(): void {
-		if (!browser) return;
-
-		if (progressBar) {
-			progressBar.style.width = `${currentProgress}%`;
-		}
+		if (!browser || !elements.bar) return;
+		elements.bar.style.width = `${currentProgress}%`;
 	}
 
 	onMount(() => {
@@ -66,28 +84,27 @@
 			setTimeout(() => {
 				isInitialLoad = false;
 				completeProgress();
-			}, 500);
+			}, INITIAL_LOAD_DELAY);
 		}
 	});
 
 	onDestroy(() => {
 		if (!browser) return;
-
-		if (progressTimer) clearInterval(progressTimer);
-		if (fadeTimer) clearTimeout(fadeTimer);
+		clearInterval(progressTimer);
+		clearTimeout(fadeTimer);
 	});
 </script>
 
 {#if browser}
 	<div
 		class="progress-wrapper"
-		bind:this={progressElement}
+		bind:this={elements.wrapper}
 		role="progressbar"
 		aria-valuenow={currentProgress}
 		aria-valuemin="0"
-		aria-valuemax="100"
+		aria-valuemax={COMPLETE_PROGRESS}
 	>
-		<div class="progress-bar" bind:this={progressBar}></div>
+		<div class="progress-bar" bind:this={elements.bar}></div>
 		<div class="loading-spinner" aria-hidden="true"></div>
 	</div>
 {/if}
