@@ -99,6 +99,7 @@
 	<div
 		class="progress-wrapper"
 		bind:this={elements.wrapper}
+		aria-label="Loading progress"
 		role="progressbar"
 		aria-valuenow={currentProgress}
 		aria-valuemin="0"

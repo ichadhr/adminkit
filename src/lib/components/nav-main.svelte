@@ -22,13 +22,14 @@
 		title: string;
 		items: MenuItem[];
 	}
-	
+
 	let { groupItems }: { groupItems: GroupItem[] } = $props();
 
 	const isActive = derived(page, ($page) => (url: string) => $page.url.pathname === url);
-	const isAnySubItemActive = derived(page, ($page) => (items: SubMenuItem[]) => 
-    items?.some(item => $page.url.pathname === item.url)
-  );
+	const isAnySubItemActive = derived(
+		page,
+		($page) => (items: SubMenuItem[]) => items?.some((item) => $page.url.pathname === item.url)
+	);
 </script>
 
 {#each groupItems as group}
@@ -36,13 +37,16 @@
 		<Sidebar.GroupLabel>{group.title.toUpperCase()}</Sidebar.GroupLabel>
 		<Sidebar.Menu>
 			{#each group.items as menuNav (menuNav.title)}
-			<Collapsible.Root open={menuNav.items && $isAnySubItemActive(menuNav.items)}>
+				<Collapsible.Root open={menuNav.items && $isAnySubItemActive(menuNav.items)}>
 					{#snippet child({ props })}
 						<Sidebar.MenuItem {...props}>
 							<Collapsible.Trigger>
 								{#snippet child({ props })}
 									{#if menuNav.items?.length}
-										<Sidebar.MenuButton data-active={$isActive(menuNav.url) ? 'true' : 'false'} {...props}>
+										<Sidebar.MenuButton
+											data-active={$isActive(menuNav.url) ? 'true' : 'false'}
+											{...props}
+										>
 											<menuNav.icon />
 											<span>{menuNav.title}</span>
 											<span class="collapsible-trigger-indicator">
@@ -51,11 +55,11 @@
 											</span>
 										</Sidebar.MenuButton>
 									{:else}
-										<a 
-											href={menuNav.url} 
-											class="block no-underline"
-										>
-											<Sidebar.MenuButton data-active={$isActive(menuNav.url) ? 'true' : 'false'} {...props}>
+										<a href={menuNav.url} class="block no-underline">
+											<Sidebar.MenuButton
+												data-active={$isActive(menuNav.url) ? 'true' : 'false'}
+												{...props}
+											>
 												<menuNav.icon />
 												<span>{menuNav.title}</span>
 											</Sidebar.MenuButton>
@@ -68,7 +72,7 @@
 									<Sidebar.MenuSub>
 										{#each menuNav.items as subItem (subItem.title)}
 											<Sidebar.MenuSubItem>
-												<Sidebar.MenuSubButton 
+												<Sidebar.MenuSubButton
 													href={subItem.url}
 													data-active={$isActive(subItem.url) ? 'true' : 'false'}
 												>

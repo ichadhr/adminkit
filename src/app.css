@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 @layer base {
+	:where(html, :host) {
+		-webkit-text-size-adjust: 100%;
+		text-size-adjust: 100%;
+	}
+
 	:root {
 		--background: 0 0% 100%;
 		--foreground: 240 10% 3.9%;
@@ -119,83 +124,45 @@
 	}
 }
 
-/* Code Block Styles */
-.code-block-wrapper {
-	position: relative;
-	border-radius: 0.5rem;
-	overflow: hidden;
-	background: var(--code-bg, #1a1a1a);
-	margin: 1rem 0;
+.space-y-6 > :not([hidden]) ~ :not([hidden]) {
+	--tw-space-y-reverse: 0;
+	margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
+	margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
 }
 
-.code-block {
-	position: relative;
-}
-
-.code-block.word-wrap pre {
-	white-space: pre-wrap;
-	word-wrap: break-word;
-}
-
-.code-block pre {
-	padding: 0.7rem;
-	margin: 0;
-	overflow-x: auto;
-}
-
-.code-block .highlighted-line {
-	background: rgba(255, 255, 255, 0.1);
-	border-left: 2px solid #7ee787;
-}
-
-.code-block .line-number {
-	display: inline-block;
-	width: 1.5rem;
-	text-align: right;
-	color: #666;
-	padding-right: 1rem;
-	user-select: none;
-}
-
-.copy-text {
+/* Code block language tag */
+.code-block[data-language]::before {
+	content: attr(data-language);
 	position: absolute;
-	top: 0.5rem;
-	right: 0.5rem;
-	padding: 0.5rem;
-	color: #fff;
+	top: 0;
+	right: 0.2rem;
+	padding: 0.25rem 0.5rem;
 	font-size: 0.75rem;
-	text-transform: uppercase;
-	letter-spacing: 0.05em;
-	cursor: pointer;
-	opacity: 0.7;
-	transition: opacity 0.2s ease;
+	color: white;
+	border-bottom-left-radius: 0.25rem;
+	border-bottom-right-radius: 0.25rem;
+	z-index: 10;
 }
 
-.copy-text:hover {
-	opacity: 1;
+/* Skeleton animation */
+.skeleton-line {
+	background: linear-gradient(
+		90deg,
+		rgba(255, 255, 255, 0.1) 25%,
+		rgba(255, 255, 255, 0.15) 37%,
+		rgba(255, 255, 255, 0.1) 63%
+	);
+	background-size: 400% 100%;
+	animation: shimmer 2s infinite linear;
 }
 
-@media (prefers-color-scheme: dark) {
-	.code-block-wrapper {
-		--code-bg: #0d1117;
+@keyframes shimmer {
+	0% {
+		background-position: -200% 0;
 	}
-}
-
-code {
-	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-		'Courier New', monospace;
-	padding: 0.2rem 0.4rem;
-	font-size: 0.84em;
-	background: rgba(0, 0, 0, 0.1);
-	border-radius: 0.25rem;
-}
-
-.code-block code,
-.code-block pre {
-	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-		'Courier New', monospace;
-	font-size: 0.9em;
-	line-height: 1.7;
+	100% {
+		background-position: 200% 0;
+	}
 }
 
 /* Progress Bar Styles */
