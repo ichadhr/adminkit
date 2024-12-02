@@ -1,5 +1,5 @@
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import { page } from '$app/stores';
 import { derived } from 'svelte/store';
 
@@ -12,12 +12,12 @@ function formatSegment(segment: string): string {
 }
 
 // get the page title from the last URL segment
-export const pageTitle = derived(page, ($page) => 
+export const pageTitle = derived(page, ($page) =>
 	formatSegment($page.url.pathname.split('/').filter(Boolean).pop() || 'Home')
 );
 
 // generate breadcrumb items from URL
-export const breadcrumbs = derived(page, ($page) => 
+export const breadcrumbs = derived(page, ($page) =>
 	$page.url.pathname
 		.split('/')
 		.filter((segment) => segment)

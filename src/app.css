@@ -131,6 +131,9 @@
 }
 
 /* Code block language tag */
+/* code {
+	@apply rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold subpixel-antialiased;
+} */
 .code-block[data-language]::before {
 	content: attr(data-language);
 	position: absolute;
@@ -146,22 +149,17 @@
 
 /* Skeleton animation */
 .skeleton-line {
-	background: linear-gradient(
-		90deg,
-		rgba(255, 255, 255, 0.1) 25%,
-		rgba(255, 255, 255, 0.15) 37%,
-		rgba(255, 255, 255, 0.1) 63%
-	);
-	background-size: 400% 100%;
-	animation: shimmer 2s infinite linear;
+	background: rgba(255, 255, 255, 0.1);
+	animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-@keyframes shimmer {
-	0% {
-		background-position: -200% 0;
-	}
+@keyframes pulse {
+	0%,
 	100% {
-		background-position: 200% 0;
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.5;
 	}
 }
 

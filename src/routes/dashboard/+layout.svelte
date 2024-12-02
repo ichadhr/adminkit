@@ -4,7 +4,7 @@
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import { breadcrumbs, pageTitle } from '@/lib/utils';
-	
+
 	let { children } = $props();
 </script>
 
