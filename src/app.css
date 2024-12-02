@@ -131,9 +131,10 @@
 }
 
 /* Code block language tag */
-/* code {
+:where(p, li, div:not(.code-block)) > code {
 	@apply rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold subpixel-antialiased;
-} */
+}
+
 .code-block[data-language]::before {
 	content: attr(data-language);
 	position: absolute;
