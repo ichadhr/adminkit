@@ -1,134 +1,134 @@
 <script lang="ts" module>
-	import BookOpen from "lucide-svelte/icons/book-open";
-	import Bot from "lucide-svelte/icons/bot";
-	import ChartPie from "lucide-svelte/icons/chart-pie";
-	import Frame from "lucide-svelte/icons/frame";
-	import LifeBuoy from "lucide-svelte/icons/life-buoy";
-	import Map from "lucide-svelte/icons/map";
-	import Send from "lucide-svelte/icons/send";
-	import SquareTerminal from "lucide-svelte/icons/square-terminal";
-	import House from "lucide-svelte/icons/house";
+	import BookOpen from 'lucide-svelte/icons/book-open';
+	import Bot from 'lucide-svelte/icons/bot';
+	import ChartPie from 'lucide-svelte/icons/chart-pie';
+	import Frame from 'lucide-svelte/icons/frame';
+	import LifeBuoy from 'lucide-svelte/icons/life-buoy';
+	import Map from 'lucide-svelte/icons/map';
+	import Send from 'lucide-svelte/icons/send';
+	import SquareTerminal from 'lucide-svelte/icons/square-terminal';
+	import House from 'lucide-svelte/icons/house';
 
 	const data = {
 		user: {
-			name: "shadcn",
-			email: "m@example.com",
-			avatar: "/favicon.png",
+			name: 'shadcn',
+			email: 'm@example.com',
+			avatar: '/favicon.png'
 		},
 		navMain: [
 			{
-				title: "Forms",
+				title: 'Forms',
 				items: [
 					{
-						title: "Dashboard",
-						url: "/dashboard",
+						title: 'Dashboard',
+						url: '/dashboard',
 						icon: House
 					},
 					{
-						title: "Form components",
-						url: "##",
+						title: 'Form components',
+						url: '##',
 						icon: SquareTerminal,
 						// isActive: true,
 						items: [
 							{
-								title: "Checkboxes & radios",
-								url: "/dashboard/form_components/checkboxes_&_radios",
+								title: 'Checkboxes & radios',
+								url: '/dashboard/form_components/checkboxes_&_radios'
 							},
 							{
-								title: "Form actions",
-								url: "#",
+								title: 'Form actions',
+								url: '#'
 							},
 							{
-								title: "Input fields",
-								url: "#",
-							},
-						],
+								title: 'Input fields',
+								url: '#'
+							}
+						]
 					},
 					{
-						title: "Pickers",
-						url: "#",
+						title: 'Pickers',
+						url: '#',
 						icon: Bot,
 						items: [
 							{
-								title: "Genesis",
-								url: "#",
+								title: 'Genesis',
+								url: '#'
 							},
 							{
-								title: "Explorer",
-								url: "#",
+								title: 'Explorer',
+								url: '#'
 							},
 							{
-								title: "Quantum",
-								url: "#",
-							},
-						],
+								title: 'Quantum',
+								url: '#'
+							}
+						]
 					},
 					{
-						title: "Form layouts",
-						url: "#",
+						title: 'Form layouts',
+						url: '#',
 						icon: BookOpen,
 						items: [
 							{
-								title: "Introduction",
-								url: "#",
+								title: 'Introduction',
+								url: '#'
 							},
 							{
-								title: "Get Started",
-								url: "#",
+								title: 'Get Started',
+								url: '#'
 							},
 							{
-								title: "Tutorials",
-								url: "#",
+								title: 'Tutorials',
+								url: '#'
 							},
 							{
-								title: "Changelog",
-								url: "#",
-							},
-						],
+								title: 'Changelog',
+								url: '#'
+							}
+						]
 					}
 				]
 			}
 		],
 		navSecondary: [
 			{
-				title: "Support",
-				url: "#",
-				icon: LifeBuoy,
+				title: 'Support',
+				url: '#',
+				icon: LifeBuoy
 			},
 			{
-				title: "Feedback",
-				url: "#",
-				icon: Send,
-			},
+				title: 'Feedback',
+				url: '#',
+				icon: Send
+			}
 		],
 		projects: [
 			{
-				name: "Design Engineering",
-				url: "#",
-				icon: Frame,
+				name: 'Design Engineering',
+				url: '#',
+				icon: Frame
 			},
 			{
-				name: "Sales & Marketing",
-				url: "#",
-				icon: ChartPie,
+				name: 'Sales & Marketing',
+				url: '#',
+				icon: ChartPie
 			},
 			{
-				name: "Travel",
-				url: "#",
-				icon: Map,
-			},
-		],
+				name: 'Travel',
+				url: '#',
+				icon: Map
+			}
+		]
 	};
 </script>
 
 <script lang="ts">
-	import NavMain from "$lib/components/nav-main.svelte";
-	import NavProjects from "$lib/components/nav-projects.svelte";
-	import NavSecondary from "$lib/components/nav-secondary.svelte";
-	import NavUser from "$lib/components/nav-user.svelte";
-	import * as Sidebar from "$lib/components/ui/sidebar/index.js";
-	import Radiation from "lucide-svelte/icons/Radiation";
-	import type { ComponentProps } from "svelte";
+	import NavMain from '$lib/components/nav-main.svelte';
+	import NavProjects from '$lib/components/nav-projects.svelte';
+	import NavSecondary from '$lib/components/nav-secondary.svelte';
+	import NavUser from '$lib/components/nav-user.svelte';
+	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
+	import Radiation from 'lucide-svelte/icons/Radiation';
+	import type { ComponentProps } from 'svelte';
 
 	let { ref = $bindable(null), ...restProps }: ComponentProps<typeof Sidebar.Root> = $props();
 </script>
@@ -141,7 +141,7 @@
 					{#snippet child({ props })}
 						<a href="##" {...props}>
 							<div
-								class="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg"
+								class="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground"
 							>
 								<Radiation class="size-5" />
 							</div>

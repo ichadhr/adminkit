@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onDestroy } from 'svelte';
+	import { onDestroy } from 'svelte';
 	import Highlight, { LineNumbers } from 'svelte-highlight';
 	import defaultTheme from 'svelte-highlight/styles/github-dark';
 	import { browser } from '$app/environment';
@@ -47,8 +47,8 @@
 				const color = match[1];
 				if (color.includes('var(--')) return `hsl(${color})`;
 				if (color.startsWith('rgb')) {
-					const [r, g, b] = color.split(',').map(n => parseInt(n.trim()));
-					return `#${[r, g, b].map(n => n.toString(16).padStart(2, '0')).join('')}`;
+					const [r, g, b] = color.split(',').map((n) => parseInt(n.trim()));
+					return `#${[r, g, b].map((n) => n.toString(16).padStart(2, '0')).join('')}`;
 				}
 				return color;
 			}
@@ -63,7 +63,7 @@
 		if (color.length !== 6) return false;
 
 		try {
-			const [r, g, b] = [0, 2, 4].map(i => parseInt(color.substring(i, i + 2), 16));
+			const [r, g, b] = [0, 2, 4].map((i) => parseInt(color.substring(i, i + 2), 16));
 			return (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.5;
 		} catch {
 			return false;
@@ -163,7 +163,8 @@
 			{#each Array(numberOfLines) as _, i (i)}
 				<div
 					class="skeleton-line my-1 h-[1.2em] rounded {textColor}"
-					style="width: {85 + Math.random() * 15}%; background-color: {skeletonBackground}"></div>
+					style="width: {85 + Math.random() * 15}%; background-color: {skeletonBackground}"
+				></div>
 			{/each}
 		</div>
 	</div>
