@@ -1,0 +1,12 @@
+{
+	"stacked": [
+		{ "id": "checked", "label": "Checked" },
+		{ "id": "unchecked", "label": "Unchecked" },
+		{ "id": "checked-disabled", "label": "Checked disabled" },
+		{ "id": "unchecked-disabled", "label": "Unchecked disabled" }
+	],
+	"inline": [
+		{ "id": "checked", "label": "Checked" },
+		{ "id": "unchecked", "label": "Unchecked" }
+	]
+}

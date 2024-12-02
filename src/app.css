@@ -135,19 +135,6 @@
 	@apply rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold subpixel-antialiased;
 }
 
-.code-block[data-language]::before {
-	content: attr(data-language);
-	position: absolute;
-	top: 0;
-	right: 0.2rem;
-	padding: 0.25rem 0.5rem;
-	font-size: 0.75rem;
-	color: white;
-	border-bottom-left-radius: 0.25rem;
-	border-bottom-right-radius: 0.25rem;
-	z-index: 10;
-}
-
 /* Skeleton animation */
 .skeleton-line {
 	background: rgba(255, 255, 255, 0.1);
@@ -164,61 +151,47 @@
 	}
 }
 
-/* Progress Bar Styles */
 :root {
-	--progress-color: #000000;
-	--progress-color-end: #818181;
+	--progress-color: hsl(var(--primary));
+	--progress-color-end: hsl(var(--muted-foreground));
 	--progress-shadow-opacity: 0.5;
-	--progress-height: 2px; /* New variable */
-	--spinner-size: 14px; /* New variable */
-	--spinner-border-width: 2px; /* New variable */
-	--progress-transition: 0.1s; /* New variable */
-	--fade-transition: 0.3s; /* New variable */
+	--progress-height: 0.1875rem;
+	--spinner-size: 0.875rem;
+	--spinner-border-width: 0.125rem;
 }
 
-.progress-wrapper {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: var(--progress-height); /* Use variable */
-	z-index: 9999;
-	transition: opacity var(--fade-transition) ease;
-	pointer-events: none;
-}
+@layer components {
+	.progress-wrapper {
+		@apply pointer-events-none fixed left-0 top-0 z-[9999] w-full;
+		@apply h-[var(--progress-height)];
+		@apply transition-opacity duration-300 ease-in-out;
+	}
 
-.progress-bar {
-	width: 0;
-	height: 100%;
-	background: linear-gradient(to right, var(--progress-color), var(--progress-color-end));
-	box-shadow: 0 0 10px rgba(41, 152, 255, var(--progress-shadow-opacity));
-	transition: width var(--progress-transition) ease; /* Use variable */
-	position: relative; /* Added for better shine effect positioning */
-}
+	.progress-bar {
+		@apply relative h-full w-0;
+		@apply shadow-[0_0_0.625rem_theme(colors.blue.500/var(--progress-shadow-opacity))];
+		@apply transition-[width] duration-100 ease-in-out;
+		background: linear-gradient(to right, var(--progress-color), var(--progress-color-end));
+	}
 
-/* Loading Spinner Styles */
-.loading-spinner {
-	position: fixed;
-	top: 15px;
-	right: 15px;
-	width: var(--spinner-size); /* Use variable */
-	height: var(--spinner-size); /* Use variable */
-	border: solid var(--spinner-border-width) transparent; /* Use variable */
-	border-top-color: var(--progress-color);
-	border-left-color: var(--progress-color);
-	border-radius: 50%;
-	opacity: 1;
-	transition: opacity var(--fade-transition) ease; /* Use variable */
-	animation: loading-spinner 400ms linear infinite;
-	z-index: 9999;
-	pointer-events: none;
+	.loading-spinner {
+		@apply pointer-events-none fixed right-[0.9375rem] top-[0.9375rem] z-[9999];
+		@apply h-[var(--spinner-size)] w-[var(--spinner-size)];
+		@apply rounded-full border-transparent;
+		@apply opacity-100;
+		@apply transition-opacity duration-300 ease-in-out;
+		@apply animate-[spin_400ms_linear_infinite];
+		border-width: var(--spinner-border-width);
+		border-top-color: var(--progress-color);
+		border-left-color: var(--progress-color);
+	}
 }
 
 @keyframes loading-spinner {
-	0% {
-		transform: rotate(0deg);
+	from {
+		@apply rotate-0;
 	}
-	100% {
-		transform: rotate(360deg);
+	to {
+		@apply rotate-[360deg];
 	}
 }

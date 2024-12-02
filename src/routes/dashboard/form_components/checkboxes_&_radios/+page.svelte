@@ -2,22 +2,8 @@
 	import * as Checkbox from '$lib/components/ui/checkbox';
 	import { Label } from '$lib/components/ui/label';
 
-	type CheckboxItem = {
-		id: string;
-		label: string;
-	};
-
-	const stacked: CheckboxItem[] = [
-		{ id: 'checked', label: 'Checked' },
-		{ id: 'unchecked', label: 'Unchecked' },
-		{ id: 'checked-disabled', label: 'Checked disabled' },
-		{ id: 'unchecked-disabled', label: 'Unchecked disabled' }
-	];
-
-	const inline: CheckboxItem[] = [
-		{ id: 'checked', label: 'Checked' },
-		{ id: 'unchecked', label: 'Unchecked' }
-	];
+	export let data;
+	const { stacked, inline } = data.checkboxes;
 
 	// initialize with default checked items
 	let selectedItems = ['checked', 'checked-disabled'];
