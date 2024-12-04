@@ -1,13 +1,23 @@
+/**
+ * tailwind imports
+ * required base styles and utilities
+ */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/**
+  * theme configuration
+  * defines css variables for light/dark modes
+  */
 @layer base {
+	/* text size adjustment */
 	:where(html, :host) {
 		-webkit-text-size-adjust: 100%;
 		text-size-adjust: 100%;
 	}
 
+	/* light theme variables */
 	:root {
 		--background: 0 0% 100%;
 		--foreground: 240 10% 3.9%;
@@ -39,6 +49,7 @@
 		--sidebar-ring: 217.2 91.2% 59.8%;
 	}
 
+	/* dark theme variables */
 	.dark {
 		--background: 240 10% 3.9%;
 		--foreground: 0 0% 98%;
@@ -70,6 +81,10 @@
 	}
 }
 
+/**
+  * global base styles
+  * default theme colors and borders
+  */
 @layer base {
 	* {
 		@apply border-border;
@@ -79,8 +94,12 @@
 	}
 }
 
-/* collapsible Menu Styles */
+/**
+  * collapsible sidebar menu styles
+  * animations and transitions
+  */
 @layer components {
+	/* trigger indicator */
 	.collapsible-trigger-indicator {
 		@apply ml-auto transition-transform duration-200;
 	}
@@ -93,6 +112,7 @@
 		@apply rotate-0;
 	}
 
+	/* content animations */
 	.collapsible-content {
 		overflow: hidden;
 	}
@@ -124,18 +144,61 @@
 	}
 }
 
+/**
+  * sidebar menu button styles
+  * hover and active states
+  */
+@layer base {
+	/* sidebar specific accent colors */
+	:root {
+		--sidebar-accent: 240 10% 3.9%;
+		--sidebar-accent-foreground: 210 40% 98%;
+	}
+	.dark {
+		--sidebar-accent: 240 5% 7.9%;
+		--sidebar-accent-foreground: 0 0% 100%;
+	}
+}
+@layer components {
+	/* hover states */
+	.hover\:bg-sidebar-accent:hover,
+	.peer\/menu-button:hover {
+		background-color: hsl(var(--primary) / .9) !important; /* Lighter than 3.9% */
+	}
+
+	/* dark mode hover */
+	.dark .hover\:bg-sidebar-accent:hover,
+	.dark .peer\/menu-button:hover {
+		background-color: hsl(var(--primary) / .9) !important; /* Lighter than 7.9% */
+	}
+}
+
+
+
+
+
+
+/**
+  * utility styles
+  * spacing and code block formatting
+  */
+/* spacing utility */
 .space-y-6 > :not([hidden]) ~ :not([hidden]) {
 	--tw-space-y-reverse: 0;
 	margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
 	margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
 }
 
-/* Code block language tag */
+/* code block styling */
 :where(p, li, div:not(.code-block)) > code {
 	@apply rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold subpixel-antialiased;
 }
 
-/* Skeleton animation */
+/**
+  * loading animations
+  * skeleton and progress bar styles
+  */
+/* skeleton animation */
 .skeleton-line {
 	background: rgba(255, 255, 255, 0.1);
 	animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -151,6 +214,7 @@
 	}
 }
 
+/* progress bar variables */
 :root {
 	--progress-color: hsl(var(--primary));
 	--progress-color-end: hsl(var(--muted-foreground));
@@ -160,6 +224,7 @@
 	--spinner-border-width: 0.125rem;
 }
 
+/* progress bar components */
 @layer components {
 	.progress-wrapper {
 		@apply pointer-events-none fixed left-0 top-0 z-[9999] w-full;
