@@ -1,12 +1,44 @@
 {
 	"stacked": [
-		{ "id": "checked", "label": "Checked" },
+		{ "id": "checked", "label": "Checked", "checked": true },
 		{ "id": "unchecked", "label": "Unchecked" },
-		{ "id": "checked-disabled", "label": "Checked disabled" },
-		{ "id": "unchecked-disabled", "label": "Unchecked disabled" }
+		{ "id": "checked-disabled", "label": "Checked disabled", "checked": true, "disabled": true },
+		{ "id": "unchecked-disabled", "label": "Unchecked disabled", "disabled": true }
 	],
 	"inline": [
-		{ "id": "checked", "label": "Checked" },
+		{ "id": "checked", "label": "Checked", "checked": true, "disabled": true },
 		{ "id": "unchecked", "label": "Unchecked" }
-	]
+	],
+	"variants": {
+		"semantic": [
+            { "id": "danger", "label": "Danger Checkbox", "variant": "danger", "checked": true },
+            { "id": "info", "label": "Info Checkbox", "variant": "info", "checked": true },
+            { "id": "success", "label": "Success Checkbox", "variant": "success", "checked": true },
+            { "id": "warning", "label": "Warning Checkbox", "variant": "warning", "checked": true }
+        ],
+        "tailwind": [
+            { "id": "slate", "label": "Slate Checkbox", "variant": "slate", "checked": true },
+            { "id": "gray", "label": "Gray Checkbox", "variant": "gray", "checked": true },
+            { "id": "zinc", "label": "Zinc Checkbox", "variant": "zinc", "checked": true },
+            { "id": "neutral", "label": "Neutral Checkbox", "variant": "neutral", "checked": true },
+            { "id": "stone", "label": "Stone Checkbox", "variant": "stone", "checked": true },
+            { "id": "red", "label": "Red Checkbox", "variant": "red", "checked": true },
+            { "id": "orange", "label": "Orange Checkbox", "variant": "orange", "checked": true },
+            { "id": "amber", "label": "Amber Checkbox", "variant": "amber", "checked": true },
+            { "id": "yellow", "label": "Yellow Checkbox", "variant": "yellow", "checked": true },
+            { "id": "lime", "label": "Lime Checkbox", "variant": "lime", "checked": true },
+            { "id": "green", "label": "Green Checkbox", "variant": "green", "checked": true },
+            { "id": "emerald", "label": "Emerald Checkbox", "variant": "emerald", "checked": true },
+            { "id": "teal", "label": "Teal Checkbox", "variant": "teal", "checked": true },
+            { "id": "cyan", "label": "Cyan Checkbox", "variant": "cyan", "checked": true },
+            { "id": "sky", "label": "Sky Checkbox", "variant": "sky", "checked": true },
+            { "id": "blue", "label": "Blue Checkbox", "variant": "blue", "checked": true },
+            { "id": "indigo", "label": "Indigo Checkbox", "variant": "indigo", "checked": true },
+            { "id": "violet", "label": "Violet Checkbox", "variant": "violet", "checked": true },
+            { "id": "purple", "label": "Purple Checkbox", "variant": "purple", "checked": true },
+            { "id": "fuchsia", "label": "Fuchsia Checkbox", "variant": "fuchsia", "checked": true },
+            { "id": "pink", "label": "Pink Checkbox", "variant": "pink", "checked": true },
+            { "id": "rose", "label": "Rose Checkbox", "variant": "rose", "checked": true }
+        ]
+	}
 }

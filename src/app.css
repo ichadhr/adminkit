@@ -81,6 +81,31 @@
 	}
 }
 
+/* more semantic color */
+:root {
+	/* Add new semantic color variables */
+	--success: 142 76% 36%;
+	--success-foreground: 144 70% 98%;
+
+	--info: 199 89% 48%;
+	--info-foreground: 200 98% 98%;
+
+	--warning: 38 92% 50%;
+	--warning-foreground: 48 96% 98%;
+}
+
+.dark {
+	/* Add new semantic color variables for dark theme */
+	--success: 142 70% 48%;
+	--success-foreground: 144 70% 10%;
+
+	--info: 199 89% 48%;
+	--info-foreground: 200 98% 10%;
+
+	--warning: 38 92% 50%;
+	--warning-foreground: 48 96% 10%;
+}
+
 /**
   * global base styles
   * default theme colors and borders
@@ -163,20 +188,15 @@
 	/* hover states */
 	.hover\:bg-sidebar-accent:hover,
 	.peer\/menu-button:hover {
-		background-color: hsl(var(--primary) / .9) !important; /* Lighter than 3.9% */
+		background-color: hsl(var(--primary) / 0.9) !important; /* Lighter than 3.9% */
 	}
 
 	/* dark mode hover */
 	.dark .hover\:bg-sidebar-accent:hover,
 	.dark .peer\/menu-button:hover {
-		background-color: hsl(var(--primary) / .9) !important; /* Lighter than 7.9% */
+		background-color: hsl(var(--primary) / 0.9) !important; /* Lighter than 7.9% */
 	}
 }
-
-
-
-
-
 
 /**
   * utility styles
