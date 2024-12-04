@@ -8,7 +8,9 @@
 
 	// Initialize with checked items from the data
 	let selectedItemsLeft = stacked.filter((item) => item.checked).map((item) => item.id);
+	let selectedItemsLeftStretched = stacked.filter((item) => item.checked).map((item) => item.id);
 	let selectedItemsRight = stacked.filter((item) => item.checked).map((item) => item.id);
+	let selectedItemsRightStretched = stacked.filter((item) => item.checked).map((item) => item.id);
 	let selectedItemsLeftInline = inline.filter((item) => item.checked).map((item) => item.id);
 	let selectedItemsRightInline = inline.filter((item) => item.checked).map((item) => item.id);
 
@@ -57,9 +59,31 @@
 				</div>
 			</div>
 
-			<!-- Right stacked section -->
+			<!-- Right stacked stretched section -->
 			<div class="space-y-2">
 				<p class="text-md pl-100 font-medium">Right stacked stretched</p>
+				<div class="rounded border border-b p-1 px-2 py-1 shadow-sm lg:px-4">
+					{#each stacked as item}
+						<StackedCheckbox
+							{item}
+							checked={selectedItemsRightStretched.includes(item.id)}
+							onCheckedChange={(checked) => {
+								selectedItemsRightStretched = handleCheckedChange(checked, item.id, selectedItemsRightStretched);
+							}}
+							position={'right-stretched'}
+						/>
+					{/each}
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- stacked checkboxes -->
+	<section class="grid auto-rows-min gap-4">
+		<div class="grid gap-4 md:grid-cols-2">
+			<!-- Right stacked section -->
+			<div class="space-y-2">
+				<p class="text-md pl-100 font-medium">Right Stacked</p>
 				<div class="rounded border border-b p-1 px-2 py-1 shadow-sm lg:px-4">
 					{#each stacked as item}
 						<StackedCheckbox
@@ -69,6 +93,23 @@
 								selectedItemsRight = handleCheckedChange(checked, item.id, selectedItemsRight);
 							}}
 							position={'right'}
+						/>
+					{/each}
+				</div>
+			</div>
+
+			<!-- Left stacked stretched section -->
+			<div class="space-y-2">
+				<p class="text-md pl-100 font-medium">Left stacked stretched</p>
+				<div class="rounded border border-b p-1 px-2 py-1 shadow-sm lg:px-4">
+					{#each stacked as item}
+						<StackedCheckbox
+							{item}
+							checked={selectedItemsLeftStretched.includes(item.id)}
+							onCheckedChange={(checked) => {
+								selectedItemsLeftStretched = handleCheckedChange(checked, item.id, selectedItemsLeftStretched);
+							}}
+							position={'left-stretched'}
 						/>
 					{/each}
 				</div>
