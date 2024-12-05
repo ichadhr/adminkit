@@ -2,6 +2,7 @@
 	import { Label } from '$lib/components/ui/label';
 	import ColorCheckbox from '@/lib/components/custom-checkbox/checkbox-color.svelte';
 	import type { CheckboxVariant } from '.';
+	import { cn } from '$lib/utils';
 
 	export let item: {
 		id: string;
@@ -28,11 +29,15 @@
 		base: 'flex w-full items-center py-2',
 		stretched: 'justify-between',
 		label: {
-			default: 'font-normal',
-			inline: 'flex items-center gap-2 font-normal',
-			right: 'flex items-center gap-2 font-normal ml-auto' // Added right alignment
+			default: 'font-normal text-foreground',
+			inline: 'flex items-center gap-2 font-normal text-foreground',
+			right: 'flex items-center gap-2 font-normal ml-auto text-foreground'
 		}
 	};
+
+	// Add disabled class handling
+	$: labelClasses = (baseClass: string) =>
+		cn(baseClass, item.disabled && 'opacity-50 cursor-not-allowed');
 
 	// Position configurations
 	$: config = {
@@ -50,7 +55,7 @@
 		},
 		right: {
 			containerClass: layouts.base,
-			labelClass: layouts.label.right, // Using right-aligned label
+			labelClass: layouts.label.right,
 			isStretched: false,
 			labelFirst: true
 		},
@@ -66,14 +71,18 @@
 <div class={config.containerClass}>
 	{#if config.isStretched}
 		{#if config.labelFirst}
-			<Label class={config.labelClass} for={checkboxProps.id}>{item.label}</Label>
+			<Label class={labelClasses(config.labelClass)} for={checkboxProps.id}>
+				{item.label}
+			</Label>
 			<ColorCheckbox {...checkboxProps} />
 		{:else}
 			<ColorCheckbox {...checkboxProps} />
-			<Label class={config.labelClass} for={checkboxProps.id}>{item.label}</Label>
+			<Label class={labelClasses(config.labelClass)} for={checkboxProps.id}>
+				{item.label}
+			</Label>
 		{/if}
 	{:else}
-		<Label class={config.labelClass} for={checkboxProps.id}>
+		<Label class={labelClasses(config.labelClass)} for={checkboxProps.id}>
 			{#if config.labelFirst}
 				{item.label}
 				<ColorCheckbox {...checkboxProps} />

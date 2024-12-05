@@ -1,6 +1,7 @@
 <script lang="ts">
     import ColorCheckbox from '@/lib/components/custom-checkbox/checkbox-color.svelte';
     import { Label } from '$lib/components/ui/label';
+    import { cn } from '$lib/utils';
     import type { CheckboxVariant } from '.';
 
     export let item: {
@@ -15,7 +16,11 @@
 </script>
 
 <Label
-    class="inline-flex items-center gap-2 {position === 'right' ? 'flex-row-reverse' : ''}"
+    class={cn(
+        "inline-flex items-center gap-2",
+        position === 'right' && "flex-row-reverse",
+        item.disabled && "opacity-50 cursor-not-allowed"
+    )}
     for={`${position}-inline-${item.id}`}
 >
     <ColorCheckbox
