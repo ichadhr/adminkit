@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Label } from '$lib/components/ui/label';
-	import ColorCheckbox from '@/lib/components/custom-checkbox/checkbox-color.svelte';
+	import { ColorCheckbox } from '$lib/components/custom-checkbox';
 	import type { CheckboxVariant } from '.';
 	import { cn } from '$lib/utils';
 
@@ -9,22 +9,19 @@
 		label: string;
 		disabled?: boolean;
 	};
-
 	export let checked: boolean;
 	export let onCheckedChange: (checked: boolean) => void;
 	export let position: 'left' | 'right' | 'left-stretched' | 'right-stretched' = 'left';
 	export let variant: CheckboxVariant = 'default';
 
-	// Common props for ColorCheckbox
 	$: checkboxProps = {
-		id: `checkbox-${position}-${item.id}`, // Updated ID to include position
+		id: `checkbox-${position}-${item.id}`,
 		checked,
 		disabled: item.disabled,
 		onCheckedChange,
 		variant
 	};
 
-	// Layout configurations
 	const layouts = {
 		base: 'flex w-full items-center py-2',
 		stretched: 'justify-between',
@@ -33,13 +30,12 @@
 			inline: 'flex items-center gap-2 font-normal text-foreground',
 			right: 'flex items-center gap-2 font-normal ml-auto text-foreground'
 		}
-	};
+	} as const;
 
-	// Add disabled class handling
+	// Keeping the original label classes function
 	$: labelClasses = (baseClass: string) =>
 		cn(baseClass, item.disabled && 'opacity-50 cursor-not-allowed');
 
-	// Position configurations
 	$: config = {
 		'left-stretched': {
 			containerClass: `${layouts.base} ${layouts.stretched}`,

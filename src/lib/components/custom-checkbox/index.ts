@@ -1,4 +1,6 @@
-// /lib/components/custom-checkbox/index.ts
+export { default as InlineCheckbox } from './checkbox-inline.svelte';
+export { default as StackedCheckbox } from './checkbox-stacked.svelte';
+export { default as ColorCheckbox } from './checkbox-color.svelte';
 
 export type CheckboxVariant = 
     | 'default'
