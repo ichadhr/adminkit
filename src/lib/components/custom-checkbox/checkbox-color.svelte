@@ -9,34 +9,23 @@
     export let onCheckedChange: ((checked: boolean) => void) | undefined = undefined;
     export let variant: CheckboxVariant = 'default';
 
-    const SEMANTIC_VARIANTS = {
-        default: '',
-        danger: 'destructive',
-        success: 'success',
-        info: 'info',
-        warning: 'warning'
+    // Separate semantic and color variants for better organization
+    const VARIANTS = {
+        semantic: {
+            default: "",
+            danger: "destructive",
+            success: "success",
+            info: "info",
+            warning: "warning"
+        },
+        colors: [
+            'slate', 'gray', 'zinc', 'neutral', 'stone',
+            'red', 'orange', 'amber', 'yellow', 'lime',
+            'green', 'emerald', 'teal', 'cyan', 'sky',
+            'blue', 'indigo', 'violet', 'purple',
+            'fuchsia', 'pink', 'rose'
+        ]
     } as const;
-
-    const GRAYSCALE_COLORS = ['slate', 'gray', 'zinc', 'neutral', 'stone'] as const;
-    const COLORS = [
-        'red', 'orange', 'amber', 'yellow', 'lime', 'green', 'emerald',
-        'teal', 'cyan', 'sky', 'blue', 'indigo', 'violet', 'purple',
-        'fuchsia', 'pink', 'rose'
-    ] as const;
-
-    type VariantStyles = Record<CheckboxVariant, string>;
-
-    const createSemanticVariants = (): Partial<VariantStyles> => 
-        Object.entries(SEMANTIC_VARIANTS).reduce((acc, [key, value]) => ({
-            ...acc,
-            [key]: value ? `data-[state=checked]:bg-${value} data-[state=checked]:border-${value}` : ''
-        }), {});
-
-    const createColorVariants = (): Partial<VariantStyles> =>
-        [...GRAYSCALE_COLORS, ...COLORS].reduce((acc, color) => ({
-            ...acc,
-            [color]: `data-[state=checked]:bg-${color}-500 data-[state=checked]:border-${color}-500`
-        }), {});
 
     const styles = {
         base: "w-4 h-4 transition-colors",
@@ -45,15 +34,25 @@
             hover: "hover:border-opacity-80",
             checked: "text-white"
         },
-        variants: {
-            ...createSemanticVariants(),
-            ...createColorVariants()
+        getVariantClass: (variant: CheckboxVariant) => {
+            // Handle semantic variants
+            if (variant in VARIANTS.semantic) {
+                const semanticColor = VARIANTS.semantic[variant as keyof typeof VARIANTS.semantic];
+                return semanticColor ? `data-[state=checked]:bg-${semanticColor} data-[state=checked]:border-${semanticColor}` : "";
+            }
+            
+            // Handle color variants
+            if (VARIANTS.colors.includes(variant as any)) {
+                return `data-[state=checked]:bg-${variant}-500 data-[state=checked]:border-${variant}-500`;
+            }
+            
+            return "";
         }
     } as const;
     
     $: classes = cn(
         styles.base,
-        styles.variants[variant],
+        styles.getVariantClass(variant),
         disabled && styles.state.disabled,
         !disabled && styles.state.hover,
         checked && styles.state.checked
