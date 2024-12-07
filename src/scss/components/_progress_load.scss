@@ -1,0 +1,54 @@
+// Progress bar variables
+:root {
+	--progress-color: hsl(var(--primary));
+	--progress-color-end: hsl(var(--muted-foreground));
+	--progress-shadow-opacity: 0.5;
+	--progress-height: 0.1875rem;
+	--spinner-size: 0.875rem;
+	--spinner-border-width: 0.125rem;
+}
+
+// Progress bar components
+@layer components {
+	.progress {
+		&-wrapper {
+			@apply pointer-events-none fixed left-0 top-0 z-[9999] w-full;
+			@apply h-[var(--progress-height)];
+			@apply transition-opacity duration-300 ease-in-out;
+		}
+
+		&-bar {
+			@apply relative h-full w-0;
+			@apply shadow-[0_0_0.625rem_theme(colors.blue.500/var(--progress-shadow-opacity))];
+			@apply transition-[width] duration-100 ease-in-out;
+
+			background: linear-gradient(to right, var(--progress-color), var(--progress-color-end));
+		}
+	}
+
+	.loading-spinner {
+		@apply pointer-events-none fixed z-[9999];
+		@apply right-[0.9375rem] top-[0.9375rem];
+		@apply h-[var(--spinner-size)] w-[var(--spinner-size)];
+		@apply rounded-full border-transparent;
+		@apply opacity-100;
+		@apply transition-opacity duration-300 ease-in-out;
+		@apply animate-[spin_400ms_linear_infinite];
+
+		border: {
+			width: var(--spinner-border-width);
+			top-color: var(--progress-color);
+			left-color: var(--progress-color);
+		}
+	}
+}
+
+@keyframes loading-spinner {
+	from {
+		@apply rotate-0;
+	}
+
+	to {
+		@apply rotate-[360deg];
+	}
+}

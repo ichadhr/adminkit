@@ -1,0 +1,135 @@
+/* Radio Section */
+
+// Variables and Maps
+$semantic-variants: (
+	"default": "primary",
+	"danger": "destructive",
+	"success": "success",
+	"info": "info",
+	"warning": "warning"
+);
+
+$grayscale-colors: ("slate", "gray", "zinc", "neutral", "stone");
+
+$colors: (
+	"red",
+	"orange",
+	"amber",
+	"yellow",
+	"lime",
+	"green",
+	"emerald",
+	"teal",
+	"cyan",
+	"sky",
+	"blue",
+	"indigo",
+	"violet",
+	"purple",
+	"fuchsia",
+	"pink",
+	"rose"
+);
+
+// Mixins
+@mixin radio-checked($color) {
+	&[data-state="checked"] {
+		@apply border-#{$color} text-#{$color};
+	}
+	& > div > svg {
+		@apply fill-#{$color};
+	}
+}
+
+@mixin radio-checked-with-shade($color) {
+	&[data-state="checked"] {
+		@apply border-#{$color}-500 text-#{$color}-500;
+	}
+	& > div > svg {
+		@apply fill-#{$color}-500;
+	}
+}
+
+@mixin disabled-states {
+	@apply cursor-not-allowed opacity-50;
+}
+
+// Base Component Styles
+.radio {
+	&-base {
+		@apply border-primary text-primary;
+	}
+
+	&-item {
+		@apply aspect-square size-4 rounded-full border shadow;
+		@apply focus:outline-none focus-visible:ring-1 focus-visible:ring-ring;
+		@apply disabled:cursor-not-allowed disabled:opacity-50;
+
+		&.disabled {
+			@include disabled-states;
+		}
+	}
+}
+
+// Layout Styles
+.radio {
+	// Inline Layout
+	&-inline {
+		&-container {
+			@apply inline-flex items-center gap-2;
+		}
+
+		&-label {
+			@apply font-normal;
+
+			&.disabled {
+				@include disabled-states;
+			}
+		}
+	}
+
+	// Stacked Layout
+	&-stacked {
+		&-container {
+			@apply flex items-center gap-2;
+
+			&.stretched {
+				@apply w-full justify-between;
+			}
+
+			&:not(.stretched) {
+				@apply inline-flex;
+			}
+		}
+
+		&-label {
+			@apply font-normal;
+
+			&.disabled {
+				@include disabled-states;
+			}
+		}
+	}
+}
+
+// Variant Styles
+@each $variant, $color in $semantic-variants {
+	.radio-#{$variant} {
+		@apply radio-base;
+		@include radio-checked($color);
+	}
+}
+
+@each $color in $grayscale-colors {
+	.radio-#{$color} {
+		@apply radio-base;
+		@include radio-checked-with-shade($color);
+	}
+}
+
+@each $color in $colors {
+	.radio-#{$color} {
+		@apply radio-base;
+		@include radio-checked-with-shade($color);
+	}
+}

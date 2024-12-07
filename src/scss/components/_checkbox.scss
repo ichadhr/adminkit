@@ -1,0 +1,125 @@
+/* Checkbox Section */
+
+// Variables and Maps
+$semantic-variants: (
+	"default": "primary",
+	"danger": "destructive",
+	"success": "success",
+	"info": "info",
+	"warning": "warning"
+);
+
+$grayscale-colors: ("slate", "gray", "zinc", "neutral", "stone");
+
+$colors: (
+	"red",
+	"orange",
+	"amber",
+	"yellow",
+	"lime",
+	"green",
+	"emerald",
+	"teal",
+	"cyan",
+	"sky",
+	"blue",
+	"indigo",
+	"violet",
+	"purple",
+	"fuchsia",
+	"pink",
+	"rose"
+);
+
+// Mixins
+@mixin checkbox-checked($color) {
+	&[data-state="checked"] {
+		@apply bg-#{$color} border-#{$color} !important;
+
+		.lucide-check {
+			@apply text-#{$color}-foreground;
+		}
+	}
+}
+
+@mixin checkbox-checked-with-shade($color) {
+	&[data-state="checked"] {
+		@apply bg-#{$color}-500 border-#{$color}-500 !important;
+
+		.lucide-check {
+			@apply text-white;
+		}
+	}
+}
+
+@mixin disabled-states {
+	@apply cursor-not-allowed opacity-50;
+}
+
+// Base Component Styles
+.checkbox {
+	// Checkbox Base Styles
+	&-base {
+		@apply box-content size-4 shrink-0 rounded-sm border shadow;
+		@apply focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring;
+		@apply disabled:cursor-not-allowed disabled:opacity-50;
+		@apply data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-50;
+
+		&[data-state="checked"] {
+			@apply transition-colors duration-200;
+		}
+	}
+
+	// Layout Styles
+	&-layout {
+		// Container styles
+		&-container {
+			@apply flex w-full items-center py-1;
+
+			&.stretched {
+				@apply justify-between;
+			}
+		}
+
+		// Label styles
+		&-label {
+			&-default {
+				@apply font-normal text-foreground;
+			}
+
+			&-inline {
+				@apply flex items-center gap-2 font-normal text-foreground;
+			}
+
+			&-right {
+				@apply ml-auto flex items-center gap-2 font-normal text-foreground;
+			}
+
+			&.disabled {
+				@include disabled-states;
+			}
+		}
+	}
+}
+
+// Color Variant Styles
+@each $variant, $color in $semantic-variants {
+	.checkbox-#{$variant} {
+		@extend .checkbox-base;
+		@include checkbox-checked($color);
+	}
+}
+
+@each $color in $grayscale-colors {
+	.checkbox-#{$color} {
+		@extend .checkbox-base;
+		@include checkbox-checked-with-shade($color);
+	}
+}
+
+@each $color in $colors {
+	.checkbox-#{$color} {
+		@extend .checkbox-base;
+		@include checkbox-checked-with-shade($color);
+	}
+}

@@ -3,9 +3,11 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
 	plugins: [sveltekit()],
-	server: {
-		fs: {
-			strict: true
+	css: {
+		preprocessorOptions: {
+			scss: {
+				api: 'modern-compiler' // or "modern"
+			}
 		}
 	}
 });

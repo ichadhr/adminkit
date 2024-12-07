@@ -1,11 +1,18 @@
 import { fontFamily } from 'tailwindcss/defaultTheme';
 import type { Config } from 'tailwindcss';
 import tailwindcssAnimate from 'tailwindcss-animate';
+import { GRAYSCALE_COLORS, COLORS } from './src/lib/components/custom/variants';
+
 
 const config: Config = {
 	darkMode: ['class'],
-	content: ['./src/**/*.{html,js,svelte,ts}'],
-	safelist: ['dark'],
+	content: [
+        './src/**/*.{html,js,svelte,ts}'
+	],
+	safelist: [
+		'dark',
+
+	],
 	theme: {
 		container: {
 			center: true,
