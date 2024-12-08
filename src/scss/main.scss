@@ -4,110 +4,29 @@
 :root {
 	/* Add new semantic color variables */
 	--success: 142 76% 36%;
-	--success-foreground: 144 70% 98%;
+	--success-foreground: 144 70% 100%;
 
 	--info: 199 89% 48%;
-	--info-foreground: 200 98% 98%;
+	--info-foreground: 200 98% 100%;
 
 	--warning: 38 92% 50%;
-	--warning-foreground: 48 96% 98%;
+	--warning-foreground: 48 96% 100%;
 
 	--danger: 0 84% 60%;
-	--danger-foreground: 0 85% 98%;
+	--danger-foreground: 0 85% 100%;
 }
 
 .dark {
 	/* Add new semantic color variables for dark theme */
 	--success: 142 70% 42%;
-	--success-foreground: 144 70% 10%;
+	--success-foreground: 144 70% 95%;
 
 	--info: 199 89% 42%;
-	--info-foreground: 200 98% 10%;
+	--info-foreground: 200 98% 98%;
 
 	--warning: 38 92% 48%;
-	--warning-foreground: 48 96% 10%;
+	--warning-foreground: 48 96% 98%;
 
 	--danger: 0 84% 46%;
-	--danger-foreground: 0 85% 10%;
-}
-
-/**
-  * collapsible sidebar menu styles
-  * animations and transitions
-  */
-@layer components {
-	/* trigger indicator */
-	.collapsible-trigger-indicator {
-		@apply ml-auto transition-transform duration-200;
-	}
-
-	[data-state="open"] .collapsible-trigger-indicator {
-		@apply rotate-90;
-	}
-
-	[data-state="closed"] .collapsible-trigger-indicator {
-		@apply rotate-0;
-	}
-
-	/* content animations */
-	.collapsible-content {
-		overflow: hidden;
-	}
-
-	.collapsible-content[data-state="open"] {
-		animation: collapsible-down 0.2s ease-out;
-	}
-
-	.collapsible-content[data-state="closed"] {
-		animation: collapsible-up 0.2s ease-out;
-	}
-
-	@keyframes collapsible-down {
-		from {
-			height: 0;
-		}
-		to {
-			height: var(--sh-collapsible-content-height);
-		}
-	}
-
-	@keyframes collapsible-up {
-		from {
-			height: var(--sh-collapsible-content-height);
-		}
-		to {
-			height: 0;
-		}
-	}
-}
-
-/**
-  * sidebar menu button styles
-  * hover and active states
-  */
-@layer base {
-	/* sidebar specific accent colors */
-	:root {
-		--sidebar-accent: 240 10% 3.9%;
-		--sidebar-accent-foreground: 210 40% 98%;
-	}
-	.dark {
-		--sidebar-accent: 215 11% 23%; // Changed from 240 5% 7.9%
-		--sidebar-accent-foreground: 0 0% 95%; // Changed from 0 0% 100%
-	}
-}
-@layer components {
-	/* hover states for light theme */
-	.hover\:bg-sidebar-accent:hover,
-	.peer\/menu-button:hover {
-		background-color: hsl(var(--sidebar-accent) / 0.2) !important;
-		color: hsl(var(--sidebar-accent)) !important;
-	}
-
-	/* dark mode hover */
-	.dark .hover\:bg-sidebar-accent:hover,
-	.dark .peer\/menu-button:hover {
-		background-color: hsl(var(--sidebar-accent) / 0.5) !important;
-		color: hsl(var(--sidebar-accent-foreground)) !important;
-	}
+	--danger-foreground: 0 85% 98%;
 }
