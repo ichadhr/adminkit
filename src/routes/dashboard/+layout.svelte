@@ -4,8 +4,24 @@
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import { breadcrumbs, pageTitle } from '@/lib/utils';
+	import ThemeToggle from '$lib/components/theme-toggle.svelte'; // adjust path as needed
+	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
 
 	let { children } = $props();
+
+	onMount(() => {
+		if (browser) {
+			if (
+				localStorage.theme === 'dark' ||
+				(!localStorage.theme && window.matchMedia('(prefers-color-scheme: dark)').matches)
+			) {
+				document.documentElement.classList.add('dark');
+			} else {
+				document.documentElement.classList.remove('dark');
+			}
+		}
+	});
 </script>
 
 <svelte:head>
@@ -16,7 +32,7 @@
 	<AppSidebar />
 	<Sidebar.Inset>
 		<header class="flex h-16 shrink-0 items-center gap-2">
-			<nav class="flex items-center gap-2 px-4">
+			<nav class="flex items-center gap-2 px-4 flex-1">
 				<Sidebar.Trigger class="-ml-1" />
 				<Separator orientation="vertical" class="mr-2 h-4" />
 				<Breadcrumb.Root>
@@ -35,6 +51,9 @@
 						{/each}
 					</Breadcrumb.List>
 				</Breadcrumb.Root>
+				<div class="ml-auto">
+					<ThemeToggle />
+				</div>
 			</nav>
 		</header>
 		{@render children()}
