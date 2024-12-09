@@ -27,12 +27,12 @@
 	<section class="space-y-6">
 		<h3 class="text-lg font-medium">Switches</h3>
 		<p class="text-sm">
-			The HTML input <code>&lt;input type="checkbox"&gt;</code> is an input element to enter an
-			array of different values. The value attribute is used to define the <code>value</code>
-			submitted by the checkbox. The <code>checked</code> attribute is used to indicate whether this
-			item is selected. The
-			<code>indeterminate</code> attribute is used to indicate that the checkbox is in an indeterminate
-			state (on most platforms, this draws a horizontal line across the checkbox).
+			The switch input is a specialized form of <code>&lt;input type="checkbox"&gt;</code> that provides
+            a toggle-style interface. It represents a binary state that can be either on or off. When toggled,
+            the switch slides between two positions, providing a visual indication of its current state. The
+            <code>checked</code> attribute determines whether the switch is in the on (true) or off (false) position.
+            Switches are commonly used for enabling/disabling features, toggling settings, or controlling binary
+            options in a more modern and intuitive way than traditional checkboxes.
 		</p>
 	</section>
 
