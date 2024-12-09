@@ -35,8 +35,8 @@
 								url: '/dashboard/form_components/checkboxes_&_radios'
 							},
 							{
-								title: 'Form actions',
-								url: '#'
+								title: 'Switch',
+								url: '/dashboard/form_components/switch'
 							},
 							{
 								title: 'Input fields',

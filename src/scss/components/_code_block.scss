@@ -10,8 +10,8 @@
 }
 
 /**
-   * Code block styling
-   */
+ * Code block styling
+ */
 :where(p, li, div:not(.code-block)) {
 	> code {
 		@apply rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold subpixel-antialiased;
@@ -19,8 +19,8 @@
 }
 
 /**
-   * Loading animations
-   */
+ * Loading animations
+ */
 .skeleton-line {
 	background: rgba(255, 255, 255, 0.1);
 	animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -34,5 +34,12 @@
 
 	50% {
 		opacity: 0.5;
+	}
+}
+
+// Additional code block specific styles
+.code-block {
+	.skeleton-line {
+		transition: background-color 0.2s ease;
 	}
 }

@@ -1,0 +1,137 @@
+/* Switch Section */
+
+// Variables and Maps
+$semantic-variants: (
+	"default": "primary",
+	"danger": "danger",
+	"success": "success",
+	"info": "info",
+	"warning": "warning"
+);
+
+$grayscale-colors: ("slate", "gray", "zinc", "neutral", "stone");
+
+$colors: (
+	"red",
+	"orange",
+	"amber",
+	"yellow",
+	"lime",
+	"green",
+	"emerald",
+	"teal",
+	"cyan",
+	"sky",
+	"blue",
+	"indigo",
+	"violet",
+	"purple",
+	"fuchsia",
+	"pink",
+	"rose"
+);
+
+// Mixins
+@mixin switch-checked($color) {
+	&[data-state="checked"] {
+		@apply bg-#{$color} !important;
+
+		.switch-thumb {
+			@apply bg-#{$color}-foreground translate-x-[calc(100%-2px)];
+		}
+	}
+}
+
+@mixin switch-checked-with-shade($color) {
+	&[data-state="checked"] {
+		@apply bg-#{$color}-500 !important;
+
+		.switch-thumb {
+			@apply translate-x-[calc(100%-2px)] bg-white;
+		}
+	}
+}
+
+// Base Component Styles
+.switch {
+	// Switch Base Styles
+	&-base {
+		@apply relative h-5 w-9 cursor-pointer rounded-full bg-input transition-colors;
+		@apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+		@apply disabled:cursor-not-allowed disabled:opacity-50;
+		@apply data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-50;
+	}
+
+	// Thumb Styles
+	&-thumb {
+		@apply block h-4 w-4 rounded-full bg-background transition-transform;
+		@apply translate-x-[2px] data-[state=checked]:translate-x-[calc(100%-2px)];
+	}
+
+	// Layout Styles
+	&-layout {
+		// Container styles
+		&-container {
+			@apply flex items-center py-1;
+
+			&.stacked {
+				@apply flex-col gap-2;
+
+				// Add specific styling for right stacked layout
+				.switch-layout-label-right {
+					@apply mb-2 ml-0; // Remove left margin and add bottom margin
+				}
+			}
+
+			&.inline {
+				@apply inline-flex gap-4;
+			}
+
+			&.stretched {
+				@apply w-full justify-between;
+			}
+		}
+
+		// Label styles
+		&-label {
+			&-left {
+				@apply mr-3;
+			}
+
+			&-right {
+				@apply ml-3;
+				@apply flex items-center gap-2;
+			}
+
+			&-inline {
+				@apply flex items-center gap-2;
+			}
+
+			&.disabled {
+				@apply cursor-not-allowed opacity-50;
+			}
+		}
+	}
+}
+
+// Color Variant Styles
+@each $variant, $color in $semantic-variants {
+	.switch-#{$variant} {
+		@extend .switch-base;
+		@include switch-checked($color);
+	}
+}
+
+@each $color in $grayscale-colors {
+	.switch-#{$color} {
+		@extend .switch-base;
+		@include switch-checked-with-shade($color);
+	}
+}
+
+@each $color in $colors {
+	.switch-#{$color} {
+		@extend .switch-base;
+		@include switch-checked-with-shade($color);
+	}
+}

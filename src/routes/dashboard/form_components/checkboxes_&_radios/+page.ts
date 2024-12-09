@@ -1,4 +1,4 @@
-// src/routes/+page.ts
+// src/routes/dashboard/form_components/checkboxes_&_radios/+page.ts
 import type { PageLoad } from './$types';
 
 type SemanticVariant = 'danger' | 'info' | 'success' | 'warning';
