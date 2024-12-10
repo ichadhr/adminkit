@@ -6,7 +6,7 @@
 	];
 </script>
 
-<main class="flex flex-1 flex-col gap-4 p-4 pt-0">
+<main class="flex flex-1 flex-col gap-4 p-4 pt-0 mb-5">
 	<section class="grid auto-rows-min gap-4 md:grid-cols-3">
 		{#each items as item}
 			<div class="aspect-video rounded-xl bg-muted/50">

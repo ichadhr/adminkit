@@ -75,9 +75,9 @@
 }`;
 </script>
 
-<main class="flex flex-1 flex-col gap-4 p-4 pt-0">
+<main class="flex flex-1 flex-col gap-4 p-4 pt-0 mb-5">
 	<section class="space-y-6">
-		<h3 class="text-lg font-medium">Checkboxes</h3>
+		<h3 class="text-2xl font-medium">Checkboxes</h3>
 		<p class="text-sm">
 			The HTML input <code>&lt;input type="checkbox"&gt;</code> is an input element to enter an
 			array of different values. The value attribute is used to define the <code>value</code>

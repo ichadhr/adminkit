@@ -2,6 +2,6 @@
 	import { browser } from '$app/environment';
 	if (browser) {
 		// to prevent error window is not defined, because it's SSR
-		window.location.href = '/dashboard/form_components/checkboxes_&_radios';
+		window.location.href = '/dashboard/form_components/input';
 	}
 </script>

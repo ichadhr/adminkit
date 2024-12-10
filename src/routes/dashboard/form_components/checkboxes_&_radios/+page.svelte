@@ -27,10 +27,10 @@
 	$: radioDisabledItems = stacked?.filter((item) => item.disabled) ?? [];
 </script>
 
-<main class="flex flex-1 flex-col gap-4 p-4 pt-0">
+<main class="flex flex-1 flex-col gap-4 p-4 pt-0 mb-5">
 	<!-- heading section Checkboxes -->
 	<section class="space-y-6">
-		<h3 class="text-lg font-medium">Checkboxes</h3>
+		<h3 class="text-2xl font-medium">Checkboxes</h3>
 		<p class="text-sm">
 			The HTML input <code>&lt;input type="checkbox"&gt;</code> is an input element to enter an
 			array of different values. The value attribute is used to define the <code>value</code>
@@ -192,7 +192,6 @@
 
 	<!-- heading section Checkboxes colors -->
 	<section class="space-y-6 pt-5">
-		<h3 class="text-lg font-medium">Checkboxes colors</h3>
 		<p class="text-sm">
 			Checkboxes can have a custom color based on Tailwind's color palette, allowing you to match
 			your application's design system and create visually consistent user interfaces. You can
@@ -257,7 +256,7 @@
 
 	<!-- heading section Radios -->
 	<section class="space-y-6 pt-10">
-		<h3 class="text-lg font-medium">Radios</h3>
+		<h3 class="text-2xl font-medium">Radios</h3>
 		<p class="text-sm">
 			Radio button is an element that can be turned on and off. Radio buttons are almost always
 			grouped together in groups. Only one radio button within the same <code>radiogroup</code> may
@@ -453,6 +452,15 @@
 				</div>
 			</div>
 		</div>
+	</section>
+
+	<!-- heading section Radios colors -->
+	<section class="space-y-6 pt-5">
+		<p class="text-sm">
+			Radios can have a custom color based on Tailwind's color palette, allowing you to match
+			your application's design system and create visually consistent user interfaces. You can
+			choose from a wide range of predefined colors or customize them to meet your specific needs.
+		</p>
 	</section>
 
 	<section>

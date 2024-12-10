@@ -31,16 +31,16 @@
 						// isActive: true,
 						items: [
 							{
+								title: 'Input fields',
+								url: '/dashboard/form_components/input'
+							},
+							{
 								title: 'Checkboxes & radios',
 								url: '/dashboard/form_components/checkboxes_&_radios'
 							},
 							{
 								title: 'Switch',
 								url: '/dashboard/form_components/switch'
-							},
-							{
-								title: 'Input fields',
-								url: '#'
 							}
 						]
 					},

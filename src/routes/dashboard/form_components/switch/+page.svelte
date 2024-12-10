@@ -22,10 +22,10 @@
 		tailwind?.filter((item) => item.checked)?.map((item) => item.id) ?? [];
 </script>
 
-<main class="flex flex-1 flex-col gap-4 p-4 pt-0">
+<main class="flex flex-1 flex-col gap-4 p-4 pt-0 mb-5">
 	<!-- heading section Switches -->
 	<section class="space-y-6">
-		<h3 class="text-lg font-medium">Switches</h3>
+		<h3 class="text-2xl font-medium">Switches</h3>
 		<p class="text-sm">
 			The switch input is a specialized form of <code>&lt;input type="checkbox"&gt;</code> that provides
             a toggle-style interface. It represents a binary state that can be either on or off. When toggled,
@@ -177,6 +177,15 @@
 				</div>
 			</div>
 		</div>
+	</section>
+
+	<!-- heading section Radios colors -->
+	<section class="space-y-6 pt-5">
+		<p class="text-sm">
+			Switch can have a custom color based on Tailwind's color palette, allowing you to match
+			your application's design system and create visually consistent user interfaces. You can
+			choose from a wide range of predefined colors or customize them to meet your specific needs.
+		</p>
 	</section>
 
 	<!-- Colors sections -->
