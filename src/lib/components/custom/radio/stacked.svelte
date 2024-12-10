@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { Label } from '$lib/components/ui/label/index.js';
+	import {Label} from '$lib/components/ui/label/index.js';
 	import RadioColor from '@/lib/components/custom/radio/color.svelte';
-	import type { RadioProps, ColorVariant, Position } from '@/lib/components/custom/radio/index';
-	import { POSITIONS } from '@/lib/components/custom/radio/index';
-	import { cn } from '$lib/utils';
+	import type {RadioProps, ColorVariant, Position} from '@/lib/components/custom/radio/index';
+	import {POSITIONS} from '@/lib/components/custom/radio/index';
+	import {cn} from '$lib/utils';
 
 	interface StackedRadioProps {
 		value: string;

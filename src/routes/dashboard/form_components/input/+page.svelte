@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { Input } from '$lib/components/ui/input/index.js';
-	import { Label } from '$lib/components/ui/label/index.js';
-	import { Separator } from '$lib/components/ui/separator/index.js';
+	import {Input} from '$lib/components/ui/input/index.js';
+	import {Label} from '$lib/components/ui/label/index.js';
+	import {Separator} from '$lib/components/ui/separator/index.js';
 	import {
 		Search,
 		Mail,

@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { SwitchLayout, handleCheckedChange } from '$lib/components/custom/switch/index.js';
+	import {SwitchLayout, handleCheckedChange} from '$lib/components/custom/switch/index.js';
 
 	export let data;
-	const { stacked, inline, variants } = data.switches;
-	const { semantic, tailwind } = variants;
+	const {stacked, inline, variants} = data.switches;
+	const {semantic, tailwind} = variants;
 
 	// Initialize with checked items from the data
 	let selectedItemsLeft = stacked?.filter((item) => item.checked)?.map((item) => item.id) ?? [];
@@ -22,17 +22,18 @@
 		tailwind?.filter((item) => item.checked)?.map((item) => item.id) ?? [];
 </script>
 
-<main class="flex flex-1 flex-col gap-4 p-4 pt-0 mb-5">
+<main class="mb-5 flex flex-1 flex-col gap-4 p-4 pt-0">
 	<!-- heading section Switches -->
 	<section class="space-y-6">
 		<h3 class="text-2xl font-medium">Switches</h3>
 		<p class="text-sm">
-			The switch input is a specialized form of <code>&lt;input type="checkbox"&gt;</code> that provides
-            a toggle-style interface. It represents a binary state that can be either on or off. When toggled,
-            the switch slides between two positions, providing a visual indication of its current state. The
-            <code>checked</code> attribute determines whether the switch is in the on (true) or off (false) position.
-            Switches are commonly used for enabling/disabling features, toggling settings, or controlling binary
-            options in a more modern and intuitive way than traditional checkboxes.
+			The switch input is a specialized form of <code>&lt;input type="checkbox"&gt;</code> that
+			provides a toggle-style interface. It represents a binary state that can be either on or off.
+			When toggled, the switch slides between two positions, providing a visual indication of its
+			current state. The
+			<code>checked</code> attribute determines whether the switch is in the on (true) or off (false)
+			position. Switches are commonly used for enabling/disabling features, toggling settings, or controlling
+			binary options in a more modern and intuitive way than traditional checkboxes.
 		</p>
 	</section>
 
@@ -182,9 +183,9 @@
 	<!-- heading section Radios colors -->
 	<section class="space-y-6 pt-5">
 		<p class="text-sm">
-			Switch can have a custom color based on Tailwind's color palette, allowing you to match
-			your application's design system and create visually consistent user interfaces. You can
-			choose from a wide range of predefined colors or customize them to meet your specific needs.
+			Switch can have a custom color based on Tailwind's color palette, allowing you to match your
+			application's design system and create visually consistent user interfaces. You can choose
+			from a wide range of predefined colors or customize them to meet your specific needs.
 		</p>
 	</section>
 

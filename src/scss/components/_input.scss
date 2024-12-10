@@ -3,21 +3,21 @@
 	width: 100%;
 
 	// Add this new rule to hide browser's default password toggle
-	input[type="password"]::-ms-reveal,
-	input[type="password"]::-ms-clear {
+	input[type='password']::-ms-reveal,
+	input[type='password']::-ms-clear {
 		display: none;
 	}
 
 	// Add this for Chrome/Edge
-	input[type="password"]::-webkit-credentials-auto-fill-button {
+	input[type='password']::-webkit-credentials-auto-fill-button {
 		display: none !important;
 	}
 
 	// Your existing styles...
-	input[type="date"],
-	input[type="time"],
-	input[type="week"],
-	input[type="url"] {
+	input[type='date'],
+	input[type='time'],
+	input[type='week'],
+	input[type='url'] {
 		&::-webkit-calendar-picker-indicator,
 		&::-webkit-time-picker-indicator {
 			opacity: 0;

@@ -1,6 +1,6 @@
-import type { Handle } from '@sveltejs/kit';
+import type {Handle} from '@sveltejs/kit';
 
-export const handle: Handle = async ({ event, resolve }) => {
+export const handle: Handle = async ({event, resolve}) => {
 	const response = await resolve(event);
 
 	// Check if the request is for a CSS file

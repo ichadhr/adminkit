@@ -2,38 +2,38 @@
 
 // Variables and Maps
 $semantic-variants: (
-	"default": "primary",
-	"danger": "danger",
-	"success": "success",
-	"info": "info",
-	"warning": "warning"
+	'default': 'primary',
+	'danger': 'danger',
+	'success': 'success',
+	'info': 'info',
+	'warning': 'warning'
 );
 
-$grayscale-colors: ("slate", "gray", "zinc", "neutral", "stone");
+$grayscale-colors: ('slate', 'gray', 'zinc', 'neutral', 'stone');
 
 $colors: (
-	"red",
-	"orange",
-	"amber",
-	"yellow",
-	"lime",
-	"green",
-	"emerald",
-	"teal",
-	"cyan",
-	"sky",
-	"blue",
-	"indigo",
-	"violet",
-	"purple",
-	"fuchsia",
-	"pink",
-	"rose"
+	'red',
+	'orange',
+	'amber',
+	'yellow',
+	'lime',
+	'green',
+	'emerald',
+	'teal',
+	'cyan',
+	'sky',
+	'blue',
+	'indigo',
+	'violet',
+	'purple',
+	'fuchsia',
+	'pink',
+	'rose'
 );
 
 // Mixins
 @mixin radio-checked($color) {
-	&[data-state="checked"] {
+	&[data-state='checked'] {
 		@apply border-#{$color} text-#{$color};
 	}
 	& > div > svg {
@@ -42,7 +42,7 @@ $colors: (
 }
 
 @mixin radio-checked-with-shade($color) {
-	&[data-state="checked"] {
+	&[data-state='checked'] {
 		@apply border-#{$color}-500 text-#{$color}-500;
 	}
 	& > div > svg {

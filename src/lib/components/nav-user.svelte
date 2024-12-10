@@ -9,7 +9,7 @@
 	import * as Avatar from '$lib/components/ui/avatar/index.js';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
-	import { useSidebar } from '$lib/components/ui/sidebar/index.js';
+	import {useSidebar} from '$lib/components/ui/sidebar/index.js';
 
 	let {
 		user
@@ -28,7 +28,7 @@
 	<Sidebar.MenuItem>
 		<DropdownMenu.Root>
 			<DropdownMenu.Trigger>
-				{#snippet child({ props })}
+				{#snippet child({props})}
 					<Sidebar.MenuButton
 						{...props}
 						size="lg"

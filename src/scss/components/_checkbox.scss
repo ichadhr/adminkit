@@ -2,38 +2,38 @@
 
 // Variables and Maps
 $semantic-variants: (
-	"default": "primary",
-	"danger": "danger",
-	"success": "success",
-	"info": "info",
-	"warning": "warning"
+	'default': 'primary',
+	'danger': 'danger',
+	'success': 'success',
+	'info': 'info',
+	'warning': 'warning'
 );
 
-$grayscale-colors: ("slate", "gray", "zinc", "neutral", "stone");
+$grayscale-colors: ('slate', 'gray', 'zinc', 'neutral', 'stone');
 
 $colors: (
-	"red",
-	"orange",
-	"amber",
-	"yellow",
-	"lime",
-	"green",
-	"emerald",
-	"teal",
-	"cyan",
-	"sky",
-	"blue",
-	"indigo",
-	"violet",
-	"purple",
-	"fuchsia",
-	"pink",
-	"rose"
+	'red',
+	'orange',
+	'amber',
+	'yellow',
+	'lime',
+	'green',
+	'emerald',
+	'teal',
+	'cyan',
+	'sky',
+	'blue',
+	'indigo',
+	'violet',
+	'purple',
+	'fuchsia',
+	'pink',
+	'rose'
 );
 
 // Mixins
 @mixin checkbox-checked($color) {
-	&[data-state="checked"] {
+	&[data-state='checked'] {
 		@apply bg-#{$color} border-#{$color} !important;
 
 		.lucide-check {
@@ -43,7 +43,7 @@ $colors: (
 }
 
 @mixin checkbox-checked-with-shade($color) {
-	&[data-state="checked"] {
+	&[data-state='checked'] {
 		@apply bg-#{$color}-500 border-#{$color}-500 !important;
 
 		.lucide-check {
@@ -65,7 +65,7 @@ $colors: (
 		@apply disabled:cursor-not-allowed disabled:opacity-50;
 		@apply data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-50;
 
-		&[data-state="checked"] {
+		&[data-state='checked'] {
 			@apply transition-colors duration-200;
 		}
 	}

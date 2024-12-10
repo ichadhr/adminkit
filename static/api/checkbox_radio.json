@@ -1,44 +1,44 @@
 {
 	"stacked": [
-		{ "id": "checked", "label": "Checked", "checked": true },
-		{ "id": "unchecked", "label": "Unchecked" },
-		{ "id": "checked-disabled", "label": "Checked disabled", "checked": true, "disabled": true },
-		{ "id": "unchecked-disabled", "label": "Unchecked disabled", "disabled": true }
+		{"id": "checked", "label": "Checked", "checked": true},
+		{"id": "unchecked", "label": "Unchecked"},
+		{"id": "checked-disabled", "label": "Checked disabled", "checked": true, "disabled": true},
+		{"id": "unchecked-disabled", "label": "Unchecked disabled", "disabled": true}
 	],
 	"inline": [
-		{ "id": "checked", "label": "Checked", "checked": true, "disabled": true },
-		{ "id": "unchecked", "label": "Unchecked" }
+		{"id": "checked", "label": "Checked", "checked": true, "disabled": true},
+		{"id": "unchecked", "label": "Unchecked"}
 	],
 	"variants": {
 		"semantic": [
-            { "id": "danger", "label": "Danger", "variant": "danger", "checked": true },
-            { "id": "info", "label": "Info", "variant": "info", "checked": true },
-            { "id": "success", "label": "Success", "variant": "success", "checked": true },
-            { "id": "warning", "label": "Warning", "variant": "warning", "checked": true }
-        ],
-        "tailwind": [
-            { "id": "slate", "label": "Slate", "variant": "slate", "checked": true },
-            { "id": "gray", "label": "Gray", "variant": "gray", "checked": true },
-            { "id": "zinc", "label": "Zinc", "variant": "zinc", "checked": true },
-            { "id": "neutral", "label": "Neutral", "variant": "neutral", "checked": true },
-            { "id": "stone", "label": "Stone", "variant": "stone", "checked": true },
-            { "id": "red", "label": "Red", "variant": "red", "checked": true },
-            { "id": "orange", "label": "Orange", "variant": "orange", "checked": true },
-            { "id": "amber", "label": "Amber", "variant": "amber", "checked": true },
-            { "id": "yellow", "label": "Yellow", "variant": "yellow", "checked": true },
-            { "id": "lime", "label": "Lime", "variant": "lime", "checked": true },
-            { "id": "green", "label": "Green", "variant": "green", "checked": true },
-            { "id": "emerald", "label": "Emerald", "variant": "emerald", "checked": true },
-            { "id": "teal", "label": "Teal", "variant": "teal", "checked": true },
-            { "id": "cyan", "label": "Cyan", "variant": "cyan", "checked": true },
-            { "id": "sky", "label": "Sky", "variant": "sky", "checked": true },
-            { "id": "blue", "label": "Blue", "variant": "blue", "checked": true },
-            { "id": "indigo", "label": "Indigo", "variant": "indigo", "checked": true },
-            { "id": "violet", "label": "Violet", "variant": "violet", "checked": true },
-            { "id": "purple", "label": "Purple", "variant": "purple", "checked": true },
-            { "id": "fuchsia", "label": "Fuchsia", "variant": "fuchsia", "checked": true },
-            { "id": "pink", "label": "Pink", "variant": "pink", "checked": true },
-            { "id": "rose", "label": "Rose", "variant": "rose", "checked": true }
-        ]
+			{"id": "danger", "label": "Danger", "variant": "danger", "checked": true},
+			{"id": "info", "label": "Info", "variant": "info", "checked": true},
+			{"id": "success", "label": "Success", "variant": "success", "checked": true},
+			{"id": "warning", "label": "Warning", "variant": "warning", "checked": true}
+		],
+		"tailwind": [
+			{"id": "slate", "label": "Slate", "variant": "slate", "checked": true},
+			{"id": "gray", "label": "Gray", "variant": "gray", "checked": true},
+			{"id": "zinc", "label": "Zinc", "variant": "zinc", "checked": true},
+			{"id": "neutral", "label": "Neutral", "variant": "neutral", "checked": true},
+			{"id": "stone", "label": "Stone", "variant": "stone", "checked": true},
+			{"id": "red", "label": "Red", "variant": "red", "checked": true},
+			{"id": "orange", "label": "Orange", "variant": "orange", "checked": true},
+			{"id": "amber", "label": "Amber", "variant": "amber", "checked": true},
+			{"id": "yellow", "label": "Yellow", "variant": "yellow", "checked": true},
+			{"id": "lime", "label": "Lime", "variant": "lime", "checked": true},
+			{"id": "green", "label": "Green", "variant": "green", "checked": true},
+			{"id": "emerald", "label": "Emerald", "variant": "emerald", "checked": true},
+			{"id": "teal", "label": "Teal", "variant": "teal", "checked": true},
+			{"id": "cyan", "label": "Cyan", "variant": "cyan", "checked": true},
+			{"id": "sky", "label": "Sky", "variant": "sky", "checked": true},
+			{"id": "blue", "label": "Blue", "variant": "blue", "checked": true},
+			{"id": "indigo", "label": "Indigo", "variant": "indigo", "checked": true},
+			{"id": "violet", "label": "Violet", "variant": "violet", "checked": true},
+			{"id": "purple", "label": "Purple", "variant": "purple", "checked": true},
+			{"id": "fuchsia", "label": "Fuchsia", "variant": "fuchsia", "checked": true},
+			{"id": "pink", "label": "Pink", "variant": "pink", "checked": true},
+			{"id": "rose", "label": "Rose", "variant": "rose", "checked": true}
+		]
 	}
 }

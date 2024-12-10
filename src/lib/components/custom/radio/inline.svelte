@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { Label } from '$lib/components/ui/label/index.js';
+	import {Label} from '$lib/components/ui/label/index.js';
 	import RadioColor from '@/lib/components/custom/radio/color.svelte';
-	import type { RadioProps, ColorVariant } from '@/lib/components/custom/radio/index';
-	import { cn } from '$lib/utils';
+	import type {RadioProps, ColorVariant} from '@/lib/components/custom/radio/index';
+	import {cn} from '$lib/utils';
 
 	type Position = 'left' | 'right';
 

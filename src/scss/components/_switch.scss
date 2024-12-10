@@ -2,38 +2,38 @@
 
 // Variables and Maps
 $semantic-variants: (
-	"default": "primary",
-	"danger": "danger",
-	"success": "success",
-	"info": "info",
-	"warning": "warning"
+	'default': 'primary',
+	'danger': 'danger',
+	'success': 'success',
+	'info': 'info',
+	'warning': 'warning'
 );
 
-$grayscale-colors: ("slate", "gray", "zinc", "neutral", "stone");
+$grayscale-colors: ('slate', 'gray', 'zinc', 'neutral', 'stone');
 
 $colors: (
-	"red",
-	"orange",
-	"amber",
-	"yellow",
-	"lime",
-	"green",
-	"emerald",
-	"teal",
-	"cyan",
-	"sky",
-	"blue",
-	"indigo",
-	"violet",
-	"purple",
-	"fuchsia",
-	"pink",
-	"rose"
+	'red',
+	'orange',
+	'amber',
+	'yellow',
+	'lime',
+	'green',
+	'emerald',
+	'teal',
+	'cyan',
+	'sky',
+	'blue',
+	'indigo',
+	'violet',
+	'purple',
+	'fuchsia',
+	'pink',
+	'rose'
 );
 
 // Mixins
 @mixin switch-checked($color) {
-	&[data-state="checked"] {
+	&[data-state='checked'] {
 		@apply bg-#{$color} !important;
 
 		.switch-thumb {
@@ -43,7 +43,7 @@ $colors: (
 }
 
 @mixin switch-checked-with-shade($color) {
-	&[data-state="checked"] {
+	&[data-state='checked'] {
 		@apply bg-#{$color}-500 !important;
 
 		.switch-thumb {

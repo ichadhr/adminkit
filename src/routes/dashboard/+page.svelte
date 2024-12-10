@@ -1,12 +1,12 @@
 <script lang="ts">
 	const items = [
-		{ content: 'Dashboard Item 1' },
-		{ content: 'Dashboard Item 2' },
-		{ content: 'Dashboard Item 3' }
+		{content: 'Dashboard Item 1'},
+		{content: 'Dashboard Item 2'},
+		{content: 'Dashboard Item 3'}
 	];
 </script>
 
-<main class="flex flex-1 flex-col gap-4 p-4 pt-0 mb-5">
+<main class="mb-5 flex flex-1 flex-col gap-4 p-4 pt-0">
 	<section class="grid auto-rows-min gap-4 md:grid-cols-3">
 		{#each items as item}
 			<div class="aspect-video rounded-xl bg-muted/50">

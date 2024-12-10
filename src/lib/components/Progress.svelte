@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
-	import { navigating } from '$app/stores';
-	import { browser } from '$app/environment';
+	import {onMount, onDestroy} from 'svelte';
+	import {navigating} from '$app/stores';
+	import {browser} from '$app/environment';
 
 	// Constants for better maintainability
 	const INITIAL_PROGRESS = 20;

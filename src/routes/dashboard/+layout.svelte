@@ -1,14 +1,14 @@
 <script lang="ts">
 	import AppSidebar from '$lib/components/app-sidebar.svelte';
 	import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';
-	import { Separator } from '$lib/components/ui/separator/index.js';
+	import {Separator} from '$lib/components/ui/separator/index.js';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
-	import { breadcrumbs, pageTitle } from '@/lib/utils';
+	import {breadcrumbs, pageTitle} from '@/lib/utils';
 	import ThemeToggle from '$lib/components/theme-toggle.svelte'; // adjust path as needed
-	import { browser } from '$app/environment';
-	import { onMount } from 'svelte';
+	import {browser} from '$app/environment';
+	import {onMount} from 'svelte';
 
-	let { children } = $props();
+	let {children} = $props();
 
 	onMount(() => {
 		if (browser) {
@@ -32,7 +32,7 @@
 	<AppSidebar />
 	<Sidebar.Inset>
 		<header class="flex h-16 shrink-0 items-center gap-2">
-			<nav class="flex items-center gap-2 px-4 flex-1">
+			<nav class="flex flex-1 items-center gap-2 px-4">
 				<Sidebar.Trigger class="-ml-1" />
 				<Separator orientation="vertical" class="mr-2 h-4" />
 				<Breadcrumb.Root>

@@ -1,17 +1,17 @@
 <script lang="ts">
 	import * as Card from '@/lib/components/ui/card';
-	import { Separator } from '$lib/components/ui/separator/index.js';
+	import {Separator} from '$lib/components/ui/separator/index.js';
 	import * as Checkbox from '$lib/components/ui/checkbox/index.js';
-	import { Label } from '$lib/components/ui/label/index.js';
+	import {Label} from '$lib/components/ui/label/index.js';
 	import * as Form from '$lib/components/ui/form/index.js';
 	import CodeBlock from '$lib/components/code-block.svelte';
 	import typescript from 'svelte-highlight/languages/typescript';
 	import rust from 'svelte-highlight/languages/rust';
 
 	const items = [
-		{ content: 'Dashboard Item 1' },
-		{ content: 'Dashboard Item 2' },
-		{ content: 'Dashboard Item 3' }
+		{content: 'Dashboard Item 1'},
+		{content: 'Dashboard Item 2'},
+		{content: 'Dashboard Item 3'}
 	];
 
 	const checker = [
@@ -75,7 +75,7 @@
 }`;
 </script>
 
-<main class="flex flex-1 flex-col gap-4 p-4 pt-0 mb-5">
+<main class="mb-5 flex flex-1 flex-col gap-4 p-4 pt-0">
 	<section class="space-y-6">
 		<h3 class="text-2xl font-medium">Checkboxes</h3>
 		<p class="text-sm">

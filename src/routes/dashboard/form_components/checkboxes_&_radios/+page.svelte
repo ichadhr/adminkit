@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { CheckboxLayout, handleCheckedChange } from '$lib/components/custom/checkbox/index.js';
-	import { RadioLayout } from '@/lib/components/custom/radio/index.js';
+	import {CheckboxLayout, handleCheckedChange} from '$lib/components/custom/checkbox/index.js';
+	import {RadioLayout} from '@/lib/components/custom/radio/index.js';
 	import * as RadioGroup from '$lib/components/ui/radio-group/index.js';
 
 	export let data;
-	const { stacked, inline, variants } = data.checkboxes;
-	const { semantic, tailwind } = variants;
+	const {stacked, inline, variants} = data.checkboxes;
+	const {semantic, tailwind} = variants;
 
 	// Initialize with checked items from the data
 	let selectedItemsLeft = stacked?.filter((item) => item.checked)?.map((item) => item.id) ?? [];
@@ -27,7 +27,7 @@
 	$: radioDisabledItems = stacked?.filter((item) => item.disabled) ?? [];
 </script>
 
-<main class="flex flex-1 flex-col gap-4 p-4 pt-0 mb-5">
+<main class="mb-5 flex flex-1 flex-col gap-4 p-4 pt-0">
 	<!-- heading section Checkboxes -->
 	<section class="space-y-6">
 		<h3 class="text-2xl font-medium">Checkboxes</h3>
@@ -457,9 +457,9 @@
 	<!-- heading section Radios colors -->
 	<section class="space-y-6 pt-5">
 		<p class="text-sm">
-			Radios can have a custom color based on Tailwind's color palette, allowing you to match
-			your application's design system and create visually consistent user interfaces. You can
-			choose from a wide range of predefined colors or customize them to meet your specific needs.
+			Radios can have a custom color based on Tailwind's color palette, allowing you to match your
+			application's design system and create visually consistent user interfaces. You can choose
+			from a wide range of predefined colors or customize them to meet your specific needs.
 		</p>
 	</section>
 

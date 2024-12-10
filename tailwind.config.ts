@@ -1,18 +1,12 @@
-import { fontFamily } from 'tailwindcss/defaultTheme';
-import type { Config } from 'tailwindcss';
+import {fontFamily} from 'tailwindcss/defaultTheme';
+import type {Config} from 'tailwindcss';
 import tailwindcssAnimate from 'tailwindcss-animate';
-import { GRAYSCALE_COLORS, COLORS } from './src/lib/components/custom/variants';
-
+import {GRAYSCALE_COLORS, COLORS} from './src/lib/components/custom/variants';
 
 const config: Config = {
 	darkMode: ['class'],
-	content: [
-        './src/**/*.{html,js,svelte,ts}'
-	],
-	safelist: [
-		'dark',
-
-	],
+	content: ['./src/**/*.{html,js,svelte,ts}'],
+	safelist: ['dark'],
 	theme: {
 		container: {
 			center: true,
@@ -42,20 +36,20 @@ const config: Config = {
 				},
 				// Add new semantic colors
 				success: {
-					DEFAULT: "hsl(var(--success) / <alpha-value>)",
-					foreground: "hsl(var(--success-foreground) / <alpha-value>)",
+					DEFAULT: 'hsl(var(--success) / <alpha-value>)',
+					foreground: 'hsl(var(--success-foreground) / <alpha-value>)'
 				},
 				info: {
-					DEFAULT: "hsl(var(--info) / <alpha-value>)",
-					foreground: "hsl(var(--info-foreground) / <alpha-value>)",
+					DEFAULT: 'hsl(var(--info) / <alpha-value>)',
+					foreground: 'hsl(var(--info-foreground) / <alpha-value>)'
 				},
 				warning: {
-					DEFAULT: "hsl(var(--warning))",
-					foreground: "hsl(var(--warning-foreground) / <alpha-value>)",
+					DEFAULT: 'hsl(var(--warning))',
+					foreground: 'hsl(var(--warning-foreground) / <alpha-value>)'
 				},
 				danger: {
-					DEFAULT: "hsl(var(--danger) / <alpha-value>)",
-					foreground: "hsl(var(--danger-foreground) / <alpha-value>)",
+					DEFAULT: 'hsl(var(--danger) / <alpha-value>)',
+					foreground: 'hsl(var(--danger-foreground) / <alpha-value>)'
 				},
 				muted: {
 					DEFAULT: 'hsl(var(--muted) / <alpha-value>)',
@@ -95,16 +89,16 @@ const config: Config = {
 			},
 			keyframes: {
 				'accordion-down': {
-					from: { height: '0' },
-					to: { height: 'var(--bits-accordion-content-height)' }
+					from: {height: '0'},
+					to: {height: 'var(--bits-accordion-content-height)'}
 				},
 				'accordion-up': {
-					from: { height: 'var(--bits-accordion-content-height)' },
-					to: { height: '0' }
+					from: {height: 'var(--bits-accordion-content-height)'},
+					to: {height: '0'}
 				},
 				'caret-blink': {
-					'0%,70%,100%': { opacity: '1' },
-					'20%,50%': { opacity: '0' }
+					'0%,70%,100%': {opacity: '1'},
+					'20%,50%': {opacity: '0'}
 				}
 			},
 			animation: {

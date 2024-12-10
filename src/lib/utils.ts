@@ -1,7 +1,7 @@
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-import { page } from '$app/stores';
-import { derived } from 'svelte/store';
+import {type ClassValue, clsx} from 'clsx';
+import {twMerge} from 'tailwind-merge';
+import {page} from '$app/stores';
+import {derived} from 'svelte/store';
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));

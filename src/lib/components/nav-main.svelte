@@ -2,8 +2,8 @@
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import ChevronRight from 'lucide-svelte/icons/chevron-right';
-	import { page } from '$app/stores';
-	import { derived } from 'svelte/store';
+	import {page} from '$app/stores';
+	import {derived} from 'svelte/store';
 
 	interface SubMenuItem {
 		title: string;
@@ -23,7 +23,7 @@
 		items: MenuItem[];
 	}
 
-	let { groupItems }: { groupItems: GroupItem[] } = $props();
+	let {groupItems}: {groupItems: GroupItem[]} = $props();
 
 	const isActive = derived(page, ($page) => (url: string) => $page.url.pathname === url);
 	const isAnySubItemActive = derived(
@@ -38,10 +38,10 @@
 		<Sidebar.Menu>
 			{#each group.items as menuNav (menuNav.title)}
 				<Collapsible.Root open={menuNav.items && $isAnySubItemActive(menuNav.items)}>
-					{#snippet child({ props })}
+					{#snippet child({props})}
 						<Sidebar.MenuItem {...props}>
 							<Collapsible.Trigger>
-								{#snippet child({ props })}
+								{#snippet child({props})}
 									{#if menuNav.items?.length}
 										<Sidebar.MenuButton
 											data-active={$isActive(menuNav.url) ? 'true' : 'false'}

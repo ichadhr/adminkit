@@ -1,7 +1,7 @@
 <script lang="ts">
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
-	import { useSidebar } from '$lib/components/ui/sidebar/index.js';
+	import {useSidebar} from '$lib/components/ui/sidebar/index.js';
 	import Ellipsis from 'lucide-svelte/icons/ellipsis';
 	import Folder from 'lucide-svelte/icons/folder';
 	import Share from 'lucide-svelte/icons/share';
@@ -28,7 +28,7 @@
 		{#each projects as item (item.name)}
 			<Sidebar.MenuItem>
 				<Sidebar.MenuButton>
-					{#snippet child({ props })}
+					{#snippet child({props})}
 						<a href={item.url} {...props}>
 							<item.icon />
 							<span>{item.name}</span>
@@ -37,7 +37,7 @@
 				</Sidebar.MenuButton>
 				<DropdownMenu.Root>
 					<DropdownMenu.Trigger>
-						{#snippet child({ props })}
+						{#snippet child({props})}
 							<Sidebar.MenuAction showOnHover {...props}>
 								<Ellipsis />
 								<span class="sr-only">More</span>
