@@ -546,17 +546,17 @@
 			</div>
 			<div class="group flex w-full items-center">
 				<Button
-						class="rounded-r-none bg-purple-600 hover:bg-purple-700 group-focus-within:ring-1 group-focus-within:ring-purple-600/50"
-						>Left</Button
-					>
-					<Input
-						type="text"
-						class="rounded-none border-purple-600 focus-visible:ring-1 focus-visible:ring-purple-600/50 focus-visible:ring-offset-0"
-					/>
-					<Button
-						class="rounded-l-none bg-purple-600 hover:bg-purple-700 group-focus-within:ring-1 group-focus-within:ring-purple-600/50"
-						>Right</Button
-					>
+					class="rounded-r-none bg-purple-600 hover:bg-purple-700 group-focus-within:ring-1 group-focus-within:ring-purple-600/50"
+					>Left</Button
+				>
+				<Input
+					type="text"
+					class="rounded-none border-purple-600 focus-visible:ring-1 focus-visible:ring-purple-600/50 focus-visible:ring-offset-0"
+				/>
+				<Button
+					class="rounded-l-none bg-purple-600 hover:bg-purple-700 group-focus-within:ring-1 group-focus-within:ring-purple-600/50"
+					>Right</Button
+				>
 			</div>
 		</div>
 
@@ -566,17 +566,17 @@
 			</div>
 			<div class="group flex w-full items-center">
 				<Button
-						class="rounded-r-none bg-zinc-600 hover:bg-zinc-700 group-focus-within:ring-1 group-focus-within:ring-zinc-600/50"
-						>Left</Button
-					>
-					<Input
-						type="text"
-						class="rounded-none border-zinc-600 focus-visible:ring-1 focus-visible:ring-zinc-600/50 focus-visible:ring-offset-0"
-					/>
-					<Button
-						class="rounded-l-none bg-zinc-600 hover:bg-zinc-700 group-focus-within:ring-1 group-focus-within:ring-zinc-600/50"
-						>Right</Button
-					>
+					class="rounded-r-none bg-zinc-600 hover:bg-zinc-700 group-focus-within:ring-1 group-focus-within:ring-zinc-600/50"
+					>Left</Button
+				>
+				<Input
+					type="text"
+					class="rounded-none border-zinc-600 focus-visible:ring-1 focus-visible:ring-zinc-600/50 focus-visible:ring-offset-0"
+				/>
+				<Button
+					class="rounded-l-none bg-zinc-600 hover:bg-zinc-700 group-focus-within:ring-1 group-focus-within:ring-zinc-600/50"
+					>Right</Button
+				>
 			</div>
 		</div>
 	</section>
