@@ -1,4 +1,5 @@
 <script lang="ts">
+	import {Button} from '$lib/components/ui/button/index.js';
 	import {Input} from '$lib/components/ui/input/index.js';
 	import {Label} from '$lib/components/ui/label/index.js';
 	import {Separator} from '$lib/components/ui/separator/index.js';
@@ -13,6 +14,8 @@
 		Eye,
 		EyeOff
 	} from 'lucide-svelte';
+	import {Textarea} from '$lib/components/ui/textarea/index.js';
+	import * as InputOTP from '$lib/components/ui/input-otp/index.js';
 
 	let showPassword = false;
 	let leftShowPassword = false;
@@ -83,6 +86,22 @@
 				<Input id="focusInput" placeholder="Focus on label click" />
 			</div>
 		</div>
+		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
+			<div class="flex md:items-center">
+				<Label class="font-normal">Textarea</Label>
+			</div>
+			<div>
+				<Textarea rows={3} placeholder="Type your message here." />
+			</div>
+		</div>
+		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
+			<div class="flex md:items-center">
+				<Label class="font-normal">Textarea autosize</Label>
+			</div>
+			<div>
+				<Textarea rows={3} placeholder="Type your message here." />
+			</div>
+		</div>
 	</section>
 
 	<section class="mt-7">
@@ -103,6 +122,14 @@
 			</div>
 			<div>
 				<Input disabled value="This is disabled text" />
+			</div>
+		</div>
+		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
+			<div class="flex md:items-center">
+				<Label class="font-normal">Disabled textarea</Label>
+			</div>
+			<div>
+				<Textarea rows={3} placeholder="Type your message here." disabled />
 			</div>
 		</div>
 	</section>
@@ -275,7 +302,7 @@
 					<Mail class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 					<Input class="pl-10" type="email" placeholder="Email" />
 				</div>
-				<!-- Updated password input with left Lock icon and right toggle -->
+				<!-- Password input with left Lock icon and right toggle -->
 				<div class="input-wrapper">
 					<Lock class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 					<Input
@@ -311,7 +338,7 @@
 					<Input class="pr-10" type="email" placeholder="Email" />
 					<Mail class="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 				</div>
-				<!-- Updated password input with toggle -->
+				<!-- Right password input with toggle -->
 				<div class="input-wrapper">
 					<Input
 						class="pr-10"
@@ -323,7 +350,7 @@
 						class="input-icon password-toggle"
 						on:click={() => (rightShowPassword = !rightShowPassword)}
 					>
-						{#if showPassword}
+						{#if rightShowPassword}
 							<EyeOff size={16} />
 						{:else}
 							<Eye size={16} />
@@ -349,31 +376,305 @@
 				<Label class="font-normal">Info</Label>
 			</div>
 			<div>
-				<Input class="border-info" />
+				<Input class="border-info focus:ring-info/50 focus-visible:ring-info/30" />
 			</div>
 		</div>
+
 		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
 			<div class="flex md:items-center">
 				<Label class="font-normal">Success</Label>
 			</div>
 			<div>
-				<Input class="border-success" />
+				<Input class="border-success focus:ring-success/50 focus-visible:ring-success/30" />
 			</div>
 		</div>
+
 		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
 			<div class="flex md:items-center">
 				<Label class="font-normal">Warning</Label>
 			</div>
 			<div>
-				<Input class="border-warning" />
+				<Input class="border-warning focus:ring-warning/50 focus-visible:ring-warning/30" />
 			</div>
 		</div>
+
 		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
 			<div class="flex md:items-center">
 				<Label class="font-normal">Danger</Label>
 			</div>
 			<div>
-				<Input class="border-danger" />
+				<Input class="border-danger focus:ring-danger/50 focus-visible:ring-danger/30" />
+			</div>
+		</div>
+	</section>
+
+	<section class="mt-7">
+		<h3 class="font-medium leading-none">Input with button</h3>
+		<Separator class="my-4" />
+		<!-- Default Examples -->
+		<div class="grid grid-cols-1 gap-y-1.5 md:grid-cols-[15%_85%]">
+			<div class="flex md:items-center">
+				<Label class="font-normal">Left button</Label>
+			</div>
+			<div class="group flex w-full items-center">
+				<Button class="rounded-r-none group-focus-within:ring-1 group-focus-within:ring-ring"
+					>Left</Button
+				>
+				<Input
+					type="text"
+					class="rounded-l-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0"
+				/>
+			</div>
+		</div>
+
+		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
+			<div class="flex md:items-center">
+				<Label class="font-normal">Right button</Label>
+			</div>
+			<div class="group flex w-full items-center">
+				<Input
+					type="text"
+					class="rounded-r-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0"
+				/>
+				<Button class="rounded-l-none group-focus-within:ring-1 group-focus-within:ring-ring"
+					>Right</Button
+				>
+			</div>
+		</div>
+
+		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
+			<div class="flex md:items-center">
+				<Label class="font-normal">Both sides</Label>
+			</div>
+			<div class="group flex w-full items-center">
+				<Button class="rounded-r-none group-focus-within:ring-1 group-focus-within:ring-ring"
+					>Left</Button
+				>
+				<Input
+					type="text"
+					class="rounded-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0"
+				/>
+				<Button class="rounded-l-none group-focus-within:ring-1 group-focus-within:ring-ring"
+					>Right</Button
+				>
+			</div>
+		</div>
+
+		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
+			<div class="flex md:items-center">
+				<Label class="font-normal">Info</Label>
+			</div>
+			<div class="group flex w-full items-center">
+				<Button
+					class="rounded-r-none bg-info text-info-foreground hover:bg-info/90 group-focus-within:ring-1 group-focus-within:ring-info/50"
+					>Left</Button
+				>
+				<Input
+					type="text"
+					class="rounded-none border-info focus-visible:ring-1 focus-visible:ring-info/50 focus-visible:ring-offset-0"
+				/>
+				<Button
+					class="rounded-l-none bg-info text-info-foreground hover:bg-info/90 group-focus-within:ring-1 group-focus-within:ring-info/50"
+					>Right</Button
+				>
+			</div>
+		</div>
+
+		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
+			<div class="flex md:items-center">
+				<Label class="font-normal">Success</Label>
+			</div>
+			<div class="group flex w-full items-center">
+				<Button
+					class="rounded-r-none bg-success text-success-foreground hover:bg-success/90 group-focus-within:ring-1 group-focus-within:ring-success/50"
+					>Left</Button
+				>
+				<Input
+					type="text"
+					class="rounded-none border-success focus-visible:ring-1 focus-visible:ring-success/50 focus-visible:ring-offset-0"
+				/>
+				<Button
+					class="rounded-l-none bg-success text-success-foreground hover:bg-success/90 group-focus-within:ring-1 group-focus-within:ring-success/50"
+					>Right</Button
+				>
+			</div>
+		</div>
+
+		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
+			<div class="flex md:items-center">
+				<Label class="font-normal">Warning</Label>
+			</div>
+			<div class="group flex w-full items-center">
+				<Button
+					class="rounded-r-none bg-warning text-warning-foreground hover:bg-warning/90 group-focus-within:ring-1 group-focus-within:ring-warning/50"
+					>Left</Button
+				>
+				<Input
+					type="text"
+					class="rounded-none border-warning focus-visible:ring-1 focus-visible:ring-warning/50 focus-visible:ring-offset-0"
+				/>
+				<Button
+					class="rounded-l-none bg-warning text-warning-foreground hover:bg-warning/90 group-focus-within:ring-1 group-focus-within:ring-warning/50"
+					>Right</Button
+				>
+			</div>
+		</div>
+
+		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
+			<div class="flex md:items-center">
+				<Label class="font-normal">Danger</Label>
+			</div>
+			<div class="group flex w-full items-center">
+				<Button
+					class="rounded-r-none bg-danger text-danger-foreground hover:bg-danger/90 group-focus-within:ring-1 group-focus-within:ring-danger/50"
+					>Left</Button
+				>
+				<Input
+					type="text"
+					class="rounded-none border-danger focus-visible:ring-1 focus-visible:ring-danger/50 focus-visible:ring-offset-0"
+				/>
+				<Button
+					class="rounded-l-none bg-danger text-danger-foreground hover:bg-danger/90 group-focus-within:ring-1 group-focus-within:ring-danger/50"
+					>Right</Button
+				>
+			</div>
+		</div>
+
+		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
+			<div class="flex md:items-center">
+				<Label class="font-normal">Purple</Label>
+			</div>
+			<div class="group flex w-full items-center">
+				<Button
+						class="rounded-r-none bg-purple-600 hover:bg-purple-700 group-focus-within:ring-1 group-focus-within:ring-purple-600/50"
+						>Left</Button
+					>
+					<Input
+						type="text"
+						class="rounded-none border-purple-600 focus-visible:ring-1 focus-visible:ring-purple-600/50 focus-visible:ring-offset-0"
+					/>
+					<Button
+						class="rounded-l-none bg-purple-600 hover:bg-purple-700 group-focus-within:ring-1 group-focus-within:ring-purple-600/50"
+						>Right</Button
+					>
+			</div>
+		</div>
+
+		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
+			<div class="flex md:items-center">
+				<Label class="font-normal">Zinc</Label>
+			</div>
+			<div class="group flex w-full items-center">
+				<Button
+						class="rounded-r-none bg-zinc-600 hover:bg-zinc-700 group-focus-within:ring-1 group-focus-within:ring-zinc-600/50"
+						>Left</Button
+					>
+					<Input
+						type="text"
+						class="rounded-none border-zinc-600 focus-visible:ring-1 focus-visible:ring-zinc-600/50 focus-visible:ring-offset-0"
+					/>
+					<Button
+						class="rounded-l-none bg-zinc-600 hover:bg-zinc-700 group-focus-within:ring-1 group-focus-within:ring-zinc-600/50"
+						>Right</Button
+					>
+			</div>
+		</div>
+	</section>
+
+	<section class="mt-7">
+		<h3 class="font-medium leading-none">Input OTP</h3>
+		<p class="pt-1 text-sm text-muted-foreground">
+			Accessible one-time password component with copy paste functionality.
+		</p>
+		<Separator class="my-4" />
+		<div class="grid grid-cols-1 gap-y-1.5 md:grid-cols-[15%_85%]">
+			<div class="flex md:items-center">
+				<Label class="font-normal">Default</Label>
+			</div>
+			<div>
+				<InputOTP.Root maxlength={6}>
+					{#snippet children({cells})}
+						<InputOTP.Group>
+							{#each cells as cell}
+								<InputOTP.Slot {cell} />
+							{/each}
+						</InputOTP.Group>
+					{/snippet}
+				</InputOTP.Root>
+			</div>
+		</div>
+		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
+			<div class="flex md:items-center">
+				<Label class="font-normal">Separator</Label>
+			</div>
+			<div>
+				<InputOTP.Root maxlength={6}>
+					{#snippet children({cells})}
+						<InputOTP.Group>
+							{#each cells.slice(0, 2) as cell}
+								<InputOTP.Slot {cell} />
+							{/each}
+						</InputOTP.Group>
+						<InputOTP.Separator />
+						<InputOTP.Group>
+							{#each cells.slice(2, 4) as cell}
+								<InputOTP.Slot {cell} />
+							{/each}
+						</InputOTP.Group>
+						<InputOTP.Separator />
+						<InputOTP.Group>
+							{#each cells.slice(4, 6) as cell}
+								<InputOTP.Slot {cell} />
+							{/each}
+						</InputOTP.Group>
+					{/snippet}
+				</InputOTP.Root>
+			</div>
+		</div>
+		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
+			<div class="flex md:items-center">
+				<Label class="font-normal">Separator</Label>
+			</div>
+			<div>
+				<InputOTP.Root maxlength={8}>
+					{#snippet children({cells})}
+						<InputOTP.Group>
+							{#each cells.slice(0, 2) as cell}
+								<InputOTP.Slot
+									{cell}
+									class="!border-info focus-visible:!ring-info/30 [&.ring-1]:!ring-info/50"
+								/>
+							{/each}
+						</InputOTP.Group>
+						<InputOTP.Separator />
+						<InputOTP.Group>
+							{#each cells.slice(2, 4) as cell}
+								<InputOTP.Slot
+									{cell}
+									class="!border-success focus-visible:!ring-success/30 [&.ring-1]:!ring-success/50"
+								/>
+							{/each}
+						</InputOTP.Group>
+						<InputOTP.Separator />
+						<InputOTP.Group>
+							{#each cells.slice(4, 6) as cell}
+								<InputOTP.Slot
+									{cell}
+									class="!border-warning focus-visible:!ring-warning/30 [&.ring-1]:!ring-warning/50"
+								/>
+							{/each}
+						</InputOTP.Group>
+						<InputOTP.Separator />
+						<InputOTP.Group>
+							{#each cells.slice(6, 8) as cell}
+								<InputOTP.Slot
+									{cell}
+									class="!border-danger focus-visible:!ring-danger/30 [&.ring-1]:!ring-danger/50"
+								/>
+							{/each}
+						</InputOTP.Group>
+					{/snippet}
+				</InputOTP.Root>
 			</div>
 		</div>
 	</section>
