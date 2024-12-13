@@ -1,46 +1,100 @@
 <!-- src\lib\components\theme-toggle.svelte -->
-
 <script lang="ts">
 	import {Moon, Sun} from 'lucide-svelte';
 	import {browser} from '$app/environment';
 	import {buttonVariants} from '$lib/components/ui/button';
+	import {onMount} from 'svelte';
 
-	// Initialize theme when component mounts
-	if (browser) {
+	/**
+	 * Represents the available theme options
+	 */
+	type Theme = 'light' | 'dark';
+
+	/**
+	 * Configuration for theme settings
+	 */
+	interface ThemeConfig {
+		readonly defaultTheme: Theme;
+		readonly storageKey: string;
+		readonly darkClassName: string;
+	}
+
+	/**
+	 * Theme configuration settings
+	 */
+	const themeConfig: ThemeConfig = {
+		defaultTheme: 'light',
+		storageKey: 'theme',
+		darkClassName: 'dark'
+	} as const;
+
+	let currentTheme: Theme = themeConfig.defaultTheme;
+
+	/**
+	 * Type guard to check if a value is a valid theme
+	 * @param value - The value to check
+	 * @returns True if the value is a valid theme
+	 */
+	function isValidTheme(value: unknown): value is Theme {
+		return value === 'light' || value === 'dark';
+	}
+
+	/**
+	 * Safely retrieves theme from localStorage
+	 * @returns The stored theme or null if invalid/not found
+	 */
+	function getStoredTheme(): Theme | null {
+		if (!browser) return null;
+
+		const stored = localStorage.getItem(themeConfig.storageKey);
+		return isValidTheme(stored) ? stored : null;
+	}
+
+	/**
+	 * Updates the DOM to reflect the current theme
+	 * @param theme - The theme to apply
+	 */
+	function applyTheme(theme: Theme): void {
+		if (!browser) return;
+
 		const root = document.documentElement;
-		// Get stored theme, explicitly default to 'light'
-		const storedTheme = localStorage.getItem('theme');
-		const defaultTheme = 'light';
-		const theme = storedTheme || defaultTheme;
+		const isDark = theme === 'dark';
 
-		// Remove dark class by default
-		root.classList.remove('dark');
-
-		// Only add dark class if explicitly stored as dark
-		if (theme === 'dark') {
-			root.classList.add('dark');
-		}
-
+		root.classList.toggle(themeConfig.darkClassName, isDark);
 		root.setAttribute('data-theme', theme);
+	}
 
-		// Ensure light theme is stored if no theme preference exists
+	/**
+	 * Initializes theme settings based on stored preferences
+	 */
+	function initializeTheme(): void {
+		if (!browser) return;
+
+		const storedTheme = getStoredTheme();
+		currentTheme = storedTheme ?? themeConfig.defaultTheme;
+
+		applyTheme(currentTheme);
+
+		// Ensure theme preference is stored
 		if (!storedTheme) {
-			localStorage.setItem('theme', defaultTheme);
+			localStorage.setItem(themeConfig.storageKey, currentTheme);
 		}
 	}
 
-	const toggleTheme = () => {
+	/**
+	 * Toggles between light and dark themes
+	 */
+	function toggleTheme(): void {
 		if (!browser) return;
-		const root = document.documentElement;
-		const isDark = root.classList.contains('dark');
-		const newTheme = isDark ? 'light' : 'dark';
 
-		root.classList.toggle('dark');
-		root.setAttribute('data-theme', newTheme);
+		const newTheme: Theme = currentTheme === 'dark' ? 'light' : 'dark';
+		currentTheme = newTheme;
 
-		// Save theme preference to localStorage
-		localStorage.setItem('theme', newTheme);
-	};
+		applyTheme(currentTheme);
+		localStorage.setItem(themeConfig.storageKey, currentTheme);
+	}
+
+	onMount(initializeTheme);
 </script>
 
 <button
