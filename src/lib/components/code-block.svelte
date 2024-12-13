@@ -6,16 +6,57 @@
 	import defaultTheme from 'svelte-highlight/styles/github-dark';
 	import {browser} from '$app/environment';
 
+	/**
+	 * Theme background configuration
+	 */
+	interface ThemeBackgrounds {
+		readonly dark: string;
+		readonly light: string;
+	}
+
+	/**
+	 * Component properties interface
+	 */
+	interface CodeBlockProps {
+		/** The code content to display */
+		code: string;
+		/** The programming language for syntax highlighting */
+		language: any;
+		/** Whether to show the language tag */
+		showLanguageTag?: boolean;
+		/** Whether to show line numbers */
+		showLineNumbers?: boolean;
+		/** Whether to wrap lines */
+		wrapLines?: boolean;
+		/** Whether to hide the border */
+		hideBorder?: boolean;
+		/** Custom theme CSS */
+		theme?: string;
+		/** Starting line number for the code block */
+		startingLineNumber?: number;
+		/** Array of line numbers to highlight */
+		highlightedLines?: number[];
+		/** Background color for highlighted lines */
+		highlightedBackground?: string;
+		/** Timeout duration for copy feedback */
+		copyTimeout?: number;
+	}
+
+	/**
+	 * Theme pattern type for background color extraction
+	 */
+	type ThemePattern = RegExp;
+
 	// Constants
 	const DEFAULT_COPY_TIMEOUT = 2000;
-	const SKELETON_BACKGROUNDS = {
+	const SKELETON_BACKGROUNDS: ThemeBackgrounds = {
 		dark: 'rgba(0, 0, 0, 0.1)',
 		light: 'rgba(255, 255, 255, 0.1)'
-	};
+	} as const;
 
-	// Props with default values
-	export let code: string;
-	export let language: any = null;
+	// Props with default values and types
+	export let code: CodeBlockProps['code'];
+	export let language: CodeBlockProps['language'] = null;
 	export let showLanguageTag = true;
 	export let showLineNumbers = true;
 	export let wrapLines = true;
@@ -26,18 +67,25 @@
 	export let highlightedBackground = 'rgba(158, 158, 158, 0.2)';
 	export let copyTimeout = DEFAULT_COPY_TIMEOUT;
 
-	// State
+	// Component state
 	let isCopied = false;
 	let copyTimeoutId: ReturnType<typeof setTimeout>;
 
-	// Memoized theme background patterns
-	const themePatterns = [
+	/**
+	 * Regular expressions for parsing theme background colors
+	 */
+	const themePatterns: readonly ThemePattern[] = [
 		/background(?:-color)?:\s*hsl\(([^)]+)\)/,
 		/background(?:-color)?:\s*(#[a-fA-F0-9]{6}|#[a-fA-F0-9]{3})/,
 		/background(?:-color)?:\s*rgb\((\s*\d+\s*,\s*\d+\s*,\s*\d+\s*)\)/
-	];
+	] as const;
 
-	// Utilities
+	/**
+	 * Extracts and processes the background color from theme CSS
+	 * @param themeCSS - The theme CSS string to parse
+	 * @returns The processed background color string
+	 * @throws {Error} When theme parsing fails
+	 */
 	function getThemeBackground(themeCSS: string): string {
 		const defaultBackground = 'hsl(var(--background))';
 
@@ -60,18 +108,28 @@
 		return defaultBackground;
 	}
 
+	/**
+	 * Calculates if dark text should be used based on background luminance
+	 * @param hexColor - Hex color string to analyze
+	 * @returns Boolean indicating if dark text should be used
+	 */
 	function shouldUseDarkText(hexColor: string): boolean {
 		const color = hexColor.replace('#', '').trim();
 		if (color.length !== 6) return false;
 
 		try {
 			const [r, g, b] = [0, 2, 4].map((i) => parseInt(color.substring(i, i + 2), 16));
-			return (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.5;
+			const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+			return luminance > 0.5;
 		} catch {
 			return false;
 		}
 	}
 
+	/**
+	 * Handles copying code to clipboard and manages copy state
+	 * @returns Promise that resolves when copy operation is complete
+	 */
 	async function copyToClipboard(): Promise<void> {
 		try {
 			await navigator.clipboard.writeText(code);
@@ -79,16 +137,18 @@
 			isCopied = true;
 			copyTimeoutId = setTimeout(() => (isCopied = false), copyTimeout);
 		} catch (err) {
-			console.error('Failed to copy:', err);
+			console.error('Failed to copy code:', err);
 		}
 	}
 
-	// Cleanup
+	// Cleanup on component destruction
 	onDestroy(() => {
-		clearTimeout(copyTimeoutId);
+		if (copyTimeoutId) {
+			clearTimeout(copyTimeoutId);
+		}
 	});
 
-	// Reactive declarations
+	// Reactive declarations with improved type safety
 	$: languageTag = showLanguageTag && language?.name ? language.name : null;
 	$: shouldRender = browser;
 	$: numberOfLines = code.split('\n').length;
