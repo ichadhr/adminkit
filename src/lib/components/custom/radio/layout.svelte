@@ -1,4 +1,5 @@
 <!-- src\lib\components\custom\radio\layout.svelte -->
+
 <script lang="ts">
 	import {Label} from '$lib/components/ui/label/index.js';
 	import {RadioColor} from '@/lib/components/custom/radio';
@@ -54,6 +55,9 @@
 	const layout = $derived((props.layout as Layout) ?? 'left');
 	const color = $derived((props.color as ColorVariant) ?? 'default');
 
+	/** Common disabled style */
+	const disabledStyle = 'opacity-50 cursor-not-allowed';
+
 	/**
 	 * Creates layout configurations based on disabled state
 	 * @param isDisabled - Current disabled state of the radio
@@ -80,32 +84,32 @@
 		return {
 			'left-inline': {
 				...baseInlineConfig,
-				labelClass: cn('radio-inline-label', isDisabled && 'disabled'),
+				labelClass: cn('radio-inline-label', isDisabled && disabledStyle),
 				labelFirst: false
 			},
 			'right-inline': {
 				...baseInlineConfig,
-				labelClass: cn('radio-inline-label', isDisabled && 'disabled'),
+				labelClass: cn('radio-inline-label', isDisabled && disabledStyle),
 				labelFirst: true
 			},
 			'left-stretched': {
 				...stretchedConfig,
-				labelClass: cn('radio-stacked-label', isDisabled && 'disabled'),
+				labelClass: cn('radio-stacked-label', isDisabled && disabledStyle),
 				labelFirst: false
 			},
 			'right-stretched': {
 				...stretchedConfig,
-				labelClass: cn('radio-stacked-label', isDisabled && 'disabled'),
+				labelClass: cn('radio-stacked-label', isDisabled && disabledStyle),
 				labelFirst: true
 			},
 			left: {
 				...baseStackedConfig,
-				labelClass: cn('radio-stacked-label', isDisabled && 'disabled'),
+				labelClass: cn('radio-stacked-label', isDisabled && disabledStyle),
 				labelFirst: false
 			},
 			right: {
 				...baseStackedConfig,
-				labelClass: cn('radio-stacked-label', isDisabled && 'disabled'),
+				labelClass: cn('radio-stacked-label', isDisabled && disabledStyle),
 				labelFirst: true
 			}
 		};

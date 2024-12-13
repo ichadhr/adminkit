@@ -44,6 +44,9 @@
 		layout: 'font-normal gap-2 flex items-center'
 	} as const;
 
+	/** Common disabled style */
+	const disabledStyle = 'opacity-50 cursor-not-allowed';
+
 	/**
 	 * Computed unique identifier for the switch
 	 */
@@ -66,37 +69,33 @@
 	const layoutConfigs: Record<Layout, LayoutConfig> = {
 		'left-inline': {
 			wrapperClass: 'inline-flex flex-wrap items-center gap-4',
-			labelClass: cn(baseStyles.inline, disabled && 'opacity-50 cursor-not-allowed'),
+			labelClass: cn(baseStyles.inline, disabled && disabledStyle),
 			isInline: true
 		},
 		'right-inline': {
 			wrapperClass: 'inline-flex flex-wrap items-center gap-4',
-			labelClass: cn(
-				baseStyles.inline,
-				'flex-row-reverse',
-				disabled && 'opacity-50 cursor-not-allowed'
-			),
+			labelClass: cn(baseStyles.inline, 'flex-row-reverse', disabled && disabledStyle),
 			isInline: true
 		},
 		'left-stretched': {
 			containerClass: 'switch-layout-container stretched',
-			labelClass: cn('switch-layout-label-default', baseStyles.layout, disabled && 'disabled'),
+			labelClass: cn('switch-layout-label-default', baseStyles.layout, disabled && disabledStyle),
 			isStretched: true
 		},
 		'right-stretched': {
 			containerClass: 'switch-layout-container stretched',
-			labelClass: cn('switch-layout-label-default', baseStyles.layout, disabled && 'disabled'),
+			labelClass: cn('switch-layout-label-default', baseStyles.layout, disabled && disabledStyle),
 			isStretched: true,
 			labelFirst: true
 		},
 		right: {
 			containerClass: 'switch-layout-container',
-			labelClass: cn('switch-layout-label-inline', baseStyles.layout, disabled && 'disabled'),
+			labelClass: cn('switch-layout-label-inline', baseStyles.layout, disabled && disabledStyle),
 			labelFirst: true
 		},
 		left: {
 			containerClass: 'switch-layout-container',
-			labelClass: cn('switch-layout-label-inline', baseStyles.layout, disabled && 'disabled')
+			labelClass: cn('switch-layout-label-inline', baseStyles.layout, disabled && disabledStyle)
 		}
 	} as const;
 

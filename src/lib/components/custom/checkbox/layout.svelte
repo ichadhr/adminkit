@@ -57,6 +57,9 @@
 		color = 'default'
 	} = props;
 
+	/** Common disabled style */
+	const disabledStyle = 'opacity-50 cursor-not-allowed';
+
 	/**
 	 * Creates layout configurations based on disabled state
 	 * @param {boolean} isDisabled - Whether the checkbox is disabled
@@ -66,10 +69,7 @@
 		'left-inline': {
 			wrapperClass: 'flex flex-wrap gap-4',
 			containerClass: '',
-			labelClass: cn(
-				'inline-flex items-center gap-2 font-normal',
-				isDisabled && 'opacity-50 cursor-not-allowed'
-			),
+			labelClass: cn('inline-flex items-center gap-2 font-normal', isDisabled && disabledStyle),
 			isInline: true,
 			labelFirst: false
 		},
@@ -78,35 +78,35 @@
 			containerClass: '',
 			labelClass: cn(
 				'inline-flex items-center gap-2 font-normal flex-row-reverse',
-				isDisabled && 'opacity-50 cursor-not-allowed'
+				isDisabled && disabledStyle
 			),
 			isInline: true,
 			labelFirst: false
 		},
 		'left-stretched': {
 			containerClass: cn('checkbox-layout-container', 'stretched'),
-			labelClass: cn('checkbox-layout-label-default', isDisabled && 'disabled'),
+			labelClass: cn('checkbox-layout-label-default', isDisabled && disabledStyle),
 			isInline: false,
 			isStretched: true,
 			labelFirst: false
 		},
 		'right-stretched': {
 			containerClass: cn('checkbox-layout-container', 'stretched'),
-			labelClass: cn('checkbox-layout-label-default', isDisabled && 'disabled'),
+			labelClass: cn('checkbox-layout-label-default', isDisabled && disabledStyle),
 			isInline: false,
 			isStretched: true,
 			labelFirst: true
 		},
 		right: {
 			containerClass: 'checkbox-layout-container',
-			labelClass: cn('checkbox-layout-label-right', isDisabled && 'disabled'),
+			labelClass: cn('checkbox-layout-label-right', isDisabled && disabledStyle),
 			isInline: false,
 			isStretched: false,
 			labelFirst: true
 		},
 		left: {
 			containerClass: 'checkbox-layout-container',
-			labelClass: cn('checkbox-layout-label-inline', isDisabled && 'disabled'),
+			labelClass: cn('checkbox-layout-label-inline', isDisabled && disabledStyle),
 			isInline: false,
 			isStretched: false,
 			labelFirst: false
