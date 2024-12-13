@@ -1,43 +1,57 @@
 <!-- src\lib\components\progress.svelte -->
-
 <script lang="ts">
 	import {onMount, onDestroy} from 'svelte';
 	import {navigating} from '$app/stores';
 	import {browser} from '$app/environment';
 
-	// Constants for better maintainability
-	const INITIAL_PROGRESS = 20;
-	const MAX_PROGRESS = 90;
-	const COMPLETE_PROGRESS = 100;
-	const PROGRESS_INTERVAL = 100;
-	const FADE_DELAY = 300;
-	const INITIAL_LOAD_DELAY = 500;
-	const MIN_INCREMENT = 0.2;
-	const INCREMENT_MULTIPLIER = 3;
+	/**
+	 * Progress bar configuration constants
+	 */
+	const PROGRESS = {
+		INITIAL: 20,
+		MAX: 90,
+		COMPLETE: 100,
+		INTERVAL: 100,
+		FADE_DELAY: 300,
+		INITIAL_LOAD_DELAY: 500,
+		MIN_INCREMENT: 0.2,
+		INCREMENT_MULTIPLIER: 3
+	} as const;
 
-	// Type definitions for better type safety
+	/**
+	 * DOM element references for progress bar components
+	 */
 	interface ProgressElements {
 		bar: HTMLDivElement | null;
 		wrapper: HTMLDivElement | null;
 	}
 
-	// Properly typed variables
-	let elements: ProgressElements = {
+	/**
+	 * Progress state management using Svelte 5 runes
+	 */
+	let elements = $state<ProgressElements>({
 		bar: null,
 		wrapper: null
-	};
-	let currentProgress = 0;
-	let progressTimer: ReturnType<typeof setInterval>;
-	let fadeTimer: ReturnType<typeof setTimeout>;
-	let isInitialLoad = true;
+	});
 
-	// Reactive statement for progress control
-	$: if (browser && ($navigating || isInitialLoad)) {
-		startProgress();
-	} else if (browser) {
-		completeProgress();
+	let currentProgress = $state(0);
+	let isInitialLoad = $state(true);
+
+	// Timers stored in state to ensure proper cleanup
+	let progressTimer = $state<ReturnType<typeof setInterval>>();
+	let fadeTimer = $state<ReturnType<typeof setTimeout>>();
+
+	/**
+	 * Updates the progress bar width based on current progress
+	 */
+	function updateProgress(): void {
+		if (!browser || !elements.bar) return;
+		elements.bar.style.width = `${currentProgress}%`;
 	}
 
+	/**
+	 * Initiates the progress animation sequence
+	 */
 	function startProgress(): void {
 		if (!browser) return;
 		clearTimeout(fadeTimer);
@@ -46,47 +60,55 @@
 			elements.wrapper.style.opacity = '1';
 		}
 
-		currentProgress = INITIAL_PROGRESS;
+		currentProgress = PROGRESS.INITIAL;
 		updateProgress();
 
 		progressTimer = setInterval(() => {
-			if (currentProgress < MAX_PROGRESS) {
-				const remaining = MAX_PROGRESS - currentProgress;
+			if (currentProgress < PROGRESS.MAX) {
+				const remaining = PROGRESS.MAX - currentProgress;
 				const increment = Math.max(
-					MIN_INCREMENT,
-					(remaining / COMPLETE_PROGRESS) * Math.random() * INCREMENT_MULTIPLIER
+					PROGRESS.MIN_INCREMENT,
+					(remaining / PROGRESS.COMPLETE) * Math.random() * PROGRESS.INCREMENT_MULTIPLIER
 				);
-				currentProgress = Math.min(MAX_PROGRESS, currentProgress + increment);
+				currentProgress = Math.min(PROGRESS.MAX, currentProgress + increment);
 				updateProgress();
 			}
-		}, PROGRESS_INTERVAL);
+		}, PROGRESS.INTERVAL);
 	}
 
+	/**
+	 * Completes the progress animation and triggers fade out
+	 */
 	function completeProgress(): void {
 		if (!browser) return;
 		clearInterval(progressTimer);
 
-		currentProgress = COMPLETE_PROGRESS;
+		currentProgress = PROGRESS.COMPLETE;
 		updateProgress();
 
 		fadeTimer = setTimeout(() => {
 			if (elements.wrapper) {
 				elements.wrapper.style.opacity = '0';
 			}
-		}, FADE_DELAY);
+		}, PROGRESS.FADE_DELAY);
 	}
 
-	function updateProgress(): void {
-		if (!browser || !elements.bar) return;
-		elements.bar.style.width = `${currentProgress}%`;
-	}
+	// Progress control based on navigation state
+	$effect(() => {
+		if (!browser) return;
+		if ($navigating || isInitialLoad) {
+			startProgress();
+		} else {
+			completeProgress();
+		}
+	});
 
 	onMount(() => {
 		if (browser) {
 			setTimeout(() => {
 				isInitialLoad = false;
 				completeProgress();
-			}, INITIAL_LOAD_DELAY);
+			}, PROGRESS.INITIAL_LOAD_DELAY);
 		}
 	});
 
@@ -105,7 +127,7 @@
 		role="progressbar"
 		aria-valuenow={currentProgress}
 		aria-valuemin="0"
-		aria-valuemax={COMPLETE_PROGRESS}
+		aria-valuemax={PROGRESS.COMPLETE}
 	>
 		<div class="progress-bar" bind:this={elements.bar}></div>
 		<div class="loading-spinner" aria-hidden="true"></div>
