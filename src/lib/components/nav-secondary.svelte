@@ -1,3 +1,5 @@
+<!-- src\lib\components\nav-secondary.svelte -->
+
 <script lang="ts">
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import type {ComponentProps} from 'svelte';

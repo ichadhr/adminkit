@@ -1,3 +1,5 @@
+// src\routes\dashboard\form_components\switch\+page.ts
+
 import type {PageLoad} from './$types';
 
 type SemanticVariant = 'danger' | 'info' | 'success' | 'warning';

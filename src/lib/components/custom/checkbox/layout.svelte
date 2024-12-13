@@ -1,3 +1,5 @@
+<!-- src\lib\components\custom\checkbox\layout.svelte -->
+
 <script lang="ts">
 	import {Label} from '$lib/components/ui/label';
 	import {ColorCheckbox} from '$lib/components/custom/checkbox';

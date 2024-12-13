@@ -1,3 +1,5 @@
+<!-- src\routes\dashboard\form_components\switch\+page.svelte -->
+
 <script lang="ts">
 	import {SwitchLayout, handleCheckedChange} from '$lib/components/custom/switch/index.js';
 

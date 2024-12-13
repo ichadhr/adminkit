@@ -1,4 +1,5 @@
-// $lib/components/custom/variants.ts
+// src\lib\components\custom\variants.ts
+
 export const SEMANTIC_VARIANTS = {
 	default: '',
 	danger: 'danger',

@@ -1,3 +1,5 @@
+<!-- src\lib\components\custom\switch\layout.svelte -->
+
 <script lang="ts">
 	import {Label} from '$lib/components/ui/label';
 	import {ColorSwitch} from '$lib/components/custom/switch';

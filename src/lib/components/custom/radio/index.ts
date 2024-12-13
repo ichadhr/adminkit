@@ -1,3 +1,5 @@
+// src\lib\components\custom\radio\index.ts
+
 import type {ColorVariant} from '../variants';
 import {SEMANTIC_VARIANTS, GRAYSCALE_COLORS, COLORS} from '../variants';
 

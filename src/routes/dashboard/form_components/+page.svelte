@@ -1,3 +1,5 @@
+<!-- src\routes\dashboard\form_components\+page.svelte -->
+
 <script lang="ts">
 	import {browser} from '$app/environment';
 	if (browser) {

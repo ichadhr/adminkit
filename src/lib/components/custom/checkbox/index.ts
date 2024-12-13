@@ -1,3 +1,5 @@
+// src\lib\components\custom\checkbox\index.ts
+
 import type {ColorVariant} from '../variants';
 import {handleCheckedChange} from './helper';
 

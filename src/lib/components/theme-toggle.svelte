@@ -1,3 +1,5 @@
+<!-- src\lib\components\theme-toggle.svelte -->
+
 <script lang="ts">
 	import {Moon, Sun} from 'lucide-svelte';
 	import {browser} from '$app/environment';

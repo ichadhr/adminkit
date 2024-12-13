@@ -1,3 +1,5 @@
+<!-- src\routes\dashboard\+page.svelte -->
+
 <script lang="ts">
 	const items = [
 		{content: 'Dashboard Item 1'},

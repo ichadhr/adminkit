@@ -1,3 +1,5 @@
+<!-- src\lib\components\custom\radio\color.svelte -->
+
 <script lang="ts">
 	import * as RadioGroup from '$lib/components/ui/radio-group/index.js';
 	import {cn} from '$lib/utils';

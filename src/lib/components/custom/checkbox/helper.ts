@@ -1,4 +1,5 @@
-// lib/components/custom/checkbox/helper.ts
+// src\lib\components\custom\checkbox\helper.ts
+
 export const handleCheckedChange = (
 	checked: boolean,
 	id: string,

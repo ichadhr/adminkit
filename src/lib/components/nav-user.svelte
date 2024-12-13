@@ -1,3 +1,5 @@
+<!-- src\lib\components\nav-user.svelte -->
+
 <script lang="ts">
 	import BadgeCheck from 'lucide-svelte/icons/badge-check';
 	import Bell from 'lucide-svelte/icons/bell';

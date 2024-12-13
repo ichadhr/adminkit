@@ -1,3 +1,5 @@
+<!-- src\routes\+layout.svelte -->
+
 <script lang="ts">
 	import Progress from '@/lib/components/progress.svelte';
 	import '../app.scss';

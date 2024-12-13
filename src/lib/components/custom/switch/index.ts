@@ -1,3 +1,5 @@
+// src\lib\components\custom\switch\index.ts
+
 import type {ColorVariant} from '../variants';
 import {handleCheckedChange} from './helper';
 

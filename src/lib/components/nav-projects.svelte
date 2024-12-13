@@ -1,3 +1,5 @@
+<!-- src\lib\components\nav-projects.svelte -->
+
 <script lang="ts">
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';

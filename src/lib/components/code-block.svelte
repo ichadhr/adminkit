@@ -1,3 +1,5 @@
+<!-- src\lib\components\code-block.svelte -->
+
 <script lang="ts">
 	import {onDestroy} from 'svelte';
 	import Highlight, {LineNumbers} from 'svelte-highlight';

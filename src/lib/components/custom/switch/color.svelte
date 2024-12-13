@@ -1,3 +1,5 @@
+<!-- src\lib\components\custom\switch\color.svelte -->
+
 <script lang="ts">
 	import {Switch} from '$lib/components/ui/switch';
 	import {cn} from '$lib/utils';

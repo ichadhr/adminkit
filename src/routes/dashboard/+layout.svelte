@@ -1,3 +1,5 @@
+<!-- src\routes\dashboard\+layout.svelte -->
+
 <script lang="ts">
 	import AppSidebar from '$lib/components/app-sidebar.svelte';
 	import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';

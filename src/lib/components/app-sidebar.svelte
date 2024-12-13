@@ -1,3 +1,5 @@
+<!-- src\lib\components\app-sidebar.svelte -->
+
 <script lang="ts" module>
 	import BookOpen from 'lucide-svelte/icons/book-open';
 	import Bot from 'lucide-svelte/icons/bot';

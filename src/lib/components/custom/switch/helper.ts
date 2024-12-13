@@ -1,4 +1,5 @@
-// lib/components/custom/switch/helper.ts
+// src\lib\components\custom\switch\helper.ts
+
 export const handleCheckedChange = (
 	checked: boolean,
 	id: string,
