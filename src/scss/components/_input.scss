@@ -1,19 +1,21 @@
+// src\scss\components\_input.scss
+
 .input-wrapper {
 	position: relative;
 	width: 100%;
 
-	// Add this new rule to hide browser's default password toggle
+	// Hide browser's default password toggle
 	input[type='password']::-ms-reveal,
 	input[type='password']::-ms-clear {
 		display: none;
 	}
 
-	// Add this for Chrome/Edge
+	// For Chrome/Edge
 	input[type='password']::-webkit-credentials-auto-fill-button {
 		display: none !important;
 	}
 
-	// Your existing styles...
+	// Calendar and time picker styles
 	input[type='date'],
 	input[type='time'],
 	input[type='week'],
@@ -45,5 +47,17 @@
 			display: flex;
 			align-items: center;
 		}
+	}
+}
+
+// Add the auto-resize textarea styles
+.auto-textarea-wrapper {
+	textarea {
+		&::-webkit-scrollbar {
+			display: none;
+		}
+
+		-ms-overflow-style: none;
+		scrollbar-width: none;
 	}
 }

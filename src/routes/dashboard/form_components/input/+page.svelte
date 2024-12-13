@@ -1,3 +1,5 @@
+<!-- src\routes\dashboard\form_components\input\+page.svelte -->
+
 <script lang="ts">
 	import {Button} from '$lib/components/ui/button/index.js';
 	import {Input} from '$lib/components/ui/input/index.js';
@@ -15,11 +17,13 @@
 		EyeOff
 	} from 'lucide-svelte';
 	import {Textarea} from '$lib/components/ui/textarea/index.js';
+	import {TextareaAutosize} from '$lib/components/custom/textareea-autosize/index.js';
 	import * as InputOTP from '$lib/components/ui/input-otp/index.js';
 
 	let showPassword = false;
 	let leftShowPassword = false;
 	let rightShowPassword = false;
+	
 </script>
 
 <main class="mb-5 flex flex-1 flex-col gap-4 p-4 pt-0">
@@ -99,7 +103,7 @@
 				<Label class="font-normal">Textarea autosize</Label>
 			</div>
 			<div>
-				<Textarea rows={3} placeholder="Type your message here." />
+				<TextareaAutosize rows={3} placeholder="Type your message here." />
 			</div>
 		</div>
 	</section>
@@ -404,6 +408,19 @@
 			</div>
 			<div>
 				<Input class="border-danger focus:ring-danger/50 focus-visible:ring-danger/30" />
+			</div>
+		</div>
+
+		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
+			<div class="flex md:items-center">
+				<Label class="font-normal">Textarea blue</Label>
+			</div>
+			<div>
+				<Textarea
+					rows={3}
+					placeholder="Type your message here."
+					class="focus:ring-blue/50 focus-visible:ring-blue/30 border-blue-500"
+				/>
 			</div>
 		</div>
 	</section>
