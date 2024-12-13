@@ -6,38 +6,73 @@
 	import type {SwitchVariant, Layout} from '.';
 	import {cn} from '$lib/utils';
 
-	export let id: string;
-	export let label: string;
-	export let disabled: boolean = false;
-	export let checked: boolean;
-	export let onCheckedChange: (checked: boolean) => void;
-	export let layout: Layout = 'left';
-	export let color: SwitchVariant = 'default';
+	/**
+	 * Configuration interface for layout styling and behavior
+	 */
+	interface LayoutConfig {
+		wrapperClass?: string;
+		containerClass?: string;
+		labelClass: string;
+		isInline?: boolean;
+		isStretched?: boolean;
+		labelFirst?: boolean;
+	}
 
-	$: switchId = `switch-${layout}-${id}`;
+	const {
+		id,
+		label,
+		disabled = false,
+		checked,
+		onCheckedChange,
+		layout = 'left' as const satisfies Layout,
+		color = 'default' as const satisfies SwitchVariant
+	} = $props<{
+		id: string;
+		label: string;
+		disabled?: boolean;
+		checked: boolean;
+		onCheckedChange: (checked: boolean) => void;
+		layout?: Layout;
+		color?: SwitchVariant;
+	}>();
 
-	$: switchProps = {
+	/**
+	 * Base styling classes for consistent layout appearance
+	 */
+	const baseStyles = {
+		inline: 'inline-flex items-center font-normal gap-2',
+		layout: 'font-normal gap-2 flex items-center'
+	} as const;
+
+	/**
+	 * Computed unique identifier for the switch
+	 */
+	const switchId = $derived(`switch-${layout}-${id}`);
+
+	/**
+	 * Props passed to the ColorSwitch component
+	 */
+	const switchProps = $derived({
 		id: switchId,
 		checked,
 		disabled,
 		onCheckedChange,
 		variant: color
-	};
+	});
 
-	// Base classes that are common across configurations
-	const baseInlineClass = 'inline-flex items-center font-normal gap-2';
-	const baseLayoutClass = 'font-normal gap-2 flex items-center';
-
-	$: config = {
+	/**
+	 * Layout configurations for different switch layouts
+	 */
+	const layoutConfigs: Record<Layout, LayoutConfig> = {
 		'left-inline': {
 			wrapperClass: 'inline-flex flex-wrap items-center gap-4',
-			labelClass: cn(baseInlineClass, disabled && 'opacity-50 cursor-not-allowed'),
+			labelClass: cn(baseStyles.inline, disabled && 'opacity-50 cursor-not-allowed'),
 			isInline: true
 		},
 		'right-inline': {
 			wrapperClass: 'inline-flex flex-wrap items-center gap-4',
 			labelClass: cn(
-				baseInlineClass,
+				baseStyles.inline,
 				'flex-row-reverse',
 				disabled && 'opacity-50 cursor-not-allowed'
 			),
@@ -45,25 +80,30 @@
 		},
 		'left-stretched': {
 			containerClass: 'switch-layout-container stretched',
-			labelClass: cn('switch-layout-label-default', baseLayoutClass, disabled && 'disabled'),
+			labelClass: cn('switch-layout-label-default', baseStyles.layout, disabled && 'disabled'),
 			isStretched: true
 		},
 		'right-stretched': {
 			containerClass: 'switch-layout-container stretched',
-			labelClass: cn('switch-layout-label-default', baseLayoutClass, disabled && 'disabled'),
+			labelClass: cn('switch-layout-label-default', baseStyles.layout, disabled && 'disabled'),
 			isStretched: true,
 			labelFirst: true
 		},
 		right: {
 			containerClass: 'switch-layout-container',
-			labelClass: cn('switch-layout-label-inline', baseLayoutClass, disabled && 'disabled'),
+			labelClass: cn('switch-layout-label-inline', baseStyles.layout, disabled && 'disabled'),
 			labelFirst: true
 		},
 		left: {
 			containerClass: 'switch-layout-container',
-			labelClass: cn('switch-layout-label-inline', baseLayoutClass, disabled && 'disabled')
+			labelClass: cn('switch-layout-label-inline', baseStyles.layout, disabled && 'disabled')
 		}
-	}[layout];
+	} as const;
+
+	/**
+	 * Current active layout configuration
+	 */
+	const config = $derived(layoutConfigs[layout as keyof typeof layoutConfigs]);
 </script>
 
 {#if config.isInline}
