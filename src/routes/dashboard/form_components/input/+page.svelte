@@ -23,7 +23,6 @@
 	let showPassword = false;
 	let leftShowPassword = false;
 	let rightShowPassword = false;
-	
 </script>
 
 <main class="mb-5 flex flex-1 flex-col gap-4 p-4 pt-0">
