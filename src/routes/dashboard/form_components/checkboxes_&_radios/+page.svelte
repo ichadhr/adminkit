@@ -1,3 +1,5 @@
+<!-- src\routes\dashboard\form_components\checkboxes_&_radios\+page.svelte -->
+
 <script lang="ts">
 	import {CheckboxLayout, handleCheckedChange} from '$lib/components/custom/checkbox/index.js';
 	import {RadioLayout} from '@/lib/components/custom/radio/index.js';
@@ -277,7 +279,12 @@
 						name="left-enabled"
 					>
 						{#each radioEnabledItems as item (item.id)}
-							<RadioLayout value={item.id} id={item.id} label={item.label} layout="left" />
+							<RadioLayout
+								value={item.id}
+								id={`left-radio-enabled-${item.id}`}
+								label={item.label}
+								layout="left"
+							/>
 						{/each}
 					</RadioGroup.Root>
 				</div>
@@ -289,7 +296,7 @@
 						{#each radioDisabledItems as item (item.id)}
 							<RadioLayout
 								value={item.id}
-								id={item.id}
+								id={`left-radio-disabled-${item.id}`}
 								label={item.label}
 								layout="left"
 								disabled={item.disabled}
@@ -310,7 +317,7 @@
 						{#each radioEnabledItems as item (item.id)}
 							<RadioLayout
 								value={item.id}
-								id={item.id}
+								id={`right-stretched-${item.id}`}
 								label={item.label}
 								layout="right-stretched"
 							/>
@@ -325,7 +332,7 @@
 						{#each radioDisabledItems as item (item.id)}
 							<RadioLayout
 								value={item.id}
-								id={item.id}
+								id={`right-stretched-disabled-${item.id}`}
 								label={item.label}
 								layout="right-stretched"
 								disabled={item.disabled}
@@ -348,7 +355,12 @@
 						name="right-enabled"
 					>
 						{#each radioEnabledItems as item (item.id)}
-							<RadioLayout value={item.id} id={item.id} label={item.label} layout="right" />
+							<RadioLayout
+								value={item.id}
+								id={`right-enabled-${item.id}`}
+								label={item.label}
+								layout="right"
+							/>
 						{/each}
 					</RadioGroup.Root>
 				</div>
@@ -360,7 +372,7 @@
 						{#each radioDisabledItems as item (item.id)}
 							<RadioLayout
 								value={item.id}
-								id={item.id}
+								id={`right-disabled-${item.id}`}
 								label={item.label}
 								layout="right"
 								disabled={item.disabled}
@@ -381,7 +393,7 @@
 						{#each radioEnabledItems as item (item.id)}
 							<RadioLayout
 								value={item.id}
-								id={item.id}
+								id={`left-stretched-enabled-${item.id}`}
 								label={item.label}
 								layout="left-stretched"
 							/>
@@ -397,7 +409,7 @@
 						{#each radioDisabledItems as item (item.id)}
 							<RadioLayout
 								value={item.id}
-								id={item.id}
+								id={`left-stretched-disabled-${item.id}`}
 								label={item.label}
 								layout="left-stretched"
 								disabled={item.disabled}
@@ -417,11 +429,16 @@
 				<div class="rounded border border-b p-1 px-2 py-2 shadow-sm lg:px-4">
 					<RadioGroup.Root
 						value={radioEnabledItems.find((item) => item.checked)?.id || ''}
-						name="inline-disabled"
+						name="inline-enabled"
 					>
 						<div class="flex flex-wrap gap-4">
 							{#each radioEnabledItems as item (item.id)}
-								<RadioLayout value={item.id} id={item.id} label={item.label} color={item.variant} />
+								<RadioLayout
+									value={item.id}
+									id={`inline-enabled-${item.id}`}
+									label={item.label}
+									color={item.variant}
+								/>
 							{/each}
 						</div>
 					</RadioGroup.Root>
@@ -434,13 +451,13 @@
 				<div class="rounded border border-b p-1 px-2 py-2 shadow-sm lg:px-4">
 					<RadioGroup.Root
 						value={radioDisabledItems.find((item) => item.checked)?.id || ''}
-						name="inline-enabled"
+						name="inline-disabled"
 					>
 						<div class="flex flex-wrap gap-4">
 							{#each radioDisabledItems as item (item.id)}
 								<RadioLayout
 									value={item.id}
-									id={item.id}
+									id={`inline-disabled-${item.id}`}
 									label={item.label}
 									color={item.variant}
 									disabled={item.disabled}
@@ -476,7 +493,7 @@
 						{#each semantic as item}
 							<RadioLayout
 								value={item.id}
-								id={item.id}
+								id={`semantic-${item.id}`}
 								label={item.label}
 								disabled={item.disabled}
 								color={item.variant}
@@ -496,7 +513,12 @@
 					>
 						<div class="flex flex-wrap gap-4">
 							{#each tailwind as item (item.id)}
-								<RadioLayout value={item.id} id={item.id} label={item.label} color={item.variant} />
+								<RadioLayout
+									value={item.id}
+									id={`tailwind-${item.id}`}
+									label={item.label}
+									color={item.variant}
+								/>
 							{/each}
 						</div>
 					</RadioGroup.Root>
