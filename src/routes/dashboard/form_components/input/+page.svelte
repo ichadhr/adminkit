@@ -403,10 +403,10 @@
 
 		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
 			<div class="flex md:items-center">
-				<Label class="font-normal">Danger</Label>
+				<Label class="font-normal">Error</Label>
 			</div>
 			<div>
-				<Input class="border-danger focus:ring-danger/50 focus-visible:ring-danger/30" />
+				<Input class="border-error focus:ring-error/50 focus-visible:ring-error/30" />
 			</div>
 		</div>
 
@@ -538,19 +538,19 @@
 
 		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
 			<div class="flex md:items-center">
-				<Label class="font-normal">Danger</Label>
+				<Label class="font-normal">Error</Label>
 			</div>
 			<div class="group flex w-full items-center">
 				<Button
-					class="rounded-r-none bg-danger text-danger-foreground hover:bg-danger/90 group-focus-within:ring-1 group-focus-within:ring-danger/50"
+					class="rounded-r-none bg-error text-error-foreground hover:bg-error/90 group-focus-within:ring-1 group-focus-within:ring-error/50"
 					>Left</Button
 				>
 				<Input
 					type="text"
-					class="rounded-none border-danger focus-visible:ring-1 focus-visible:ring-danger/50 focus-visible:ring-offset-0"
+					class="rounded-none border-error focus-visible:ring-1 focus-visible:ring-error/50 focus-visible:ring-offset-0"
 				/>
 				<Button
-					class="rounded-l-none bg-danger text-danger-foreground hover:bg-danger/90 group-focus-within:ring-1 group-focus-within:ring-danger/50"
+					class="rounded-l-none bg-error text-error-foreground hover:bg-error/90 group-focus-within:ring-1 group-focus-within:ring-error/50"
 					>Right</Button
 				>
 			</div>
@@ -685,7 +685,7 @@
 							{#each cells.slice(6, 8) as cell}
 								<InputOTP.Slot
 									{cell}
-									class="!border-danger focus-visible:!ring-danger/30 [&.ring-1]:!ring-danger/50"
+									class="!border-error focus-visible:!ring-error/30 [&.ring-1]:!ring-error/50"
 								/>
 							{/each}
 						</InputOTP.Group>

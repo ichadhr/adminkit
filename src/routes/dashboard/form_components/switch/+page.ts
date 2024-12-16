@@ -2,7 +2,7 @@
 
 import type { PageLoad } from './$types';
 
-type SemanticVariant = 'danger' | 'info' | 'success' | 'warning';
+type SemanticVariant = 'error' | 'info' | 'success' | 'warning';
 type TailwindVariant =
 	| 'slate'
 	| 'gray'

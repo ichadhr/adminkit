@@ -47,9 +47,9 @@ const config: Config = {
 					DEFAULT: 'hsl(var(--warning))',
 					foreground: 'hsl(var(--warning-foreground) / <alpha-value>)'
 				},
-				danger: {
-					DEFAULT: 'hsl(var(--danger) / <alpha-value>)',
-					foreground: 'hsl(var(--danger-foreground) / <alpha-value>)'
+				error: {
+					DEFAULT: 'hsl(var(--error) / <alpha-value>)',
+					foreground: 'hsl(var(--error-foreground) / <alpha-value>)'
 				},
 				muted: {
 					DEFAULT: 'hsl(var(--muted) / <alpha-value>)',

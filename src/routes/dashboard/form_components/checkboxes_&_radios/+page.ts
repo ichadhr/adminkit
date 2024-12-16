@@ -5,7 +5,7 @@ import type { PageLoad } from './$types';
 /**
  * Semantic color variants for form elements
  */
-type SemanticVariant = 'danger' | 'info' | 'success' | 'warning';
+type SemanticVariant = 'error' | 'info' | 'success' | 'warning';
 
 /**
  * Tailwind color variants for form elements

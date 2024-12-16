@@ -6,7 +6,7 @@
  */
 export const SEMANTIC_VARIANTS = {
 	default: '',
-	danger: 'danger',
+	error: 'error',
 	success: 'success',
 	info: 'info',
 	warning: 'warning'
@@ -43,13 +43,19 @@ export const COLORS = [
 ] as const;
 
 /**
- * Union type representing all possible color variants
- * Combines semantic variants, grayscale colors, and main colors
+ * All possible color variants combining semantic variants, grayscale colors, and main colors
+ * @readonly
  */
-export type ColorVariant =
-	| keyof typeof SEMANTIC_VARIANTS
-	| (typeof GRAYSCALE_COLORS)[number]
-	| (typeof COLORS)[number];
+const ALL_VARIANTS = [
+	...Object.keys(SEMANTIC_VARIANTS),
+	...GRAYSCALE_COLORS,
+	...COLORS
+] as const;
+
+/**
+ * Union type representing all possible color variants
+ */
+export type ColorVariant = (typeof ALL_VARIANTS)[number];
 
 /**
  * Type guard to check if a value is a valid ColorVariant
@@ -57,11 +63,5 @@ export type ColorVariant =
  * @returns True if the value is a valid ColorVariant
  */
 export function isColorVariant(value: unknown): value is ColorVariant {
-	if (typeof value !== 'string') return false;
-
-	return (
-		value in SEMANTIC_VARIANTS ||
-		GRAYSCALE_COLORS.includes(value as (typeof GRAYSCALE_COLORS)[number]) ||
-		COLORS.includes(value as (typeof COLORS)[number])
-	);
+	return typeof value === 'string' && ALL_VARIANTS.includes(value);
 }

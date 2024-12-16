@@ -11,7 +11,7 @@
 	],
 	"variants": {
 		"semantic": [
-			{ "id": "danger", "label": "Danger", "variant": "danger", "checked": true },
+			{ "id": "error", "label": "Error", "variant": "error", "checked": true },
 			{ "id": "info", "label": "Info", "variant": "info", "checked": true },
 			{ "id": "success", "label": "Success", "variant": "success", "checked": true },
 			{ "id": "warning", "label": "Warning", "variant": "warning", "checked": true }

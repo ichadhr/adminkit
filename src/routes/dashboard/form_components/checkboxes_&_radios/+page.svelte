@@ -292,7 +292,7 @@
 										case 'success':
 											toast.success(message);
 											break;
-										case 'danger':
+										case 'error':
 											toast.error(message);
 											break;
 										case 'warning':
