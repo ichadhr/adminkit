@@ -1,11 +1,7 @@
 <!-- src\routes\dashboard\+page.svelte -->
 
 <script lang="ts">
-	const items = [
-		{ content: 'Dashboard Item 1' },
-		{ content: 'Dashboard Item 2' },
-		{ content: 'Dashboard Item 3' }
-	];
+	const items = [{ content: '' }, { content: '' }, { content: '' }];
 </script>
 
 <main class="mb-5 flex flex-1 flex-col gap-4 p-4 pt-0">
@@ -19,7 +15,6 @@
 	<div class="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min">
 		<!-- Your dashboard content here -->
 		<div class="p-4">
-			<h1>Dashboard Content</h1>
 			<!-- Add more dashboard-specific content -->
 		</div>
 	</div>

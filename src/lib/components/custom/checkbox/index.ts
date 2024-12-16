@@ -1,7 +1,6 @@
 // src\lib\components\custom\checkbox\index.ts
 
 import type { ColorVariant } from '../variants';
-import { handleCheckedChange } from './helper';
 
 /**
  * Available layout options for checkbox positioning.
@@ -38,13 +37,29 @@ export interface CheckboxLayoutProps {
 	/** Current checked state of the checkbox. */
 	checked: boolean;
 	/** Callback function triggered when checkbox state changes. */
-	onCheckedChange: (checked: boolean) => void;
+	onCheckedChange?: (checked: boolean) => void;
 	/** Layout positioning of the checkbox. */
 	layout?: Layout;
 	/** Color variant of the checkbox. */
 	color?: CheckboxVariant;
 }
 
+/**
+ * Configuration interface for checkbox layout styles and behavior.
+ */
+export interface LayoutConfig {
+	wrapperClass?: string;
+	containerClass: string;
+	labelClass: string;
+	isInline: boolean;
+	isStretched?: boolean;
+	labelFirst: boolean;
+}
+
+/**
+ * Type for the mapping of layout configurations.
+ */
+export type LayoutConfigs = Record<Layout, LayoutConfig>;
+
 export { default as ColorCheckbox } from './color.svelte';
 export { default as CheckboxLayout } from './layout.svelte';
-export { handleCheckedChange };

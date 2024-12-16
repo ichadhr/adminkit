@@ -1,11 +1,40 @@
 <!-- src\routes\dashboard\form_components\checkboxes_&_radios\+page.svelte -->
 
 <script lang="ts">
-	import { CheckboxLayout, handleCheckedChange } from '$lib/components/custom/checkbox/index.js';
+	import { CheckboxLayout } from '$lib/components/custom/checkbox/index.js';
 	import { RadioLayout } from '@/lib/components/custom/radio/index.js';
 	import * as RadioGroup from '$lib/components/ui/radio-group/index.js';
 	import { Toaster, toast } from 'svelte-sonner';
 	import { theme } from '$lib/stores/theme';
+
+	/**
+	 * Updates an array of selected item IDs based on the state of a checkbox.
+	 *
+	 * If the checkbox is checked, the ID is added to the array (if not already present).
+	 * If the checkbox is unchecked, the ID is removed from the array (if present).
+	 *
+	 * @param checked - The state of the checkbox; `true` if checked, `false` if unchecked.
+	 * @param id - The unique identifier of the item to add or remove.
+	 * @param items - The array of currently selected item IDs.
+	 * @returns A new array with the updated list of selected item IDs.
+	 */
+	function handleCheckedChange(
+		checked: boolean,
+		id: string,
+		items: readonly string[] = []
+	): string[] {
+		if (!id) {
+			// If the ID is falsy, return a shallow copy of the items array
+			return [...items];
+		}
+		if (checked) {
+			// If the ID is not already in the array, add it
+			return items.includes(id) ? [...items] : [...items, id];
+		} else {
+			// If the ID is in the array, remove it
+			return items.filter((item) => item !== id);
+		}
+	}
 
 	interface Item {
 		readonly id: string;
@@ -246,7 +275,7 @@
 								checked={selectedItems.changed.includes(item.id)}
 								color={item.variant}
 								onCheckedChange={(checked: boolean) => {
-									// Custom logic here, e.g., notify the user
+									// Update the selected items
 									selectedItems.changed = handleCheckedChange(
 										checked,
 										item.id,
@@ -256,7 +285,7 @@
 									// Get toast type based on variant
 									const variant = item.variant?.toLowerCase();
 
-									// Additional actions, like displaying a notification
+									// Display a notification
 									const message = `Checkbox for ${item.label} is now ${checked ? 'checked' : 'unchecked'}`;
 
 									switch (variant) {

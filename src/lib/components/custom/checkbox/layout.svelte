@@ -1,77 +1,23 @@
 <!-- src\lib\components\custom\checkbox\layout.svelte -->
-
 <script lang="ts">
 	import { Label } from '$lib/components/ui/label';
 	import { ColorCheckbox } from '$lib/components/custom/checkbox';
 	import { cn } from '$lib/utils';
-	import type { CheckboxVariant, Layout } from '.';
+	import type { CheckboxVariant, Layout, LayoutConfigs, CheckboxLayoutProps } from '.';
 
-	/** Type for the mapping of layout configurations */
-	type LayoutConfigs = Record<Layout, LayoutConfig>;
-
-	/**
-	 * Configuration interface for checkbox layout styles and behavior.
-	 */
-	interface LayoutConfig {
-		wrapperClass?: string;
-		containerClass: string;
-		labelClass: string;
-		isInline: boolean;
-		isStretched?: boolean;
-		labelFirst: boolean;
-	}
-
-	/**
-	 * Unique identifier for the checkbox.
-	 */
-	export let id: string;
-
-	/**
-	 * The label text for the checkbox.
-	 */
-	export let label: string;
-
-	/**
-	 * Whether the checkbox is disabled.
-	 *
-	 * @default false
-	 */
+	// Exported props with TypeScript types
+	export let id: CheckboxLayoutProps['id'];
+	export let label: CheckboxLayoutProps['label'];
 	export let disabled: boolean = false;
-
-	/**
-	 * The layout of the checkbox.
-	 *
-	 * @default 'left'
-	 */
 	export let layout: Layout = 'left';
-
-	/**
-	 * The color variant of the checkbox.
-	 *
-	 * @default 'default'
-	 */
 	export let color: CheckboxVariant = 'default';
-
-	/**
-	 * The checked state of the checkbox.
-	 *
-	 * @default false
-	 */
 	export let checked: boolean = false;
-
-	/**
-	 * Callback function when the checkbox state changes.
-	 */
 	export let onCheckedChange: ((checked: boolean) => void) | undefined = undefined;
 
-	/**
-	 * Internal variable to track the previous checked state.
-	 */
+	/** Internal variable to track the previous checked state */
 	let previousChecked: boolean = checked;
 
-	/**
-	 * Computed classes for styling based on the disabled state.
-	 */
+	/** Computed classes for styling based on the disabled state */
 	const disabledStyle = 'opacity-50 cursor-not-allowed';
 
 	/**
@@ -134,7 +80,7 @@
 	$: layoutConfigs = createLayoutConfigs(disabled);
 
 	/** Validated and typed layout value */
-	$: validatedLayout = (layoutConfigs[layout] ? layout : 'left') as Layout;
+	$: validatedLayout = layout in layoutConfigs ? layout : 'left';
 
 	/** Unique ID for the checkbox input */
 	$: checkboxId = `checkbox-${validatedLayout}-${id}`;
@@ -145,9 +91,23 @@
 	/**
 	 * Watcher for checked state changes to call onCheckedChange when provided.
 	 */
-	$: if (onCheckedChange && checked !== previousChecked) {
-		previousChecked = checked;
-		onCheckedChange(checked);
+	$: {
+		if (checked !== previousChecked) {
+			previousChecked = checked;
+			if (typeof onCheckedChange === 'function') {
+				onCheckedChange(checked);
+			}
+		}
+	}
+
+	/** Validate required props */
+	$: {
+		if (!id) {
+			throw new Error('Checkbox "id" prop is required');
+		}
+		if (!label) {
+			throw new Error('Checkbox "label" prop is required');
+		}
 	}
 </script>
 

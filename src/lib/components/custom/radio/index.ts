@@ -20,7 +20,7 @@ export const LAYOUTS = [
 /**
  * Layout options type derived from LAYOUTS constant
  */
-export type Layout = typeof LAYOUTS[number];
+export type Layout = (typeof LAYOUTS)[number];
 
 /**
  * Type guard to check if a value is a valid Layout
