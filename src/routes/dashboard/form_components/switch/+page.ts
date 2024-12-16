@@ -1,6 +1,6 @@
 // src\routes\dashboard\form_components\switch\+page.ts
 
-import type {PageLoad} from './$types';
+import type { PageLoad } from './$types';
 
 type SemanticVariant = 'danger' | 'info' | 'success' | 'warning';
 type TailwindVariant =
@@ -59,7 +59,7 @@ const defaultSwitchData: SwitchData = {
 	}
 };
 
-export const load: PageLoad = async ({fetch}): Promise<PageData> => {
+export const load: PageLoad = async ({ fetch }): Promise<PageData> => {
 	try {
 		const response = await fetch('/api/checkbox_radio.json');
 

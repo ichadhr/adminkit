@@ -1,39 +1,40 @@
 <!-- src\lib\components\custom\checkbox\color.svelte -->
 
 <script lang="ts">
-	import {Checkbox} from '$lib/components/ui/checkbox';
-	import {cn} from '$lib/utils';
-	import type {CheckboxVariant} from '.';
+	import { Checkbox } from '$lib/components/ui/checkbox';
+	import { cn } from '$lib/utils';
+	import type { CheckboxVariant } from '.';
 
 	/**
-	 * Interface for Color Checkbox component props
+	 * Unique identifier for the checkbox.
 	 */
-	interface ColorCheckboxProps {
-		/** Checkbox checked state */
-		checked?: boolean;
-		/** Checkbox disabled state */
-		disabled?: boolean;
-		/** Unique identifier for the checkbox */
-		id?: string;
-		/** Callback function when checkbox state changes */
-		onCheckedChange?: (checked: boolean) => void;
-		/** Visual variant of the checkbox */
-		variant?: CheckboxVariant;
-	}
+	export let id: string | undefined = undefined;
 
 	/**
-	 * Component props with default values
+	 * Determines whether the checkbox is checked.
+	 *
+	 * @default false
 	 */
-	export let checked = false;
-	export let disabled = false;
-	export let id: ColorCheckboxProps['id'] = undefined;
-	export let onCheckedChange: ColorCheckboxProps['onCheckedChange'] = undefined;
-	export let variant: ColorCheckboxProps['variant'] = 'default';
+	export let checked: boolean = false;
 
 	/**
-	 * Computed classes for styling based on variant and disabled state
+	 * Determines whether the checkbox is disabled.
+	 *
+	 * @default false
 	 */
-	$: classes = cn(`checkbox-${variant}`, disabled && 'disabled');
+	export let disabled: boolean = false;
+
+	/**
+	 * Visual variant of the checkbox.
+	 *
+	 * @default 'default'
+	 */
+	export let variant: CheckboxVariant = 'default';
+
+	/**
+	 * Computed classes for styling based on variant and disabled state.
+	 */
+	$: classes = cn(`checkbox-${variant}`, disabled ? 'disabled' : undefined);
 </script>
 
-<Checkbox {id} {checked} {disabled} {onCheckedChange} class={classes} />
+<Checkbox {id} bind:checked {disabled} class={classes} />

@@ -1,9 +1,9 @@
 <!-- src\lib\components\custom\switch\color.svelte -->
 
 <script lang="ts">
-	import {Switch} from '$lib/components/ui/switch';
-	import {cn} from '$lib/utils';
-	import type {SwitchVariant} from '.';
+	import { Switch } from '$lib/components/ui/switch';
+	import { cn } from '$lib/utils';
+	import type { SwitchVariant } from '.';
 
 	/**
 	 * Props interface for ColorSwitch component

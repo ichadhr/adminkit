@@ -1,10 +1,10 @@
 <!-- src\routes\dashboard\form_components\input\+page.svelte -->
 
 <script lang="ts">
-	import {Button} from '$lib/components/ui/button/index.js';
-	import {Input} from '$lib/components/ui/input/index.js';
-	import {Label} from '$lib/components/ui/label/index.js';
-	import {Separator} from '$lib/components/ui/separator/index.js';
+	import { Button } from '$lib/components/ui/button/index.js';
+	import { Input } from '$lib/components/ui/input/index.js';
+	import { Label } from '$lib/components/ui/label/index.js';
+	import { Separator } from '$lib/components/ui/separator/index.js';
 	import {
 		Search,
 		Mail,
@@ -16,8 +16,8 @@
 		Eye,
 		EyeOff
 	} from 'lucide-svelte';
-	import {Textarea} from '$lib/components/ui/textarea/index.js';
-	import {TextareaAutosize} from '$lib/components/custom/textareea-autosize/index.js';
+	import { Textarea } from '$lib/components/ui/textarea/index.js';
+	import { TextareaAutosize } from '$lib/components/custom/textareea-autosize/index.js';
 	import * as InputOTP from '$lib/components/ui/input-otp/index.js';
 
 	let showPassword = false;
@@ -609,7 +609,7 @@
 			</div>
 			<div>
 				<InputOTP.Root maxlength={6}>
-					{#snippet children({cells})}
+					{#snippet children({ cells })}
 						<InputOTP.Group>
 							{#each cells as cell}
 								<InputOTP.Slot {cell} />
@@ -625,7 +625,7 @@
 			</div>
 			<div>
 				<InputOTP.Root maxlength={6}>
-					{#snippet children({cells})}
+					{#snippet children({ cells })}
 						<InputOTP.Group>
 							{#each cells.slice(0, 2) as cell}
 								<InputOTP.Slot {cell} />
@@ -653,7 +653,7 @@
 			</div>
 			<div>
 				<InputOTP.Root maxlength={8}>
-					{#snippet children({cells})}
+					{#snippet children({ cells })}
 						<InputOTP.Group>
 							{#each cells.slice(0, 2) as cell}
 								<InputOTP.Slot

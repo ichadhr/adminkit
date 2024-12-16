@@ -1,10 +1,10 @@
 <!-- src\lib\components\custom\radio\layout.svelte -->
 
 <script lang="ts">
-	import {Label} from '$lib/components/ui/label/index.js';
-	import {RadioColor} from '@/lib/components/custom/radio';
-	import type {ColorVariant, Layout} from '.';
-	import {cn} from '$lib/utils';
+	import { Label } from '$lib/components/ui/label/index.js';
+	import { RadioColor } from '@/lib/components/custom/radio';
+	import type { ColorVariant, Layout } from '.';
+	import { cn } from '$lib/utils';
 
 	/**
 	 * Configuration interface for radio layout styles and behavior

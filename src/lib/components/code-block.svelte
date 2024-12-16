@@ -1,10 +1,10 @@
 <!-- src\lib\components\code-block.svelte -->
 
 <script lang="ts">
-	import {onDestroy} from 'svelte';
-	import Highlight, {LineNumbers} from 'svelte-highlight';
+	import { onDestroy } from 'svelte';
+	import Highlight, { LineNumbers } from 'svelte-highlight';
 	import defaultTheme from 'svelte-highlight/styles/github-dark';
-	import {browser} from '$app/environment';
+	import { browser } from '$app/environment';
 
 	/**
 	 * Theme background configuration

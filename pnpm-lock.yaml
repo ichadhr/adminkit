@@ -68,6 +68,9 @@ importers:
       svelte-highlight:
         specifier: ^7.7.0
         version: 7.7.0
+      svelte-sonner:
+        specifier: ^0.3.28
+        version: 0.3.28(svelte@5.2.4)
       tailwind-merge:
         specifier: ^2.5.4
         version: 2.5.4
@@ -1652,6 +1655,11 @@ packages:
 
   svelte-highlight@7.7.0:
     resolution: {integrity: sha512-umBiTz3fLbbNCA+wGlRhJOb54iC6ap8S/dxjauQ+g6a8oFGTOGQeOP2rJVoh/K1ssF7IjP4P0T3Yuiu+vtaG5Q==}
+
+  svelte-sonner@0.3.28:
+    resolution: {integrity: sha512-K3AmlySeFifF/cKgsYNv5uXqMVNln0NBAacOYgmkQStLa/UoU0LhfAACU6Gr+YYC8bOCHdVmFNoKuDbMEsppJg==}
+    peerDependencies:
+      svelte: ^3.0.0 || ^4.0.0 || ^5.0.0-next.1
 
   svelte-toolbelt@0.4.6:
     resolution: {integrity: sha512-k8OUvXBUifHZcAlWeY/HLg/4J0v5m2iOfOhn8fDmjt4AP8ZluaDh9eBFus9lFiLX6O5l6vKqI1dKL5wy7090NQ==}
@@ -3300,6 +3308,10 @@ snapshots:
   svelte-highlight@7.7.0:
     dependencies:
       highlight.js: 11.10.0
+
+  svelte-sonner@0.3.28(svelte@5.2.4):
+    dependencies:
+      svelte: 5.2.4
 
   svelte-toolbelt@0.4.6(svelte@5.2.4):
     dependencies:

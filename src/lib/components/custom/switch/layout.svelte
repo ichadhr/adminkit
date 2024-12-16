@@ -1,10 +1,10 @@
 <!-- src\lib\components\custom\switch\layout.svelte -->
 
 <script lang="ts">
-	import {Label} from '$lib/components/ui/label';
-	import {ColorSwitch} from '$lib/components/custom/switch';
-	import type {SwitchVariant, Layout} from '.';
-	import {cn} from '$lib/utils';
+	import { Label } from '$lib/components/ui/label';
+	import { ColorSwitch } from '$lib/components/custom/switch';
+	import type { SwitchVariant, Layout } from '.';
+	import { cn } from '$lib/utils';
 
 	/**
 	 * Configuration interface for layout styling and behavior

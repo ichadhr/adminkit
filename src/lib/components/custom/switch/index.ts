@@ -1,6 +1,6 @@
 // src\lib\components\custom\switch\index.ts
 
-import type {ColorVariant} from '../variants';
+import type { ColorVariant } from '../variants';
 
 /**
  * Valid layout positions for the switch component
@@ -65,5 +65,5 @@ export const handleCheckedChange = (
 	return checked ? [...items, id] : items.filter((itemId) => itemId !== id);
 };
 
-export {default as ColorSwitch} from './color.svelte';
-export {default as SwitchLayout} from './layout.svelte';
+export { default as ColorSwitch } from './color.svelte';
+export { default as SwitchLayout } from './layout.svelte';

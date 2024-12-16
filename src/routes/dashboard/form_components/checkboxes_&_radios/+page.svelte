@@ -1,34 +1,51 @@
 <!-- src\routes\dashboard\form_components\checkboxes_&_radios\+page.svelte -->
 
 <script lang="ts">
-	import {CheckboxLayout, handleCheckedChange} from '$lib/components/custom/checkbox/index.js';
-	import {RadioLayout} from '@/lib/components/custom/radio/index.js';
+	import { CheckboxLayout, handleCheckedChange } from '$lib/components/custom/checkbox/index.js';
+	import { RadioLayout } from '@/lib/components/custom/radio/index.js';
 	import * as RadioGroup from '$lib/components/ui/radio-group/index.js';
+	import { Toaster, toast } from 'svelte-sonner';
+	import { theme } from '$lib/stores/theme';
+
+	interface Item {
+		readonly id: string;
+		readonly label: string;
+		readonly checked?: boolean;
+		readonly disabled?: boolean;
+		readonly variant?: string;
+	}
 
 	export let data;
-	const {stacked, inline, variants} = data.checkboxes;
-	const {semantic, tailwind} = variants;
+	const { stacked, inline, variants } = data.checkboxes;
+	const { semantic, tailwind } = variants;
 
-	// Initialize with checked items from the data
-	let selectedItemsLeft = stacked?.filter((item) => item.checked)?.map((item) => item.id) ?? [];
-	let selectedItemsLeftStretched =
-		stacked?.filter((item) => item.checked)?.map((item) => item.id) ?? [];
-	let selectedItemsRight = stacked?.filter((item) => item.checked)?.map((item) => item.id) ?? [];
-	let selectedItemsRightStretched =
-		stacked?.filter((item) => item.checked)?.map((item) => item.id) ?? [];
-	let selectedItemsLeftInline =
-		inline?.filter((item) => item.checked)?.map((item) => item.id) ?? [];
-	let selectedItemsRightInline =
-		inline?.filter((item) => item.checked)?.map((item) => item.id) ?? [];
-	let selectedSemanticItems =
-		semantic?.filter((item) => item.checked)?.map((item) => item.id) ?? [];
-	let selectedTailwindItems =
-		tailwind?.filter((item) => item.checked)?.map((item) => item.id) ?? [];
+	// Helper function to get selected item IDs
+	const getSelectedIds = (items: readonly Item[] | undefined): string[] =>
+		items?.filter((item) => item.checked).map((item) => item.id) ?? [];
 
+	// Initialize selected items using the helper function
+	const selectedStackedIds = getSelectedIds(stacked);
+	const selectedInlineIds = getSelectedIds(inline);
+
+	// Group related selections
+	let selectedItems = {
+		left: selectedStackedIds,
+		leftStretched: selectedStackedIds,
+		right: selectedStackedIds,
+		rightStretched: selectedStackedIds,
+		leftInline: selectedInlineIds,
+		rightInline: selectedInlineIds,
+		semantic: getSelectedIds(semantic),
+		tailwind: getSelectedIds(tailwind),
+		changed: selectedInlineIds
+	};
+
+	// Reactive statements for radio items
 	$: radioEnabledItems = stacked?.filter((item) => !item.disabled) ?? [];
 	$: radioDisabledItems = stacked?.filter((item) => item.disabled) ?? [];
 </script>
 
+<Toaster richColors theme={$theme} />
 <main class="mb-5 flex flex-1 flex-col gap-4 p-4 pt-0">
 	<!-- heading section Checkboxes -->
 	<section class="space-y-6">
@@ -55,10 +72,7 @@
 							id={item.id}
 							label={item.label}
 							disabled={item.disabled}
-							checked={selectedItemsLeft.includes(item.id)}
-							onCheckedChange={(checked: boolean) => {
-								selectedItemsLeft = handleCheckedChange(checked, item.id, selectedItemsLeft);
-							}}
+							checked={selectedItems.left.includes(item.id)}
 							layout="left"
 						/>
 					{/each}
@@ -74,14 +88,7 @@
 							id={item.id}
 							label={item.label}
 							disabled={item.disabled}
-							checked={selectedItemsRightStretched.includes(item.id)}
-							onCheckedChange={(checked: boolean) => {
-								selectedItemsRightStretched = handleCheckedChange(
-									checked,
-									item.id,
-									selectedItemsRightStretched
-								);
-							}}
+							checked={selectedItems.rightStretched.includes(item.id)}
 							layout="right-stretched"
 						/>
 					{/each}
@@ -102,10 +109,7 @@
 							id={item.id}
 							label={item.label}
 							disabled={item.disabled}
-							checked={selectedItemsRight.includes(item.id)}
-							onCheckedChange={(checked: boolean) => {
-								selectedItemsRight = handleCheckedChange(checked, item.id, selectedItemsRight);
-							}}
+							checked={selectedItems.right.includes(item.id)}
 							layout="right"
 						/>
 					{/each}
@@ -121,14 +125,7 @@
 							id={item.id}
 							label={item.label}
 							disabled={item.disabled}
-							checked={selectedItemsLeftStretched.includes(item.id)}
-							onCheckedChange={(checked: boolean) => {
-								selectedItemsLeftStretched = handleCheckedChange(
-									checked,
-									item.id,
-									selectedItemsLeftStretched
-								);
-							}}
+							checked={selectedItems.leftStretched.includes(item.id)}
 							layout="left-stretched"
 						/>
 					{/each}
@@ -150,14 +147,7 @@
 								id={item.id}
 								label={item.label}
 								disabled={item.disabled}
-								checked={selectedItemsLeftInline.includes(item.id)}
-								onCheckedChange={(checked: boolean) => {
-									selectedItemsLeftInline = handleCheckedChange(
-										checked,
-										item.id,
-										selectedItemsLeftInline
-									);
-								}}
+								checked={selectedItems.leftInline.includes(item.id)}
 								layout="left-inline"
 							/>
 						{/each}
@@ -175,14 +165,7 @@
 								id={item.id}
 								label={item.label}
 								disabled={item.disabled}
-								checked={selectedItemsRightInline.includes(item.id)}
-								onCheckedChange={(checked: boolean) => {
-									selectedItemsRightInline = handleCheckedChange(
-										checked,
-										item.id,
-										selectedItemsRightInline
-									);
-								}}
+								checked={selectedItems.rightInline.includes(item.id)}
 								layout="right-inline"
 							/>
 						{/each}
@@ -213,14 +196,7 @@
 							id={item.id}
 							label={item.label}
 							disabled={item.disabled}
-							checked={selectedSemanticItems.includes(item.id)}
-							onCheckedChange={(checked: boolean) => {
-								selectedSemanticItems = handleCheckedChange(
-									checked,
-									item.id,
-									selectedSemanticItems
-								);
-							}}
+							checked={selectedItems.semantic.includes(item.id)}
 							layout="left"
 							color={item.variant}
 						/>
@@ -238,16 +214,69 @@
 								id={item.id}
 								label={item.label}
 								disabled={item.disabled}
-								checked={selectedTailwindItems.includes(item.id)}
-								onCheckedChange={(checked: boolean) => {
-									selectedTailwindItems = handleCheckedChange(
-										checked,
-										item.id,
-										selectedTailwindItems
-									);
-								}}
+								checked={selectedItems.tailwind.includes(item.id)}
 								layout="left-inline"
 								color={item.variant}
+							/>
+						{/each}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- heading section Checkboxes handle -->
+	<section class="space-y-6 pt-5">
+		<p class="text-sm">
+			Checkboxes state <code>onCheckedChange</code>:
+		</p>
+	</section>
+
+	<!-- changed checkboxes -->
+	<section class="grid auto-rows-min gap-4">
+		<div class="grid gap-4">
+			<!-- Left inline changed section -->
+			<div class="space-y-2">
+				<div class="rounded border border-b p-1 px-2 py-2 shadow-sm lg:px-4">
+					<div class="flex flex-wrap gap-4">
+						{#each semantic as item}
+							<CheckboxLayout
+								id={item.id}
+								label={item.label}
+								checked={selectedItems.changed.includes(item.id)}
+								color={item.variant}
+								onCheckedChange={(checked: boolean) => {
+									// Custom logic here, e.g., notify the user
+									selectedItems.changed = handleCheckedChange(
+										checked,
+										item.id,
+										selectedItems.changed
+									);
+
+									// Get toast type based on variant
+									const variant = item.variant?.toLowerCase();
+
+									// Additional actions, like displaying a notification
+									const message = `Checkbox for ${item.label} is now ${checked ? 'checked' : 'unchecked'}`;
+
+									switch (variant) {
+										case 'success':
+											toast.success(message);
+											break;
+										case 'danger':
+											toast.error(message);
+											break;
+										case 'warning':
+											toast.warning(message);
+											break;
+										case 'info':
+											toast.info(message);
+											break;
+										default:
+											toast(message);
+									}
+								}}
+								layout="left-inline"
 							/>
 						{/each}
 					</div>

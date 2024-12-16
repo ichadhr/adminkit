@@ -1,6 +1,6 @@
 // src\lib\hooks\is-mobile.svelte.ts
 
-import {untrack} from 'svelte';
+import { untrack } from 'svelte';
 
 const MOBILE_BREAKPOINT = 768;
 

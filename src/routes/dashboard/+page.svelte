@@ -2,9 +2,9 @@
 
 <script lang="ts">
 	const items = [
-		{content: 'Dashboard Item 1'},
-		{content: 'Dashboard Item 2'},
-		{content: 'Dashboard Item 3'}
+		{ content: 'Dashboard Item 1' },
+		{ content: 'Dashboard Item 2' },
+		{ content: 'Dashboard Item 3' }
 	];
 </script>
 

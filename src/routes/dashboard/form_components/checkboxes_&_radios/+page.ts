@@ -1,6 +1,6 @@
 // src/routes/dashboard/form_components/checkboxes_&_radios/+page.ts
 
-import type {PageLoad} from './$types';
+import type { PageLoad } from './$types';
 
 /**
  * Semantic color variants for form elements
@@ -84,7 +84,7 @@ const defaultCheckboxData: CheckboxData = {
 /**
  * SvelteKit load function for checkbox data
  */
-export const load: PageLoad = async ({fetch}): Promise<PageData> => {
+export const load: PageLoad = async ({ fetch }): Promise<PageData> => {
 	try {
 		const response = await fetch('/api/checkbox_radio.json');
 
@@ -94,12 +94,12 @@ export const load: PageLoad = async ({fetch}): Promise<PageData> => {
 		}
 
 		const data = await response.json();
-		return {checkboxes: data};
+		return { checkboxes: data };
 	} catch (error) {
 		console.error(
 			'Error loading checkbox data:',
 			error instanceof Error ? error.message : String(error)
 		);
-		return {checkboxes: defaultCheckboxData};
+		return { checkboxes: defaultCheckboxData };
 	}
 };

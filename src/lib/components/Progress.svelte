@@ -1,8 +1,8 @@
 <!-- src\lib\components\progress.svelte -->
 <script lang="ts">
-	import {onMount, onDestroy} from 'svelte';
-	import {navigating} from '$app/stores';
-	import {browser} from '$app/environment';
+	import { onMount, onDestroy } from 'svelte';
+	import { navigating } from '$app/stores';
+	import { browser } from '$app/environment';
 
 	/**
 	 * Progress bar configuration constants

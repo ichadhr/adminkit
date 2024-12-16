@@ -1,11 +1,11 @@
 <!-- src\routes\dashboard\form_components\switch\+page.svelte -->
 
 <script lang="ts">
-	import {SwitchLayout, handleCheckedChange} from '$lib/components/custom/switch/index.js';
+	import { SwitchLayout, handleCheckedChange } from '$lib/components/custom/switch/index.js';
 
 	export let data;
-	const {stacked, inline, variants} = data.switches;
-	const {semantic, tailwind} = variants;
+	const { stacked, inline, variants } = data.switches;
+	const { semantic, tailwind } = variants;
 
 	// Initialize with checked items from the data
 	let selectedItemsLeft = stacked?.filter((item) => item.checked)?.map((item) => item.id) ?? [];

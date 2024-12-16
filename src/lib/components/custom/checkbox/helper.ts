@@ -1,26 +1,31 @@
 // src\lib\components\custom\checkbox\helper.ts
 
 /**
- * Updates an array of selected items based on checkbox state
- * @param checked - The checkbox state
- * @param id - The item identifier to add or remove
- * @param items - Array of currently selected items
- * @returns A new array with updated selected items
- * @throws Will not throw, returns safe array copy for invalid inputs
+ * Updates an array of selected item IDs based on the state of a checkbox.
+ *
+ * If the checkbox is checked, the ID is added to the array (if not already present).
+ * If the checkbox is unchecked, the ID is removed from the array (if present).
+ *
+ * @param checked - The state of the checkbox; `true` if checked, `false` if unchecked.
+ * @param id - The unique identifier of the item to add or remove.
+ * @param items - The array of currently selected item IDs.
+ * @returns A new array with the updated list of selected item IDs.
  */
-export const handleCheckedChange = (
+export function handleCheckedChange(
 	checked: boolean,
 	id: string,
 	items: readonly string[] = []
-): string[] => {
-	if (!id) return Array.from(items);
-
-	const safeItems = Array.from(items);
-
-	if (checked) {
-		const itemExists = safeItems.find((item) => item === id);
-		return itemExists ? safeItems : [...safeItems, id];
+): string[] {
+	if (!id) {
+		// If the ID is falsy, return a shallow copy of the items array
+		return [...items];
 	}
 
-	return safeItems.filter((item) => item !== id);
-};
+	if (checked) {
+		// If the ID is not already in the array, add it
+		return items.includes(id) ? [...items] : [...items, id];
+	} else {
+		// If the ID is in the array, remove it
+		return items.filter((item) => item !== id);
+	}
+}

@@ -130,9 +130,9 @@
 	import NavUser from '$lib/components/nav-user.svelte';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import Radiation from 'lucide-svelte/icons/Radiation';
-	import type {ComponentProps} from 'svelte';
+	import type { ComponentProps } from 'svelte';
 
-	let {ref = $bindable(null), ...restProps}: ComponentProps<typeof Sidebar.Root> = $props();
+	let { ref = $bindable(null), ...restProps }: ComponentProps<typeof Sidebar.Root> = $props();
 </script>
 
 <Sidebar.Root bind:ref variant="inset" {...restProps}>
@@ -140,7 +140,7 @@
 		<Sidebar.Menu>
 			<Sidebar.MenuItem>
 				<Sidebar.MenuButton size="lg">
-					{#snippet child({props})}
+					{#snippet child({ props })}
 						<a href="##" {...props}>
 							<div
 								class="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground"

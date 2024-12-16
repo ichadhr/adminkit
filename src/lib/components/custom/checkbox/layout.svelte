@@ -1,14 +1,16 @@
 <!-- src\lib\components\custom\checkbox\layout.svelte -->
 
 <script lang="ts">
-	import {Label} from '$lib/components/ui/label';
-	import {ColorCheckbox} from '$lib/components/custom/checkbox';
-	import type {CheckboxVariant, Layout} from '.';
-	import {cn} from '$lib/utils';
+	import { Label } from '$lib/components/ui/label';
+	import { ColorCheckbox } from '$lib/components/custom/checkbox';
+	import { cn } from '$lib/utils';
+	import type { CheckboxVariant, Layout } from '.';
+
+	/** Type for the mapping of layout configurations */
+	type LayoutConfigs = Record<Layout, LayoutConfig>;
 
 	/**
-	 * Configuration interface for checkbox layout styles and behavior
-	 * @interface LayoutConfig
+	 * Configuration interface for checkbox layout styles and behavior.
 	 */
 	interface LayoutConfig {
 		wrapperClass?: string;
@@ -20,130 +22,139 @@
 	}
 
 	/**
-	 * Component props interface with TypeScript types
-	 * @interface CheckboxLayoutProps
+	 * Unique identifier for the checkbox.
 	 */
-	interface CheckboxLayoutProps {
-		/** Unique identifier for the checkbox */
-		id: string;
-		/** Label text content */
-		label: string;
-		/** Whether the checkbox is disabled */
-		disabled?: boolean;
-		/** Current checked state */
-		checked: boolean;
-		/** Callback function when checked state changes */
-		onCheckedChange: (checked: boolean) => void;
-		/** Layout configuration for the checkbox */
-		layout: Layout;
-		/** Color variant of the checkbox */
-		color?: CheckboxVariant;
-	}
+	export let id: string;
 
-	/** Default layout configuration */
-	const defaultLayout: Layout = 'left';
+	/**
+	 * The label text for the checkbox.
+	 */
+	export let label: string;
 
-	/** Component props */
-	const props = $props();
+	/**
+	 * Whether the checkbox is disabled.
+	 *
+	 * @default false
+	 */
+	export let disabled: boolean = false;
 
-	/** Destructured props with default values */
-	const {
-		id,
-		label,
-		checked,
-		onCheckedChange,
-		disabled = false,
-		layout: rawLayout = defaultLayout,
-		color = 'default'
-	} = props;
+	/**
+	 * The layout of the checkbox.
+	 *
+	 * @default 'left'
+	 */
+	export let layout: Layout = 'left';
 
-	/** Common disabled style */
+	/**
+	 * The color variant of the checkbox.
+	 *
+	 * @default 'default'
+	 */
+	export let color: CheckboxVariant = 'default';
+
+	/**
+	 * The checked state of the checkbox.
+	 *
+	 * @default false
+	 */
+	export let checked: boolean = false;
+
+	/**
+	 * Callback function when the checkbox state changes.
+	 */
+	export let onCheckedChange: ((checked: boolean) => void) | undefined = undefined;
+
+	/**
+	 * Internal variable to track the previous checked state.
+	 */
+	let previousChecked: boolean = checked;
+
+	/**
+	 * Computed classes for styling based on the disabled state.
+	 */
 	const disabledStyle = 'opacity-50 cursor-not-allowed';
 
 	/**
-	 * Creates layout configurations based on disabled state
-	 * @param {boolean} isDisabled - Whether the checkbox is disabled
-	 * @returns {Record<Layout, LayoutConfig>} Layout configuration object
+	 * Creates layout configurations based on the disabled state.
+	 *
+	 * @param isDisabled - Indicates whether the checkbox is disabled.
+	 * @returns A record mapping layouts to their configurations.
 	 */
-	const createLayoutConfigs = (isDisabled: boolean): Record<Layout, LayoutConfig> => ({
-		'left-inline': {
-			wrapperClass: 'flex flex-wrap gap-4',
-			containerClass: '',
-			labelClass: cn('inline-flex items-center gap-2 font-normal', isDisabled && disabledStyle),
-			isInline: true,
-			labelFirst: false
-		},
-		'right-inline': {
-			wrapperClass: 'flex flex-wrap gap-4',
-			containerClass: '',
-			labelClass: cn(
-				'inline-flex items-center gap-2 font-normal flex-row-reverse',
-				isDisabled && disabledStyle
-			),
-			isInline: true,
-			labelFirst: false
-		},
-		'left-stretched': {
-			containerClass: cn('checkbox-layout-container', 'stretched'),
-			labelClass: cn('checkbox-layout-label-default', isDisabled && disabledStyle),
-			isInline: false,
-			isStretched: true,
-			labelFirst: false
-		},
-		'right-stretched': {
-			containerClass: cn('checkbox-layout-container', 'stretched'),
-			labelClass: cn('checkbox-layout-label-default', isDisabled && disabledStyle),
-			isInline: false,
-			isStretched: true,
-			labelFirst: true
-		},
-		right: {
-			containerClass: 'checkbox-layout-container',
-			labelClass: cn('checkbox-layout-label-right', isDisabled && disabledStyle),
-			isInline: false,
-			isStretched: false,
-			labelFirst: true
-		},
-		left: {
-			containerClass: 'checkbox-layout-container',
-			labelClass: cn('checkbox-layout-label-inline', isDisabled && disabledStyle),
-			isInline: false,
-			isStretched: false,
-			labelFirst: false
-		}
-	});
+	function createLayoutConfigs(isDisabled: boolean): LayoutConfigs {
+		return {
+			'left-inline': {
+				wrapperClass: 'flex flex-wrap gap-4',
+				containerClass: '',
+				labelClass: cn('inline-flex items-center gap-2 font-normal', isDisabled && disabledStyle),
+				isInline: true,
+				labelFirst: false
+			},
+			'right-inline': {
+				wrapperClass: 'flex flex-wrap gap-4',
+				containerClass: '',
+				labelClass: cn(
+					'inline-flex items-center gap-2 font-normal flex-row-reverse',
+					isDisabled && disabledStyle
+				),
+				isInline: true,
+				labelFirst: false
+			},
+			'left-stretched': {
+				containerClass: cn('checkbox-layout-container', 'stretched'),
+				labelClass: cn('checkbox-layout-label-default', isDisabled && disabledStyle),
+				isInline: false,
+				isStretched: true,
+				labelFirst: false
+			},
+			'right-stretched': {
+				containerClass: cn('checkbox-layout-container', 'stretched'),
+				labelClass: cn('checkbox-layout-label-default', isDisabled && disabledStyle),
+				isInline: false,
+				isStretched: true,
+				labelFirst: true
+			},
+			right: {
+				containerClass: 'checkbox-layout-container',
+				labelClass: cn('checkbox-layout-label-right', isDisabled && disabledStyle),
+				isInline: false,
+				isStretched: false,
+				labelFirst: true
+			},
+			left: {
+				containerClass: 'checkbox-layout-container',
+				labelClass: cn('checkbox-layout-label-inline', isDisabled && disabledStyle),
+				isInline: false,
+				isStretched: false,
+				labelFirst: false
+			}
+		};
+	}
 
 	/** Reactive layout configurations based on disabled state */
-	const layoutConfigs = $derived(createLayoutConfigs(disabled));
+	$: layoutConfigs = createLayoutConfigs(disabled);
 
-	/**
-	 * Validated and typed layout value
-	 * Falls back to default layout if provided layout is invalid
-	 */
-	const layout: Layout = $derived(
-		Object.keys(layoutConfigs).includes(rawLayout) ? (rawLayout as Layout) : defaultLayout
-	);
+	/** Validated and typed layout value */
+	$: validatedLayout = (layoutConfigs[layout] ? layout : 'left') as Layout;
 
 	/** Unique ID for the checkbox input */
-	const checkboxId = $derived(`checkbox-${layout}-${id}`);
-
-	/** Props for the ColorCheckbox component */
-	const checkboxProps = $derived({
-		id: checkboxId,
-		checked,
-		disabled,
-		onCheckedChange,
-		variant: color
-	});
+	$: checkboxId = `checkbox-${validatedLayout}-${id}`;
 
 	/** Current layout configuration */
-	const config = $derived(layoutConfigs[layout]);
+	$: config = layoutConfigs[validatedLayout];
+
+	/**
+	 * Watcher for checked state changes to call onCheckedChange when provided.
+	 */
+	$: if (onCheckedChange && checked !== previousChecked) {
+		previousChecked = checked;
+		onCheckedChange(checked);
+	}
 </script>
 
 {#if config.isInline}
 	<div class={config.wrapperClass}>
 		<Label class={config.labelClass} for={checkboxId}>
-			<ColorCheckbox {...checkboxProps} />
+			<ColorCheckbox id={checkboxId} bind:checked {disabled} variant={color} />
 			{label}
 		</Label>
 	</div>
@@ -154,9 +165,9 @@
 				<Label class={config.labelClass} for={checkboxId}>
 					{label}
 				</Label>
-				<ColorCheckbox {...checkboxProps} />
+				<ColorCheckbox id={checkboxId} bind:checked {disabled} variant={color} />
 			{:else}
-				<ColorCheckbox {...checkboxProps} />
+				<ColorCheckbox id={checkboxId} bind:checked {disabled} variant={color} />
 				<Label class={config.labelClass} for={checkboxId}>
 					{label}
 				</Label>
@@ -165,9 +176,9 @@
 			<Label class={config.labelClass} for={checkboxId}>
 				{#if config.labelFirst}
 					{label}
-					<ColorCheckbox {...checkboxProps} />
+					<ColorCheckbox id={checkboxId} bind:checked {disabled} variant={color} />
 				{:else}
-					<ColorCheckbox {...checkboxProps} />
+					<ColorCheckbox id={checkboxId} bind:checked {disabled} variant={color} />
 					{label}
 				{/if}
 			</Label>

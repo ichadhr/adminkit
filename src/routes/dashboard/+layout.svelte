@@ -3,27 +3,16 @@
 <script lang="ts">
 	import AppSidebar from '$lib/components/app-sidebar.svelte';
 	import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';
-	import {Separator} from '$lib/components/ui/separator/index.js';
+	import { Separator } from '$lib/components/ui/separator/index.js';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
-	import {breadcrumbs, pageTitle} from '@/lib/utils';
-	import ThemeToggle from '$lib/components/theme-toggle.svelte'; // adjust path as needed
-	import {browser} from '$app/environment';
-	import {onMount} from 'svelte';
+	import { breadcrumbs, pageTitle } from '$lib/utils';
+	import ThemeToggle from '$lib/components/theme-toggle.svelte';
+	import type { LayoutData } from './$types';
 
-	let {children} = $props();
-
-	onMount(() => {
-		if (browser) {
-			if (
-				localStorage.theme === 'dark' ||
-				(!localStorage.theme && window.matchMedia('(prefers-color-scheme: dark)').matches)
-			) {
-				document.documentElement.classList.add('dark');
-			} else {
-				document.documentElement.classList.remove('dark');
-			}
-		}
-	});
+	let { data, children } = $props<{
+		data: LayoutData;
+		children: () => unknown;
+	}>();
 </script>
 
 <svelte:head>

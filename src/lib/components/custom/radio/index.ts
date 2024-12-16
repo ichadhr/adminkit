@@ -1,8 +1,8 @@
 // src\lib\components\custom\radio\index.ts
 
-import type {ColorVariant} from '../variants';
-import {SEMANTIC_VARIANTS, GRAYSCALE_COLORS, COLORS} from '../variants';
-import {isColorVariant} from '../variants';
+import type { ColorVariant } from '../variants';
+import { SEMANTIC_VARIANTS, GRAYSCALE_COLORS, COLORS } from '../variants';
+import { isColorVariant } from '../variants';
 
 /**
  * Available layout options for radio components
@@ -71,7 +71,7 @@ export function validateRadioProps(props: RadioLayoutProps): void {
 	}
 }
 
-export {default as RadioColor} from './color.svelte';
-export {default as RadioLayout} from './layout.svelte';
-export {SEMANTIC_VARIANTS, GRAYSCALE_COLORS, COLORS};
-export type {ColorVariant};
+export { default as RadioColor } from './color.svelte';
+export { default as RadioLayout } from './layout.svelte';
+export { SEMANTIC_VARIANTS, GRAYSCALE_COLORS, COLORS };
+export type { ColorVariant };

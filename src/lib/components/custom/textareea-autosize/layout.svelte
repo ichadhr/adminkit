@@ -1,9 +1,9 @@
 <!-- src\lib\components\custom\textareea-autosize\layout.svelte -->
 <script lang="ts">
-	import {Textarea} from '$lib/components/ui/textarea';
-	import {onMount} from 'svelte';
-	import {cn} from '$lib/utils';
-	import type {HTMLTextareaAttributes} from 'svelte/elements';
+	import { Textarea } from '$lib/components/ui/textarea';
+	import { onMount } from 'svelte';
+	import { cn } from '$lib/utils';
+	import type { HTMLTextareaAttributes } from 'svelte/elements';
 
 	/**
 	 * Props interface for the autosize textarea component
@@ -88,7 +88,7 @@
 	 * Handles input events on the textarea
 	 * @param {Event} event - The form event object
 	 */
-	function handleInput(event: Event & {currentTarget: EventTarget & HTMLDivElement}): void {
+	function handleInput(event: Event & { currentTarget: EventTarget & HTMLDivElement }): void {
 		adjustHeight();
 	}
 

@@ -15,7 +15,7 @@ interface CheckedChangeParams {
  * @param {CheckedChangeParams} params - The parameters for handling checked state
  * @returns {string[]} Updated array of checked item IDs
  */
-export const handleCheckedChange = ({checked, id, items = []}: CheckedChangeParams): string[] => {
+export const handleCheckedChange = ({ checked, id, items = [] }: CheckedChangeParams): string[] => {
 	// Ensure items is always an array
 	const safeItems = Array.isArray(items) ? items : [];
 
