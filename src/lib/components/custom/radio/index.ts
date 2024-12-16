@@ -20,7 +20,7 @@ export const LAYOUTS = [
 /**
  * Layout options type derived from LAYOUTS constant
  */
-export type Layout = (typeof LAYOUTS)[number];
+export type Layout = typeof LAYOUTS[number];
 
 /**
  * Type guard to check if a value is a valid Layout
@@ -46,6 +46,31 @@ export interface RadioLayoutProps {
 	layout?: Layout;
 	/** Color variant for the radio component */
 	color?: ColorVariant;
+}
+
+/**
+ * Interface for RadioColor component props
+ */
+export interface RadioColorProps {
+	/** Unique value for the radio input */
+	value: string;
+	/** Unique identifier for the radio input */
+	id: string;
+	/** Whether the radio input is disabled */
+	disabled?: boolean;
+	/** Color variant for the radio component */
+	variant?: ColorVariant;
+}
+
+/**
+ * Interface for radio layout styles and behavior
+ */
+export interface LayoutConfig {
+	containerClass: string;
+	labelClass: string;
+	isInline: boolean;
+	isStretched?: boolean;
+	labelFirst: boolean;
 }
 
 /**

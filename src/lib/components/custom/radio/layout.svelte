@@ -1,65 +1,24 @@
 <!-- src\lib\components\custom\radio\layout.svelte -->
-
 <script lang="ts">
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { RadioColor } from '@/lib/components/custom/radio';
-	import type { ColorVariant, Layout } from '.';
 	import { cn } from '$lib/utils';
+	import type { Layout, ColorVariant, LayoutConfig } from '.';
 
-	/**
-	 * Configuration interface for radio layout styles and behavior
-	 */
-	interface LayoutConfig {
-		containerClass: string;
-		labelClass: string;
-		isInline: boolean;
-		isStretched?: boolean;
-		labelFirst: boolean;
-	}
-
-	/**
-	 * Props interface for the RadioLayout component
-	 */
-	interface RadioLayoutProps {
-		/** Unique value identifier for the radio input */
-		value: string;
-		/** HTML id attribute for the radio input */
-		id: string;
-		/** Label text to display */
-		label: string;
-		/** Controls whether the radio input is disabled */
-		disabled?: boolean;
-		/** Layout configuration for the radio and label */
-		layout?: Layout;
-		/** Visual style variant of the radio input */
-		color?: ColorVariant;
-	}
-
-	/**
-	 * Props interface for the RadioColor subcomponent
-	 */
-	interface RadioColorProps {
-		value: string;
-		id: string;
-		disabled: boolean;
-		variant: ColorVariant;
-	}
-
-	const props = $props();
-
-	// Reactive props with type assertions and defaults
-	const value = $derived(props.value as string);
-	const id = $derived(props.id as string);
-	const label = $derived(props.label as string);
-	const disabled = $derived((props.disabled as boolean) ?? false);
-	const layout = $derived((props.layout as Layout) ?? 'left');
-	const color = $derived((props.color as ColorVariant) ?? 'default');
+	// Exported props with TypeScript types
+	export let value: string;
+	export let id: string;
+	export let label: string;
+	export let disabled: boolean = false;
+	export let layout: Layout = 'left';
+	export let color: ColorVariant = 'default';
 
 	/** Common disabled style */
 	const disabledStyle = 'opacity-50 cursor-not-allowed';
 
 	/**
-	 * Creates layout configurations based on disabled state
+	 * Creates layout configurations based on the disabled state.
+	 *
 	 * @param isDisabled - Current disabled state of the radio
 	 * @returns Record of layout configurations for each layout type
 	 */
@@ -115,31 +74,23 @@
 		};
 	}
 
-	// Reactive layout configuration
-	const config = $derived(createLayoutConfigs(disabled)[layout]);
-
-	// Reactive props for RadioColor component
-	const radioProps = $derived({
-		value,
-		id,
-		disabled,
-		variant: color
-	} satisfies RadioColorProps);
+	/** Reactive layout configuration */
+	$: config = createLayoutConfigs(disabled)[layout];
 
 	// Validate required props
-	$effect(() => {
-		if (!value) throw new Error('Radio value is required');
-		if (!id) throw new Error('Radio id is required');
-		if (!label) throw new Error('Radio label is required');
-	});
+	$: {
+		if (!value) throw new Error('Radio "value" prop is required');
+		if (!id) throw new Error('Radio "id" prop is required');
+		if (!label) throw new Error('Radio "label" prop is required');
+	}
 </script>
 
 <div class={config.containerClass}>
 	{#if config.labelFirst}
 		<Label class={config.labelClass} for={id}>{label}</Label>
-		<RadioColor {...radioProps} />
+		<RadioColor {value} {id} {disabled} variant={color} />
 	{:else}
-		<RadioColor {...radioProps} />
+		<RadioColor {value} {id} {disabled} variant={color} />
 		<Label class={config.labelClass} for={id}>{label}</Label>
 	{/if}
 </div>
