@@ -10,7 +10,16 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 function formatSegment(segment: string): string {
-	return segment.charAt(0).toUpperCase() + segment.slice(1).replace(/[-_]/g, ' ');
+	return segment
+		.split(/[-_]/)
+		.map((word, index) => {
+			if (word === '&') return '&';
+			// Only capitalize first letter if it's the first word or contains '&'
+			return index === 0 || segment.includes('&')
+				? word.charAt(0).toUpperCase() + word.slice(1)
+				: word.toLowerCase();
+		})
+		.join(' ');
 }
 
 // get the page title from the last URL segment
