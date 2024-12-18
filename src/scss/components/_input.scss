@@ -61,3 +61,14 @@
 		scrollbar-width: none;
 	}
 }
+
+@layer components {
+	input[type='file'] {
+		&::-webkit-file-upload-button {
+			@apply text-foreground/40;
+		}
+		&::file-selector-button {
+			@apply text-foreground/40;
+		}
+	}
+}
