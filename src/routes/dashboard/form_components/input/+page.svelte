@@ -609,7 +609,7 @@
 			</div>
 			<div>
 				<InputOTP.Root maxlength={6}>
-					{#snippet children({ cells })}
+					{#snippet children({ cells, isFocused, isHovering })}
 						<InputOTP.Group>
 							{#each cells as cell}
 								<InputOTP.Slot {cell} />
@@ -625,7 +625,7 @@
 			</div>
 			<div>
 				<InputOTP.Root maxlength={6}>
-					{#snippet children({ cells })}
+					{#snippet children({ cells, isFocused, isHovering })}
 						<InputOTP.Group>
 							{#each cells.slice(0, 2) as cell}
 								<InputOTP.Slot {cell} />
@@ -653,7 +653,7 @@
 			</div>
 			<div>
 				<InputOTP.Root maxlength={8}>
-					{#snippet children({ cells })}
+					{#snippet children({ cells, isFocused, isHovering })}
 						<InputOTP.Group>
 							{#each cells.slice(0, 2) as cell}
 								<InputOTP.Slot
