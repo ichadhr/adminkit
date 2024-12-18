@@ -1,5 +1,5 @@
 <!-- src\lib\components\custom\radio\layout.svelte -->
- 
+
 <script lang="ts">
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { RadioColor } from '@/lib/components/custom/radio';

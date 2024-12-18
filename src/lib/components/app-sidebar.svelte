@@ -37,12 +37,20 @@
 								url: '/dashboard/form_components/input'
 							},
 							{
-								title: 'Checkboxes & radios',
+								title: 'Checkboxes & Radios',
 								url: '/dashboard/form_components/checkboxes_&_radios'
 							},
 							{
 								title: 'Switch',
 								url: '/dashboard/form_components/switch'
+							},
+							{
+								title: 'Select & Combobox',
+								url: '/dashboard/form_components/select_&_combobox'
+							},
+							{
+								title: 'Combobox',
+								url: '/dashboard/form_components/combobox'
 							}
 						]
 					},

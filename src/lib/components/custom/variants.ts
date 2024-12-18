@@ -46,11 +46,7 @@ export const COLORS = [
  * All possible color variants combining semantic variants, grayscale colors, and main colors
  * @readonly
  */
-const ALL_VARIANTS = [
-	...Object.keys(SEMANTIC_VARIANTS),
-	...GRAYSCALE_COLORS,
-	...COLORS
-] as const;
+const ALL_VARIANTS = [...Object.keys(SEMANTIC_VARIANTS), ...GRAYSCALE_COLORS, ...COLORS] as const;
 
 /**
  * Union type representing all possible color variants
