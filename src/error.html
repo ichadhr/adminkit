@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>%sveltekit.error.message%</title>
+		<style>
+			/* Matching styles */
+			body {
+				min-height: 100vh;
+				margin: 0;
+				background-color: var(--background, #fff);
+				color: var(--foreground, #000);
+				font-family:
+					system-ui,
+					-apple-system,
+					sans-serif;
+			}
+
+			.er-wrapper {
+				max-width: 600px;
+				margin: 0 auto;
+				padding: 0 1rem;
+			}
+
+			h1 {
+				font-size: 4rem;
+				font-weight: normal;
+				margin: 0;
+				padding-top: 2.5rem;
+			}
+
+			h2 {
+				font-size: 1.875rem;
+				font-weight: 300;
+				color: var(--muted-foreground, #666);
+				margin: 0.5rem 0;
+			}
+
+			.info {
+				margin-top: 2rem;
+			}
+
+			.info-title {
+				font-size: 1.25rem;
+				font-weight: 300;
+				margin-bottom: 0.5rem;
+			}
+
+			.info-message {
+				font-family: monospace;
+				color: var(--muted-foreground, #666);
+				margin: 0;
+			}
+
+			.footer {
+				margin-top: 1.75rem;
+				padding: 1.5rem 0;
+				border-top: 1px solid var(--border, #e5e5e5);
+				text-align: center;
+			}
+
+			.ip {
+				font-size: 0.875rem;
+				color: var(--muted-foreground, #666);
+				margin-bottom: 1rem;
+			}
+
+			.back-button {
+				display: inline-block;
+				padding: 0.5rem 1rem;
+				border: 1px solid var(--border, #e5e5e5);
+				border-radius: 0.25rem;
+				background: transparent;
+				cursor: pointer;
+				text-decoration: none;
+				color: inherit;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="er-wrapper">
+			<h1>Oops!</h1>
+			<h2>Error %sveltekit.status%</h2>
+
+			<div class="info">
+				<h2 class="info-title">Info:</h2>
+				<p class="info-message">%sveltekit.error.message%</p>
+			</div>
+
+			<div class="footer">
+				<p class="ip">Your IP: Unknown</p>
+				<button class="back-button" onclick="history.back()">Back</button>
+			</div>
+		</div>
+
+		<script>
+			// Simple IP fetching (optional)
+			fetch('https://api.ipify.org?format=json')
+				.then((response) => response.json())
+				.then((data) => {
+					document.querySelector('.ip').textContent = `Your IP: ${data.ip}`;
+				})
+				.catch(() => {
+					document.querySelector('.ip').textContent = 'Your IP: Unknown';
+				});
+		</script>
+	</body>
+</html>
