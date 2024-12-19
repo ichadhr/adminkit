@@ -1,12 +1,10 @@
-// src\lib\utils.ts
+// src/lib/utils.ts
 
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { page } from '$app/stores';
-import { derived } from 'svelte/store';
 
 export function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
+	return twMerge(clsx(...inputs));
 }
 
 function formatSegment(segment: string): string {
@@ -14,7 +12,7 @@ function formatSegment(segment: string): string {
 		.split(/[-_]/)
 		.map((word, index) => {
 			if (word === '&') return '&';
-			// Only capitalize first letter if it's the first word or contains '&'
+			// Only capitalize the first letter if it's the first word or contains '&'
 			return index === 0 || segment.includes('&')
 				? word.charAt(0).toUpperCase() + word.slice(1)
 				: word.toLowerCase();
@@ -22,19 +20,18 @@ function formatSegment(segment: string): string {
 		.join(' ');
 }
 
-// get the page title from the last URL segment
-export const pageTitle = derived(page, ($page) =>
-	formatSegment($page.url.pathname.split('/').filter(Boolean).pop() || 'Home')
-);
+// Functions to get page title and breadcrumbs from pathname
+export function getPageTitle(pathname: string): string {
+	return formatSegment(pathname.split('/').filter(Boolean).pop() || 'Home');
+}
 
-// generate breadcrumb items from URL
-export const breadcrumbs = derived(page, ($page) =>
-	$page.url.pathname
+export function getBreadcrumbs(pathname: string) {
+	return pathname
 		.split('/')
 		.filter((segment) => segment)
 		.map((segment, index, array) => ({
 			label: formatSegment(segment),
 			href: '/' + array.slice(0, index + 1).join('/'),
-			isLast: index === array.length - 1
-		}))
-);
+			isLast: index === array.length - 1,
+		}));
+}

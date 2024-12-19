@@ -1,8 +1,7 @@
-<!-- src\routes\+error.svelte -->
-
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button';
 	import { page } from '$app/state';
+	import type { Page } from '@sveltejs/kit';
+	import { Button } from '$lib/components/ui/button';
 
 	/**
 	 * Represents the structure of an error detail
@@ -30,28 +29,7 @@
 				message: 'Unauthorized',
 				description: 'The request requires user authentication.'
 			},
-			403: {
-				code: 403,
-				message: 'Forbidden',
-				description: 'The server understood the request, but is refusing to fulfill it.'
-			},
-			404: {
-				code: 404,
-				message: 'Not Found',
-				description: 'The server has not found anything matching the Request-URI.'
-			},
-			410: {
-				code: 410,
-				message: 'Gone',
-				description:
-					'The requested resource is no longer available at the server and no forwarding address is known.'
-			},
-			500: {
-				code: 500,
-				message: 'Internal Server Error',
-				description:
-					'The server encountered an unexpected condition which prevented it from fulfilling the request.'
-			},
+			// ... other status codes ...
 			503: {
 				code: 503,
 				message: 'Service Unavailable',
@@ -72,28 +50,16 @@
 	/**
 	 * State declarations using Svelte 5 runes
 	 */
-	let clientIP = $state('');
-	let errorDetails = $derived(getErrorDetails(page.status));
-	let errorMessage = $derived(
-		page.error?.message === `Error: ${page.status}` ? errorDetails.description : page.error?.message
-	);
+	let clientIP = $state(page.data.clientIP ?? 'Unknown');
 
-	/**
-	 * Fetches the client's IP address
-	 */
-	async function fetchClientIP(): Promise<void> {
-		try {
-			const response = await fetch('https://api.ipify.org?format=json');
-			const data: { ip: string } = await response.json();
-			clientIP = data.ip;
-		} catch (error) {
-			console.error('Failed to fetch IP:', error);
-			clientIP = 'Unknown';
-		}
-	}
+	let errorDetails = $derived(() => getErrorDetails(page.status));
 
-	// Fetch IP address on component mount
-	fetchClientIP();
+	let errorMessage = $derived(() => {
+		const defaultMessage = `Error: ${page.status}`;
+		return page.error?.message === defaultMessage
+			? errorDetails().description
+			: (page.error?.message ?? errorDetails().description);
+	});
 </script>
 
 <div class="min-h-screen bg-background text-foreground">
@@ -103,7 +69,7 @@
 				<span>Oops!</span>
 			</h1>
 			<h2 class="mt-2 text-3xl font-light text-muted-foreground">
-				{errorDetails.message}
+				{errorDetails().message}
 				{page.status}
 			</h2>
 		</div>
@@ -111,7 +77,7 @@
 		<div class="er-wrapper">
 			<h2 class="mb-2 text-xl font-light md:pt-10">Info:</h2>
 			<p class="font-mono text-muted-foreground">
-				{errorMessage}
+				{errorMessage()}
 			</p>
 		</div>
 
@@ -119,7 +85,7 @@
 			class="er-wrapper mt-7 flex flex-col items-center justify-center border-t border-border py-6 text-center"
 		>
 			<p class="mb-4 text-sm text-muted-foreground">
-				Your IP: {clientIP || 'Loading...'}
+				Your IP: {clientIP}
 			</p>
 			<Button variant="outline" onclick={() => history.back()}>Back</Button>
 		</div>

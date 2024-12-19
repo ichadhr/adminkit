@@ -5,18 +5,22 @@
 	import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
-	import { breadcrumbs, pageTitle } from '$lib/utils';
+	import { getPageTitle, getBreadcrumbs } from '$lib/utils';
 	import ThemeToggle from '$lib/components/theme-toggle.svelte';
 	import type { LayoutData } from './$types';
+	import { page } from '$app/state';
 
 	let { data, children } = $props<{
 		data: LayoutData;
 		children: () => unknown;
 	}>();
+
+	const pageTitle = $derived(() => getPageTitle(page.url.pathname));
+	const breadcrumbs = $derived(() => getBreadcrumbs(page.url.pathname));
 </script>
 
 <svelte:head>
-	<title>{$pageTitle}</title>
+	<title>{pageTitle()}</title>
 </svelte:head>
 
 <Sidebar.Provider>
@@ -28,7 +32,7 @@
 				<Separator orientation="vertical" class="mr-2 h-4" />
 				<Breadcrumb.Root>
 					<Breadcrumb.List>
-						{#each $breadcrumbs as crumb, i}
+						{#each breadcrumbs() as crumb, i}
 							{#if i > 0}
 								<Breadcrumb.Separator class="hidden md:block" />
 							{/if}
