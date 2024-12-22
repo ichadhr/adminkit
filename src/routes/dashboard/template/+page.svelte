@@ -4,7 +4,7 @@
 	import * as Checkbox from '$lib/components/ui/checkbox/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import * as Form from '$lib/components/ui/form/index.js';
-	import CodeBlock from '$lib/components/code-block.svelte';
+	import { CodeBlock } from '$lib/components/custom/code-block/index.js';
 	import typescript from 'svelte-highlight/languages/typescript';
 	import rust from 'svelte-highlight/languages/rust';
 
@@ -43,10 +43,6 @@
 
 	let selectedItems: string[] = [];
 	let selectedItemsRight: string[] = [];
-
-	const sampleCode = `function example() {
-	console.log("Hello World!");
-}`;
 
 	const cbLeftStacked = `<div class="rounded border border-b p-1 px-2 pb-2 shadow-sm lg:px-4">
 	{#each checker as checItem}
@@ -133,6 +129,7 @@
 								/>
 							</div>
 						</div>
+						
 					</div>
 				</div>
 			</div>

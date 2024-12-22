@@ -1,51 +1,11 @@
-<!-- src\lib\components\code-block.svelte -->
+<!-- src\lib\components\custom\code-block\layout.svelte -->
 
 <script lang="ts">
 	import { onDestroy } from 'svelte';
 	import Highlight, { LineNumbers } from 'svelte-highlight';
 	import defaultTheme from 'svelte-highlight/styles/github-dark';
 	import { browser } from '$app/environment';
-
-	/**
-	 * Theme background configuration
-	 */
-	interface ThemeBackgrounds {
-		readonly dark: string;
-		readonly light: string;
-	}
-
-	/**
-	 * Component properties interface
-	 */
-	interface CodeBlockProps {
-		/** The code content to display */
-		code: string;
-		/** The programming language for syntax highlighting */
-		language: any;
-		/** Whether to show the language tag */
-		showLanguageTag?: boolean;
-		/** Whether to show line numbers */
-		showLineNumbers?: boolean;
-		/** Whether to wrap lines */
-		wrapLines?: boolean;
-		/** Whether to hide the border */
-		hideBorder?: boolean;
-		/** Custom theme CSS */
-		theme?: string;
-		/** Starting line number for the code block */
-		startingLineNumber?: number;
-		/** Array of line numbers to highlight */
-		highlightedLines?: number[];
-		/** Background color for highlighted lines */
-		highlightedBackground?: string;
-		/** Timeout duration for copy feedback */
-		copyTimeout?: number;
-	}
-
-	/**
-	 * Theme pattern type for background color extraction
-	 */
-	type ThemePattern = RegExp;
+	import type { CodeBlockProps, ThemeBackgrounds, ThemePattern } from '.';
 
 	// Constants
 	const DEFAULT_COPY_TIMEOUT = 2000;
@@ -54,7 +14,13 @@
 		light: 'rgba(255, 255, 255, 0.1)'
 	} as const;
 
-	// Props with default values and types
+	const THEME_PATTERNS: readonly ThemePattern[] = [
+		/background(?:-color)?:\s*hsl\(([^)]+)\)/,
+		/background(?:-color)?:\s*(#[a-fA-F0-9]{6}|#[a-fA-F0-9]{3})/,
+		/background(?:-color)?:\s*rgb\((\s*\d+\s*,\s*\d+\s*,\s*\d+\s*)\)/
+	] as const;
+
+	// Props
 	export let code: CodeBlockProps['code'];
 	export let language: CodeBlockProps['language'] = null;
 	export let showLanguageTag = true;
@@ -67,30 +33,15 @@
 	export let highlightedBackground = 'rgba(158, 158, 158, 0.2)';
 	export let copyTimeout = DEFAULT_COPY_TIMEOUT;
 
-	// Component state
+	// State
 	let isCopied = false;
 	let copyTimeoutId: ReturnType<typeof setTimeout>;
 
-	/**
-	 * Regular expressions for parsing theme background colors
-	 */
-	const themePatterns: readonly ThemePattern[] = [
-		/background(?:-color)?:\s*hsl\(([^)]+)\)/,
-		/background(?:-color)?:\s*(#[a-fA-F0-9]{6}|#[a-fA-F0-9]{3})/,
-		/background(?:-color)?:\s*rgb\((\s*\d+\s*,\s*\d+\s*,\s*\d+\s*)\)/
-	] as const;
-
-	/**
-	 * Extracts and processes the background color from theme CSS
-	 * @param themeCSS - The theme CSS string to parse
-	 * @returns The processed background color string
-	 * @throws {Error} When theme parsing fails
-	 */
 	function getThemeBackground(themeCSS: string): string {
 		const defaultBackground = 'hsl(var(--background))';
 
 		try {
-			for (const pattern of themePatterns) {
+			for (const pattern of THEME_PATTERNS) {
 				const match = themeCSS.match(pattern);
 				if (!match?.[1]) continue;
 
@@ -108,28 +59,18 @@
 		return defaultBackground;
 	}
 
-	/**
-	 * Calculates if dark text should be used based on background luminance
-	 * @param hexColor - Hex color string to analyze
-	 * @returns Boolean indicating if dark text should be used
-	 */
 	function shouldUseDarkText(hexColor: string): boolean {
 		const color = hexColor.replace('#', '').trim();
 		if (color.length !== 6) return false;
 
 		try {
 			const [r, g, b] = [0, 2, 4].map((i) => parseInt(color.substring(i, i + 2), 16));
-			const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-			return luminance > 0.5;
+			return (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.5;
 		} catch {
 			return false;
 		}
 	}
 
-	/**
-	 * Handles copying code to clipboard and manages copy state
-	 * @returns Promise that resolves when copy operation is complete
-	 */
 	async function copyToClipboard(): Promise<void> {
 		try {
 			await navigator.clipboard.writeText(code);
@@ -141,41 +82,47 @@
 		}
 	}
 
-	// Cleanup on component destruction
-	onDestroy(() => {
-		if (copyTimeoutId) {
-			clearTimeout(copyTimeoutId);
-		}
-	});
+	onDestroy(() => clearTimeout(copyTimeoutId));
 
-	// Reactive declarations with improved type safety
+	// Reactive declarations
 	$: languageTag = showLanguageTag && language?.name ? language.name : null;
 	$: shouldRender = browser;
-	$: numberOfLines = code.split('\n').length;
 	$: themeBackground = getThemeBackground(theme);
 	$: textColor = shouldUseDarkText(themeBackground) ? 'text-gray-800' : 'text-white';
 	$: skeletonBackground = shouldUseDarkText(themeBackground)
 		? SKELETON_BACKGROUNDS.dark
 		: SKELETON_BACKGROUNDS.light;
+
+	$: numberOfLines = code.split('\n').length;
+	$: lineWidths = code.split('\n').map((line) => {
+		const indentString = line.match(/^[\s\t]*/)?.[0] || '';
+		const indentLevel =
+			indentString.split('\t').length - 1 + (indentString.split(' ').length - 1) / 4;
+		const baseLength = line.trimStart().length;
+		const indentWidth = Math.pow(1.5, indentLevel) * 10;
+		const effectiveLength = baseLength + indentWidth;
+		return `${Math.max(20, Math.min(100, (effectiveLength / 80) * 100))}%`;
+	});
+
+	export let forceSkeleton = false;
+	
 </script>
 
-<svelte:head>
-	{@html theme}
-</svelte:head>
+<svelte:head>{@html theme}</svelte:head>
 
-{#if shouldRender}
-	<div class="code-block relative w-full">
-		<div class="w-full overflow-hidden rounded" style:background-color={themeBackground}>
-			<!-- Copy Button and Language Tag -->
-			<div class="absolute right-0 top-0 z-20 flex items-center rounded">
+{#if shouldRender && !forceSkeleton}
+	<div class="code-block">
+		<!-- Move controls outside code-container but inside code-block -->
+		<div class="controls-wrapper">
+			<div class="controls">
 				{#if languageTag}
-					<div class="px-2 py-1 text-xs {textColor}">{languageTag}</div>
+					<div class="language-tag {textColor}">{languageTag}</div>
 				{/if}
-				<div class="rounded transition-colors duration-200 hover:bg-white/10">
-					<button class="p-2" on:click={copyToClipboard} aria-label="Copy code">
+				<div class="copy-button-wrapper">
+					<button class="copy-button" on:click={copyToClipboard} aria-label="Copy code">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
-							class="h-4 w-4 {isCopied ? 'text-green-400' : textColor}"
+							class={textColor}
 							viewBox="0 0 24 24"
 							fill="none"
 							stroke="currentColor"
@@ -193,10 +140,11 @@
 					</button>
 				</div>
 			</div>
+		</div>
 
-			<!-- Code Content -->
-			<div class="overflow-x-auto pt-2">
-				<div class="min-w-max">
+		<div class="code-container" style:background-color={themeBackground}>
+			<div class="code-content">
+				<div class="code-inner">
 					{#if showLineNumbers}
 						<Highlight {language} {code} let:highlighted>
 							<LineNumbers
@@ -216,18 +164,59 @@
 		</div>
 	</div>
 {:else}
-	<div
-		class="code-block relative w-full rounded"
-		data-language={languageTag}
-		style:background-color={themeBackground}
-	>
-		<div class="p-4">
-			{#each Array(numberOfLines) as _, i (i)}
-				<div
-					class="skeleton-line my-1 h-[1.2em] rounded {textColor}"
-					style="width: {85 + Math.random() * 15}%; background-color: {skeletonBackground}"
-				></div>
-			{/each}
+	<div class="code-block">
+		<div class="controls-wrapper">
+			<div class="controls">
+				{#if languageTag}
+					<div class="language-tag">
+						<div
+							class="skeleton-line"
+							style:background={skeletonBackground}
+							style:width="3rem"
+							style:height="1rem"
+						></div>
+					</div>
+				{/if}
+				<div class="copy-button-wrapper">
+					<div class="copy-button">
+						<div
+							class="skeleton-line"
+							style:background={skeletonBackground}
+							style:width="1rem"
+							style:height="1rem"
+						></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="code-container" style:background-color={themeBackground}>
+			<div class="code-content">
+				<div class="code-inner">
+					<div class="skeleton-container">
+						{#if showLineNumbers}
+							<div class="line-numbers-skeleton">
+								{#each Array(numberOfLines) as _, i (i)}
+									<div
+										class="skeleton-line {textColor}"
+										style:background-color={skeletonBackground}
+									></div>
+								{/each}
+							</div>
+						{/if}
+
+						<div class="code-lines-skeleton">
+							{#each Array(numberOfLines) as _, i (i)}
+								<div
+									class="skeleton-line {textColor}"
+									style:background-color={skeletonBackground}
+									style:width={lineWidths[i]}
+								></div>
+							{/each}
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 {/if}

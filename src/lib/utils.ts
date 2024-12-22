@@ -32,6 +32,6 @@ export function getBreadcrumbs(pathname: string) {
 		.map((segment, index, array) => ({
 			label: formatSegment(segment),
 			href: '/' + array.slice(0, index + 1).join('/'),
-			isLast: index === array.length - 1,
+			isLast: index === array.length - 1
 		}));
 }
