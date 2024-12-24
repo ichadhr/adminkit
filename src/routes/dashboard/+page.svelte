@@ -1,7 +1,20 @@
-<!-- src\routes\dashboard\+page.svelte -->
-
 <script lang="ts">
+	import { scaleTime } from 'd3-scale';
+	import { Chart, Svg, Axis, Tooltip, Area, Highlight } from 'layerchart';
+	import { format as formatDate } from 'date-fns';
+
+	export let data;
 	const items = [{ content: '' }, { content: '' }, { content: '' }];
+
+	/**
+	 * * Known Issue:
+	 * * LayerCake shows height warning due to ResizeObserver timing in Svelte 5.
+	 * * The warning "[LayerCake] Target div has zero or negative height" is expected
+	 * * and doesn't affect chart functionality.
+	 * * This will be addressed in future layerchart updates.
+	 *
+	 * * @see https://github.com/techniq/layerchart/issues/291
+	 */
 </script>
 
 <main class="mb-5 flex flex-1 flex-col gap-4 p-4 pt-0">
@@ -12,10 +25,31 @@
 			</div>
 		{/each}
 	</section>
-	<div class="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min">
-		<!-- Your dashboard content here -->
-		<div class="p-4">
-			<!-- Add more dashboard-specific content -->
+	<div class="h-[400px] w-full">
+		<div class="relative h-full w-full rounded border p-4">
+			<Chart
+				data={data.stockData}
+				x="date"
+				xScale={scaleTime()}
+				y="value"
+				yDomain={[0, null]}
+				yNice
+				padding={{ left: 16, bottom: 24 }}
+				tooltip={{ mode: 'bisect-x' }}
+			>
+				<Svg>
+					<Axis placement="left" grid rule />
+					<Axis placement="bottom" rule />
+					<Area line={{ class: 'stroke-1 stroke-primary' }} class="fill-primary/30" />
+					<Highlight points lines />
+				</Svg>
+				<Tooltip.Root let:data>
+					<Tooltip.Header>{formatDate(data.date, 'eee, MMMM do y')}</Tooltip.Header>
+					<Tooltip.List>
+						<Tooltip.Item label="value" value={data.value} />
+					</Tooltip.List>
+				</Tooltip.Root>
+			</Chart>
 		</div>
 	</div>
 </main>
