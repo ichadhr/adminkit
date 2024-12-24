@@ -105,7 +105,6 @@
 	});
 
 	export let forceSkeleton = false;
-	
 </script>
 
 <svelte:head>{@html theme}</svelte:head>

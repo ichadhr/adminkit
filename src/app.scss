@@ -2,18 +2,3 @@
 
 @use 'app.css';
 @use 'scss/main';
-
-// error style
-.er-wrapper {
-	margin-left: auto;
-	margin-right: auto;
-	width: 90%;
-
-	@media screen and (min-width: 49.2em) {
-		width: 708px;
-	}
-
-	@media screen and (min-width: 66em) {
-		width: 960px;
-	}
-}

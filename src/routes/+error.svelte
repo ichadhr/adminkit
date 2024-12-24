@@ -119,7 +119,7 @@
 		</div>
 
 		<div class="er-wrapper">
-			<h2 class="mb-2 text-xl font-light md:pt-10">Info:</h2>
+			<h2 class="mb-2 pt-10 text-xl font-light">Info:</h2>
 			<p class="font-mono text-muted-foreground">
 				{errorMessage()}
 			</p>
