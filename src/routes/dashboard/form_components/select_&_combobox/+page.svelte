@@ -2,7 +2,32 @@
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import * as Select from '$lib/components/ui/select/index.js';
-	import { Apple, Banana, Cherry, Grape, Citrus } from 'lucide-svelte';
+	import { Apple, Banana, Cherry, Grape, Citrus, Check, ChevronsUpDown, X } from 'lucide-svelte';
+	import { tick } from 'svelte';
+	import * as Command from '$lib/components/ui/command/index.js';
+	import * as Popover from '$lib/components/ui/popover/index.js';
+	import { Button } from '$lib/components/ui/button/index.js';
+	import { cn } from '$lib/utils.js';
+	import { onMount } from 'svelte';
+	import VirtualList from 'svelte-virtual-scroll-list';
+	import Combobox from '$lib/components/custom/combobox/layout.svelte';
+
+	// Type for our fruits
+	type Fruit = {
+		value: string;
+		label: string;
+		icon: string;
+		disabled?: boolean;
+	};
+
+	// Icon mapping
+	const iconMap: Record<string, any> = {
+		Apple,
+		Banana,
+		Cherry,
+		Grape,
+		Citrus
+	};
 
 	const fruits = [
 		{ value: 'apple', label: 'Apple', icon: Apple },
@@ -114,11 +139,183 @@
 	);
 
 	const colorBlueTriggerContent = $derived(
-		fruits.find((f) => f.value === colorErrorValue)?.label ?? 'Select a fruit'
+		fruits.find((f) => f.value === colorBlueValue)?.label ?? 'Select a fruit'
 	);
+
+	const categories = [
+		{
+			category: 'Fruits',
+			items: [
+				{ label: 'Apple', value: 'apple' },
+				{ label: 'Banana', value: 'banana' },
+				{ label: 'Orange', value: 'orange' }
+			]
+		},
+		{
+			category: 'Vegetables',
+			items: [
+				{ label: 'Carrot', value: 'carrot' },
+				{ label: 'Broccoli', value: 'broccoli' },
+				{ label: 'Spinach', value: 'spinach' }
+			]
+		}
+	];
+
+	let comboBasicOpen = $state(false);
+	let comboBasicValue = $state('');
+	let comboBasicTriggerRef = $state<HTMLButtonElement>(null!);
+
+	let comboHeaderOpen = $state(false);
+	let comboHeaderValue = $state('');
+	let comboHeaderTriggerRef = $state<HTMLButtonElement>(null!);
+
+	let comboFixedOpen = $state(false);
+	let comboFixedValue = $state('');
+	let comboFixedTriggerRef = $state<HTMLButtonElement>(null!);
+
+	let comboDisableItemOpen = $state(false);
+	let comboDisableItemValue = $state('');
+	let comboDisableItemTriggerRef = $state<HTMLButtonElement>(null!);
+
+	let comboDisabledOpen = $state(false);
+	let comboDisabledValue = $state('');
+	let comboDisabledTriggerRef = $state<HTMLButtonElement>(null!);
+
+	let comboScrollableOpen = $state(false);
+	let comboScrollableValue = $state('');
+	let comboScrollableTriggerRef = $state<HTMLButtonElement>(null!);
+
+	let comboUnselectOpen = $state(false);
+	let comboUnselectValue = $state('');
+	let comboUnselectTriggerRef = $state<HTMLButtonElement>(null!);
+
+	let comboFetchOpen = $state(false);
+	let comboFetchValue = $state('');
+	let comboFetchTriggerRef = $state<HTMLButtonElement>(null!);
+	let fetchedFruits = $state<Fruit[]>([]);
+	let isLoading = $state(false);
+
+	const selectedValueBasic = $derived(fruits.find((f) => f.value === comboBasicValue)?.label);
+
+	const selectedValueHeader = $derived(
+		categories.flatMap((category) => category.items).find((item) => item.value === comboHeaderValue)
+			?.label
+	);
+
+	const selectedValueFixed = $derived(fruits.find((f) => f.value === comboFixedValue)?.label);
+
+	const selectedValueDisableItem = $derived(
+		fruits.find((f) => f.value === comboDisableItemValue)?.label
+	);
+
+	let selectedValueDisabled = $derived(fruits.find((f) => f.value === comboDisabledValue)?.label);
+
+	const selectedScrollableValue = $derived(
+		Object.values(timezones)
+			.flat()
+			.find((tz) => tz.value === comboScrollableValue)?.label
+	);
+
+	const selectedValueUnselect = $derived(fruits.find((f) => f.value === comboUnselectValue)?.label);
+
+	const selectedValueFetch = $derived(
+		fetchedFruits.find((fruit) => fruit.value === comboFetchValue)
+	);
+
+	function closeAndFocusTriggerBasic() {
+		comboBasicOpen = false;
+		tick().then(() => {
+			comboBasicTriggerRef.focus();
+		});
+	}
+
+	function closeAndFocusTriggerHeader() {
+		comboHeaderOpen = false;
+		tick().then(() => {
+			comboHeaderTriggerRef.focus();
+		});
+	}
+
+	function closeAndFocusTriggerFixed() {
+		comboFixedOpen = false;
+		tick().then(() => {
+			comboFixedTriggerRef.focus();
+		});
+	}
+
+	function closeAndFocusTriggerDisableItem() {
+		comboDisableItemOpen = false;
+		tick().then(() => {
+			comboDisableItemTriggerRef.focus();
+		});
+	}
+
+	function closeAndFocusTriggerDisabled() {
+		comboDisabledOpen = false;
+		comboDisabledTriggerRef?.focus();
+	}
+
+	function closeAndFocusTriggerScrollable() {
+		comboScrollableOpen = false;
+		tick().then(() => {
+			comboScrollableTriggerRef.focus();
+		});
+	}
+
+	function closeAndFocusTriggerUnselect() {
+		comboUnselectOpen = false;
+		tick().then(() => {
+			comboUnselectTriggerRef.focus();
+		});
+	}
+
+	function closeAndFocusTriggerFetch() {
+		comboFetchOpen = false;
+		tick().then(() => {
+			comboFetchTriggerRef.focus();
+		});
+	}
+
+	async function fetchFruits(search: string = '') {
+		isLoading = true;
+		try {
+			const response = await fetch('/api/fruits.json');
+			const data: Fruit[] = await response.json();
+			fetchedFruits = data.filter((fruit) =>
+				fruit.label.toLowerCase().includes(search.toLowerCase())
+			);
+		} catch (error) {
+			console.error('Error fetching fruits:', error);
+			fetchedFruits = [];
+		} finally {
+			isLoading = false;
+		}
+	}
+
+	function getIconComponent(iconName: string) {
+		switch (iconName) {
+			case 'Apple':
+				return Apple;
+			case 'Banana':
+				return Banana;
+			case 'Cherry':
+				return Cherry;
+			case 'Grape':
+				return Grape;
+			case 'Citrus':
+				return Citrus;
+			default:
+				return null;
+		}
+	}
+
+	// Initial fetch
+	onMount(() => {
+		fetchFruits();
+	});
 </script>
 
-<main class="mb-5 flex flex-1 flex-col gap-4 p-4 pt-0">
+<content class="mb-5 flex flex-1 flex-col gap-4 p-4 pt-0">
 	<!-- heading section select -->
 	<section class="space-y-6">
 		<h3 class="text-2xl font-medium">Select</h3>
@@ -456,4 +653,526 @@
 			</div>
 		</div>
 	</section>
-</main>
+
+	<!-- heading section combobox -->
+	<section class="space-y-6 pt-10">
+		<h3 class="text-2xl font-medium">Combobox</h3>
+		<p class="text-sm">
+			A Combobox combines an input field with a command palette, allowing users to search, filter
+			and select from a list of suggestions.
+		</p>
+	</section>
+	<section class="mt-7">
+		<h3 class="font-medium leading-none">Basic</h3>
+		<Separator class="my-4" />
+
+		<!-- Combobox basic -->
+		<div class="grid grid-cols-1 gap-y-1.5 md:grid-cols-[15%_85%]">
+			<div class="flex md:items-center">
+				<Label class="font-normal">Basic combobox</Label>
+			</div>
+			<div>
+				<Popover.Root bind:open={comboBasicOpen}>
+					<Popover.Trigger bind:ref={comboBasicTriggerRef}>
+						{#snippet child({ props })}
+							<Button
+								variant="outline"
+								class="w-full justify-between"
+								{...props}
+								role="combobox"
+								aria-expanded={comboBasicOpen}
+							>
+								<span
+									class={selectedValueBasic ? 'font-normal' : 'font-normal text-muted-foreground'}
+								>
+									{selectedValueBasic || 'Select a fruit'}
+								</span>
+								<ChevronsUpDown class="ml-2 size-4 shrink-0 opacity-50" />
+							</Button>
+						{/snippet}
+					</Popover.Trigger>
+					<Popover.Content class="w-[200px] p-0" align="start">
+						<Command.Root>
+							<Command.Input placeholder="Select fruit" />
+							<Command.List>
+								<Command.Empty>No fruit found.</Command.Empty>
+								<Command.Group>
+									{#each fruits as fruit}
+										<Command.Item
+											value={fruit.value}
+											onSelect={() => {
+												comboBasicValue = fruit.value;
+												closeAndFocusTriggerBasic();
+											}}
+										>
+											{fruit.label}
+										</Command.Item>
+									{/each}
+								</Command.Group>
+							</Command.List>
+						</Command.Root>
+					</Popover.Content>
+				</Popover.Root>
+			</div>
+		</div>
+
+		<!-- Combobox with header -->
+		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
+			<div class="flex md:items-center">
+				<Label class="font-normal">Combobox with header</Label>
+			</div>
+			<div>
+				<Popover.Root bind:open={comboHeaderOpen}>
+					<Popover.Trigger bind:ref={comboHeaderTriggerRef}>
+						{#snippet child({ props })}
+							<Button
+								variant="outline"
+								class="w-full justify-between"
+								{...props}
+								role="combobox"
+								aria-expanded={comboHeaderOpen}
+							>
+								<span
+									class={selectedValueHeader ? 'font-normal' : 'font-normal text-muted-foreground'}
+								>
+									{selectedValueHeader || 'Select option..'}
+								</span>
+
+								<ChevronsUpDown class="ml-2 size-4 shrink-0 opacity-50" />
+							</Button>
+						{/snippet}
+					</Popover.Trigger>
+					<Popover.Content class="w-[200px] p-0" align="start">
+						<Command.Root>
+							<Command.Input placeholder="Search..." />
+							<Command.List>
+								<Command.Empty>No results found.</Command.Empty>
+								{#each categories as category}
+									<Command.Group>
+										<div class="px-2 py-1.5 text-xs font-medium text-muted-foreground">
+											{category.category}
+										</div>
+										{#each category.items as item}
+											<Command.Item
+												value={item.value}
+												onSelect={() => {
+													comboHeaderValue = item.value;
+													closeAndFocusTriggerHeader();
+												}}
+											>
+												<Check
+													class={cn(
+														'mr-2 size-4',
+														comboHeaderValue !== item.value && 'text-transparent'
+													)}
+												/>
+												{item.label}
+											</Command.Item>
+										{/each}
+									</Command.Group>
+									{#if category !== categories[categories.length - 1]}
+										<Command.Separator />
+									{/if}
+								{/each}
+							</Command.List>
+						</Command.Root>
+					</Popover.Content>
+				</Popover.Root>
+			</div>
+		</div>
+
+		<!-- Combobox fixed width -->
+		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
+			<div class="flex md:items-center">
+				<Label class="font-normal">Fixed combobox width</Label>
+			</div>
+			<div>
+				<Popover.Root bind:open={comboFixedOpen}>
+					<Popover.Trigger bind:ref={comboFixedTriggerRef}>
+						{#snippet child({ props })}
+							<Button
+								variant="outline"
+								class="w-[380px] justify-between"
+								{...props}
+								role="combobox"
+								aria-expanded={comboFixedOpen}
+							>
+								<span
+									class={selectedValueFixed ? 'font-normal' : 'font-normal text-muted-foreground'}
+								>
+									{selectedValueFixed || 'Select a fruit'}
+								</span>
+								<ChevronsUpDown class="ml-2 size-4 shrink-0 opacity-50" />
+							</Button>
+						{/snippet}
+					</Popover.Trigger>
+					<Popover.Content class="w-[200px] p-0" align="start" side="right">
+						<Command.Root>
+							<Command.Input placeholder="Select fruit" />
+							<Command.List>
+								<Command.Empty>No fruit found.</Command.Empty>
+								<Command.Group>
+									{#each fruits as fruit}
+										<Command.Item
+											value={fruit.value}
+											onSelect={() => {
+												comboFixedValue = fruit.value;
+												closeAndFocusTriggerFixed();
+											}}
+										>
+											<Check
+												class={cn(
+													'mr-2 size-4',
+													comboFixedValue !== fruit.value && 'text-transparent'
+												)}
+											/>
+											{fruit.label}
+										</Command.Item>
+									{/each}
+								</Command.Group>
+							</Command.List>
+						</Command.Root>
+					</Popover.Content>
+				</Popover.Root>
+			</div>
+		</div>
+
+		<!-- Combobox disable item -->
+		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
+			<div class="flex md:items-center">
+				<Label class="font-normal">Disabled items</Label>
+			</div>
+			<div>
+				<Popover.Root bind:open={comboDisableItemOpen}>
+					<Popover.Trigger bind:ref={comboDisableItemTriggerRef}>
+						{#snippet child({ props })}
+							<Button
+								variant="outline"
+								class="w-full justify-between"
+								{...props}
+								role="combobox"
+								aria-expanded={comboDisableItemOpen}
+							>
+								<span
+									class={selectedValueDisableItem
+										? 'font-normal'
+										: 'font-normal text-muted-foreground'}
+								>
+									{selectedValueDisableItem || 'Select a fruit'}
+								</span>
+								<ChevronsUpDown class="ml-2 size-4 shrink-0 opacity-50" />
+							</Button>
+						{/snippet}
+					</Popover.Trigger>
+					<Popover.Content class="w-[200px] p-0" align="start">
+						<Command.Root>
+							<Command.Input placeholder="Select fruit" />
+							<Command.List>
+								<Command.Empty>No fruit found.</Command.Empty>
+								<Command.Group>
+									{#each fruits as fruit}
+										<Command.Item
+											value={fruit.value}
+											onSelect={() => {
+												comboDisableItemValue = fruit.value;
+												closeAndFocusTriggerDisableItem();
+											}}
+											disabled={fruit.disabled}
+										>
+											{fruit.label}
+										</Command.Item>
+									{/each}
+								</Command.Group>
+							</Command.List>
+						</Command.Root>
+					</Popover.Content>
+				</Popover.Root>
+			</div>
+		</div>
+
+		<!-- Combobox disabled -->
+		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
+			<div class="flex md:items-center">
+				<Label class="font-normal">Disabled combobox</Label>
+			</div>
+			<div>
+				<Popover.Root bind:open={comboDisabledOpen}>
+					<Popover.Trigger bind:ref={comboDisabledTriggerRef}>
+						{#snippet child({ props })}
+							<Button
+								variant="outline"
+								class={cn(
+									'w-full justify-between',
+									'disabled:pointer-events-auto disabled:cursor-not-allowed'
+								)}
+								{...props}
+								disabled
+								role="combobox"
+								aria-expanded={comboDisabledOpen}
+								aria-label="Select a fruit (disabled)"
+								title="Select a fruit (disabled)"
+								style="cursor-not-allowed"
+							>
+								<span class="font-normal text-muted-foreground">
+									{selectedValueDisabled || 'Select a fruit'}
+								</span>
+								<ChevronsUpDown class="ml-2 size-4 shrink-0 opacity-50" />
+							</Button>
+						{/snippet}
+					</Popover.Trigger>
+					<Popover.Content class="w-[200px] p-0" align="start">
+						<Command.Root>
+							<Command.Input placeholder="Select fruit" />
+							<Command.List>
+								<Command.Empty>No fruit found.</Command.Empty>
+								<Command.Group>
+									{#each fruits as fruit}
+										<Command.Item
+											value={fruit.value}
+											onSelect={() => {
+												comboDisabledValue = fruit.value;
+												closeAndFocusTriggerDisabled();
+											}}
+										>
+											{fruit.label}
+										</Command.Item>
+									{/each}
+								</Command.Group>
+							</Command.List>
+						</Command.Root>
+					</Popover.Content>
+				</Popover.Root>
+			</div>
+		</div>
+
+		<!-- Combobox Scrollable -->
+		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
+			<div class="flex md:items-center">
+				<Label class="font-normal">Scrollable combobox</Label>
+			</div>
+			<div>
+				<Popover.Root bind:open={comboScrollableOpen}>
+					<Popover.Trigger bind:ref={comboScrollableTriggerRef}>
+						{#snippet child({ props })}
+							<Button
+								variant="outline"
+								class="w-full justify-between"
+								{...props}
+								role="combobox"
+								aria-expanded={comboScrollableOpen}
+							>
+								<span
+									class={selectedScrollableValue
+										? 'font-normal'
+										: 'font-normal text-muted-foreground'}
+								>
+									{selectedScrollableValue || 'Select timezone...'}
+								</span>
+								<ChevronsUpDown class="ml-2 size-4 shrink-0 opacity-50" />
+							</Button>
+						{/snippet}
+					</Popover.Trigger>
+					<Popover.Content class="w-[320px] p-0" align="start">
+						<Command.Root>
+							<Command.Input placeholder="Search timezone..." />
+							<Command.List class="max-h-[300px]">
+								<Command.Empty>No timezone found.</Command.Empty>
+								<Command.Group>
+									<div class="px-2 py-1.5 text-xs font-medium text-muted-foreground">
+										North America
+									</div>
+									{#each timezones.northAmerica as tz}
+										<Command.Item
+											value={tz.value}
+											onSelect={() => {
+												comboScrollableValue = tz.value;
+												closeAndFocusTriggerScrollable();
+											}}
+										>
+											{tz.label}
+										</Command.Item>
+									{/each}
+								</Command.Group>
+								<Command.Separator />
+								<Command.Group>
+									<div class="px-2 py-1.5 text-xs font-medium text-muted-foreground">
+										Europe & Africa
+									</div>
+									{#each timezones.europeAfrica as tz}
+										<Command.Item
+											value={tz.value}
+											onSelect={() => {
+												comboScrollableValue = tz.value;
+												closeAndFocusTriggerScrollable();
+											}}
+										>
+											{tz.label}
+										</Command.Item>
+									{/each}
+								</Command.Group>
+							</Command.List>
+						</Command.Root>
+					</Popover.Content>
+				</Popover.Root>
+			</div>
+		</div>
+
+		<!-- Combobox unselect -->
+		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
+			<div class="flex md:items-center">
+				<Label class="font-normal">Combobox with unselect</Label>
+			</div>
+			<div>
+				<Popover.Root bind:open={comboUnselectOpen}>
+					<Popover.Trigger bind:ref={comboUnselectTriggerRef}>
+						{#snippet child({ props })}
+							<Button
+								variant="outline"
+								class="w-[380px] justify-between"
+								{...props}
+								role="combobox"
+								aria-expanded={comboUnselectOpen}
+							>
+								<span
+									class={selectedValueUnselect
+										? 'font-normal'
+										: 'font-normal text-muted-foreground'}
+								>
+									{selectedValueUnselect || 'Select a fruit'}
+								</span>
+								<div class="flex items-center gap-2">
+									{#if selectedValueUnselect}
+										<button
+											type="button"
+											class="size-4 opacity-50 hover:opacity-100"
+											onpointerdown={(e) => {
+												e.stopPropagation();
+												comboUnselectValue = '';
+											}}
+										>
+											<X class="size-4" />
+										</button>
+									{/if}
+									<ChevronsUpDown class="size-4 shrink-0 opacity-50" />
+								</div>
+							</Button>
+						{/snippet}
+					</Popover.Trigger>
+					<Popover.Content class="w-[200px] p-0" align="start">
+						<Command.Root>
+							<Command.Input placeholder="Search fruit..." />
+							<Command.List>
+								<Command.Empty>No fruit found.</Command.Empty>
+								<Command.Group>
+									{#each fruits as fruit}
+										<Command.Item
+											value={fruit.value}
+											onSelect={() => {
+												comboUnselectValue = fruit.value;
+												closeAndFocusTriggerUnselect();
+											}}
+										>
+											{fruit.label}
+										</Command.Item>
+									{/each}
+								</Command.Group>
+							</Command.List>
+						</Command.Root>
+					</Popover.Content>
+				</Popover.Root>
+			</div>
+		</div>
+
+		<!-- Combobox fetch -->
+		<div class="grid grid-cols-1 gap-y-1.5 pt-5 md:grid-cols-[15%_85%]">
+			<div class="flex md:items-center">
+				<Label class="font-normal">Combobox with fetch</Label>
+			</div>
+			<div>
+				<Popover.Root bind:open={comboFetchOpen}>
+					<Popover.Trigger bind:ref={comboFetchTriggerRef}>
+						{#snippet child({ props })}
+							<Button
+								variant="outline"
+								class="w-[380px] justify-between"
+								{...props}
+								role="combobox"
+								aria-expanded={comboFetchOpen}
+							>
+								<div class="flex items-center gap-2">
+									{#if selectedValueFetch}
+										{#if getIconComponent(selectedValueFetch.icon)}
+											{@const Icon = getIconComponent(selectedValueFetch.icon)}
+											<div class="size-4">
+												<Icon />
+											</div>
+										{/if}
+									{/if}
+									<span
+										class={selectedValueFetch ? 'font-normal' : 'font-normal text-muted-foreground'}
+									>
+										{selectedValueFetch?.label || 'Select fruit...'}
+									</span>
+								</div>
+								<div class="flex items-center gap-2">
+									{#if selectedValueFetch}
+										<button
+											type="button"
+											class="size-4 opacity-50 hover:opacity-100"
+											onpointerdown={(e) => {
+												e.stopPropagation();
+												comboFetchValue = '';
+											}}
+										>
+											<X class="size-4" />
+										</button>
+									{/if}
+									<ChevronsUpDown class="size-4 shrink-0 opacity-50" />
+								</div>
+							</Button>
+						{/snippet}
+					</Popover.Trigger>
+					<Popover.Content class="w-[380px] p-0" align="start">
+						<Command.Root>
+							<Command.Input
+								placeholder="Search fruits..."
+								oninput={(e) => fetchFruits(e.currentTarget.value)}
+							/>
+							<Command.List>
+								<Command.Empty>
+									{#if isLoading}
+										<div class="p-4 text-center text-sm text-muted-foreground">Loading...</div>
+									{:else}
+										No fruits found.
+									{/if}
+								</Command.Empty>
+								<Command.Group>
+									<VirtualList data={fetchedFruits} estimateSize={40} key="value" let:data={fruit}>
+										<Command.Item
+											value={fruit.value}
+											disabled={fruit.disabled}
+											onSelect={() => {
+												comboFetchValue = fruit.value;
+												closeAndFocusTriggerFetch();
+											}}
+										>
+											<div class="flex items-center gap-2">
+												{#if getIconComponent(fruit.icon)}
+													{@const Icon = getIconComponent(fruit.icon)}
+													<div class="size-4">
+														<Icon />
+													</div>
+												{/if}
+												{fruit.label}
+											</div>
+										</Command.Item>
+									</VirtualList>
+								</Command.Group>
+							</Command.List>
+						</Command.Root>
+					</Popover.Content>
+				</Popover.Root>
+			</div>
+		</div>
+	</section>
+</content>

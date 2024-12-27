@@ -1,0 +1,7 @@
+[
+	{ "value": "apple", "label": "Apple", "icon": "Apple" },
+	{ "value": "banana", "label": "Banana", "icon": "Banana", "disabled": true },
+	{ "value": "cherry", "label": "Cherry", "icon": "Cherry" },
+	{ "value": "grape", "label": "Grape", "icon": "Grape" },
+	{ "value": "citrus", "label": "Citrus", "icon": "Citrus", "disabled": true }
+]

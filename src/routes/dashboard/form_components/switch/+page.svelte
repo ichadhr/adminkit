@@ -24,7 +24,7 @@
 		tailwind?.filter((item) => item.checked)?.map((item) => item.id) ?? [];
 </script>
 
-<main class="mb-5 flex flex-1 flex-col gap-4 p-4 pt-0">
+<content class="mb-5 flex flex-1 flex-col gap-4 p-4 pt-0">
 	<!-- heading section Switches -->
 	<section class="space-y-6">
 		<h3 class="text-2xl font-medium">Switches</h3>
@@ -239,4 +239,4 @@
 			</div>
 		</div>
 	</section>
-</main>
+</content>

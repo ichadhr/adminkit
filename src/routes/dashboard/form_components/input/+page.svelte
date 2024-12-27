@@ -25,7 +25,7 @@
 	let rightShowPassword = false;
 </script>
 
-<main class="mb-5 flex flex-1 flex-col gap-4 p-4 pt-0">
+<content class="mb-5 flex flex-1 flex-col gap-4 p-4 pt-0">
 	<!-- heading section input fields -->
 	<section class="space-y-6">
 		<h3 class="text-2xl font-medium">Input fields</h3>
@@ -694,4 +694,4 @@
 			</div>
 		</div>
 	</section>
-</main>
+</content>
